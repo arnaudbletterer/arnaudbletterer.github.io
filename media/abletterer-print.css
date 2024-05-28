@@ -1,0 +1,269 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("fonts/Montserrat-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("fonts/Montserrat-SemiBold.ttf");
+    font-weight: 600;
+}
+@font-face {
+    font-family: "Montserrat";
+    src: url("fonts/Montserrat-SemiBold.ttf");
+    font-weight: bold;
+}
+@font-face {
+    font-family: "Montserrat";
+    src: url("fonts/Montserrat-Italic.ttf");
+    font-style: italic;
+}
+@font-face {
+    font-family: "Montserrat";
+    src: url("fonts/Montserrat-BoldItalic.ttf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "FiraCode";
+    src: url("fonts/FiraCode-Retina.ttf");
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	background-color: #ffffff;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* end of reset */
+
+
+
+body {
+	font: normal normal 400;
+	font-size: 12pt;
+	line-height: 1.35em;
+	/*also written as...  font: normal normal 400 100%/1.5em;*/
+	font-family: Montserrat;
+	margin-top: 1em;
+	margin-left: 0;
+	padding-left:0;
+}
+
+p {
+	position: relative;
+	left: 22.5%;
+	margin-bottom: 0.2em;
+	margin-right: 0;
+	width: 70%;
+}
+
+code {
+	font: normal normal;
+	font-size: 90%;
+	/* font-family: FiraCode; */
+	color: #aaa;
+}
+
+p code {
+	position: absolute;
+	text-align: right;
+	right: -5%;
+}
+
+
+ul {
+	position: relative;
+	left: 25%;
+	width: 75%;
+	margin-bottom: 1.5em;
+	/* margin-top: -0.5em; */
+}
+
+/*uncomment to get dashes in the list*/
+li:before {
+	content: "-";
+	position: relative;
+	left: -0.25em;
+}
+
+li {
+	/*second line indent*/
+	padding-left: 1.25em;
+	text-indent: -1.25em;
+	/*color: #777;*/
+}
+
+li ul {
+	position: relative;
+	left: 0;
+	/* width: 90%; */
+	margin-top: 0.25em;
+}
+
+ul li em {
+	display:none;
+}
+
+li code {
+	float: right;
+	position:absolute;
+	right:5%;
+}
+
+h1,h2,h3,h4 {
+	font-weight: bold;
+	width: 80%;
+}
+
+h1 {
+	text-align: left;
+	font-size: 3em;
+	line-height: 1em;
+	position: relative;
+	left: 22.5%;
+}
+
+h1+p {
+	/*subtitle*/
+	/* font-style: italic; */
+	font-size: 110%;
+}
+
+h2 {
+	font-size: 1em;
+	color: rgb(0, 65, 170);
+	margin-top: 1em;
+	position: relative;
+	top: 1.35em;
+	text-align: right;
+	width: 20%;
+}
+
+
+h3 {
+	font-size: 1em;
+	line-height: 2em;
+	position: relative;
+	top: 1.6em;
+	text-align: right;
+	width: 20%;
+}
+
+a {
+	font-weight: bold;
+	color: rgb(0, 65, 170);
+	text-decoration: none;
+}
+
+a:hover {
+	color:#39f
+}
+
+#webaddress {
+	margin-top: 1em;
+	position: relative;
+	left: 22.5%;
+	color: rgb(0, 65, 170);
+	font-size: 100%;
+}
+
+#webaddress a {
+	text-decoration: none;
+}
+
+em {
+	font-style: italic;
+}
+
+strong {
+	font-weight: bold;
+}
+
+#ghbutton {
+	display: none;
+	visibility: hidden;
+}
+
+.profile {
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	border-radius: 50%;
+	width:65%;
+	max-width:200px;
+	position:absolute;
+	border: 2px solid #aaa;
+	padding: 5px;
+}
+
+.trailer {
+	margin: 0 auto;
+	width:800px;
+	height:auto;
+	text-align: center;
+}
+
+.trailer img {
+	margin:0 2%;
+	width:40%;
+	border: 2px solid #aaa;
+	border-radius: 4px;
+	padding: 5px;
+}
+
+.citations {
+	width:100%;
+	font-size: 11pt;
+}
+
+table{
+	position: relative;
+	left: 25%;
+	width: 55%;
+}
