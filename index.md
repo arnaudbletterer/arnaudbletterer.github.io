@@ -88,6 +88,9 @@ I mostly published prior to joining the industry, in the fields of **point cloud
 
 <div class="citations" markdown="1">
 
+`2024`
+**Automatic Acne Severity Grading with a Small and Imbalanced Data Set of Low-Resolution Images** <br/> Rémi Bernhard, <ins>Arnaud Bletterer</ins>, Maëlle Le Caro, Estrella García Álvarez, Belchin Kostov, and Diego Herrera Egea. Dermatology and Therapy
+
 `2022`
 **Graph-based Computation of Voronoi Diagrams on Large-scale Point-based Surfaces** <br/><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini. Eurographics
 
