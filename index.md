@@ -16,6 +16,7 @@ Research scientist, Research Team Leader
     <a href="mailto:arnaud.bletterer@gmail.com" target="_blank">Mail</a>
 |   <a href="https://www.linkedin.com/in/arnaud-bletterer-5635b671/" target="_blank">LinkedIn</a>
 |   <a href="https://twitter.com/abletterer" target="_blank">Twitter</a>
+|   <a href="https://ko-fi.com/abletterer" target="_blank">Ko-fi</a>
 </div>
 
 I am a **curious** individual, always striving to **question and solve challenging real-world problematics**. <br/>
