@@ -3,10 +3,9 @@ layout: cv
 title: Arnaud Bletterer
 pdf: true
 ---
-
 ## <img class="profile" src="profile.jpg"/>
 
-# Arnaud Bletterer 
+# Arnaud Bletterer
 
 Research scientist, Research Team Leader
 
@@ -21,33 +20,35 @@ Research scientist, Research Team Leader
 
 I am a **curious** individual, always striving to **question and solve challenging real-world problematics**. <br/>
 I have developed a particular proficiency at **identifying and implementing practical solutions**, with an **Occam's razor perspective** as often as possible. <br/>
-I love **explaining** how things work, and **identifying** how they can be improved.
+I love **explaining** how things work, and **identifying** how they can be improved. <br/>
+I believe that **research** should remain closely tied to **real-world industrial challenges**, ensuring its **relevance** and **applicability**. <br/>
+**Research development** should be conducted in **direct alignment** with the **final software deliverables**, enabling **solutions** that are more **tailored** to **specific market needs** and ensuring a **seamless** and **quick transition** from **innovation** to **implementation**.
 
 *"Bernard of Chartres used to compare us to dwarfs perched on the shoulders of giants. He pointed out that we see more and farther than our predecessors, not because we have keener vision or greater height, but because we are lifted up and borne aloft on their gigantic stature."* [John of Salisbury]
-
 
 ## Employment
 
 `Since March 2023`
-**Research team leader** at [QuantifiCare](https://quantificare.com){:target="_blank"}
+**Research Team Leader** at [QuantifiCare](https://quantificare.com){:target="_blank"}
 
-* Interacting weekly on research works progression and priorities management
-* Presenting and organizing R&D team activities
+* Leading a team of **7 researchers and engineers**, ensuring efficient **progress tracking** and **priority alignment** through weekly interactions.
+* Driving **innovation strategy development** and overseeing the **planning and execution** of research activities to achieve organizational goals.
 
 `Since December 2018`
-**Research engineer**/**Technical lead** at [QuantifiCare](https://quantificare.com){:target="_blank"}
+**Research Engineer**/**Technical Lead** at [QuantifiCare](https://quantificare.com){:target="_blank"}
 
-* Interacting daily with R&D engineers on technical solutions conception
-* **Conception**, **implementation** and **validation** of algorithms in different softwares produced by QuantifiCare
-  * 3D reconstruction from stereo-images
-  * Rigid/Non-Rigid meshes registration
-  * Mesh texturing
-  * 3D visualization
+* Collaborating daily with R&D engineers to design and implement **cutting-edge technical solutions**.
+* Delivering **presentations** and simplifying complex technical concepts for diverse audiences.
+* Leading the **design, implementation, and validation** of algorithms across QuantifiCare's software portfolio, including:
+  - **3D reconstruction** from stereo images.
+  - **Rigid and non-rigid mesh registration** techniques.
+  - Advanced **mesh texturing** methods.
+  - Intuitive **3D visualization** tools.
 
 `2014 - 2018`
 **Ph.D student** at [I3S Laboratory](https://www.i3s.unice.fr/en/){:target="_blank"} in the [MediaCoding team](https://mediacoding.i3s.unice.fr){:target="_blank"} and in collaboration with [Cintoo](https://cintoo.com/){:target="_blank"}
 
-[A graph-based approach for modeling and processing gigantic point clouds from terrestrial LiDARs acquisitions](https://theses.hal.science/tel-02099777){:target="_blank"}
+[A graph-based approach for modeling and processing gigantic point clouds from terrestrial LiDARs acquisitions](https://theses.hal.science/tel-02099777){:target="_blank"} (french version)
 
 ## Education
 
@@ -66,7 +67,7 @@ __Bachelor in Computer Science__, Université de Strasbourg
 
 * Image processing *(convolution filters, superpixel segmentation)* `OpenCV/Pillow`
 * Geometry processing *(3d reconstruction, mesh processing)* `Meshlab/IGL`
-* Machine learning *(PLS regression, morphable models)* `NumPy/scikit-learn`
+* Machine learning *(neural networks, PLS regression, morphable models)* `Pytorch/NumPy/scikit-learn`
 * Computer graphics *(multi-pass/multi-scale rendering, texturing)* `OpenGL/WebGL`
 * Programming *(C, C++, Python)* `Visual Studio/Visual Studio Code`
 * Code versioning *(Git)* `Gitlab/Gitea`
@@ -77,11 +78,20 @@ __Bachelor in Computer Science__, Université de Strasbourg
 | French 🇫🇷 : native speaker | German 🇩🇪 : school level |
 | English 🇬🇧/🇺🇸 : professional use | Russian 🇷🇺 : beginner |
 
-<span style="page-break-after: always"></span>
+<div style="page-break-after: always"></div>
 
 ## Publications
 
 I mostly published prior to joining the industry, in the fields of **point cloud processing** and **3D reconstruction from LiDAR acquisitions** of cultural heritage sites.
+More recently, my research interests have also expanded towards **image processing** and **machine learning**.
+
+<div class="citations" markdown="1">
+
+`2024`
+**Automatic Acne Severity Grading with a Small and Imbalanced Data Set of Low-Resolution Images** <br/> Rémi Bernhard, <ins>Arnaud Bletterer</ins>, Maëlle Le Caro, Estrella García Álvarez, Belchin Kostov, and Diego Herrera Egea. *Dermatology and Therapy*
+
+</div>
+
 <div class="trailer">
   <img src="trailer_1.png"/>
   <img src="trailer_2.png"/>
@@ -89,20 +99,17 @@ I mostly published prior to joining the industry, in the fields of **point cloud
 
 <div class="citations" markdown="1">
 
-`2024`
-**Automatic Acne Severity Grading with a Small and Imbalanced Data Set of Low-Resolution Images** <br/> Rémi Bernhard, <ins>Arnaud Bletterer</ins>, Maëlle Le Caro, Estrella García Álvarez, Belchin Kostov, and Diego Herrera Egea. Dermatology and Therapy
-
 `2022`
-**Graph-based Computation of Voronoi Diagrams on Large-scale Point-based Surfaces** <br/><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini. Eurographics
+**Graph-based Computation of Voronoi Diagrams on Large-scale Point-based Surfaces** <br/><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini. *Eurographics*
 
 `2020`
-**A local graph-based structure for processing gigantic aggregated 3D point clouds** <br/><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini. IEEE TVCG
+**A local graph-based structure for processing gigantic aggregated 3D point clouds** <br/><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini. *IEEE TVCG*
 
 `2018`
-**Out-of-core Resampling of Gigantic Point Clouds** <br/><ins>Arnaud Bletterer</ins>, Frédéric Payan, Marc Antonini, and Anis Meftah. SGP
+**Out-of-core Resampling of Gigantic Point Clouds** <br/><ins>Arnaud Bletterer</ins>, Frédéric Payan, Marc Antonini, and Anis Meftah. *SGP*
 
 `2016`
-**Point cloud compression using depth maps** <br/><ins>Arnaud Bletterer</ins>, Frédéric Payan, Marc Antonini, and Anis Meftah. Electronic Imaging 
+**Point cloud compression using depth maps** <br/><ins>Arnaud Bletterer</ins>, Frédéric Payan, Marc Antonini, and Anis Meftah. *Electronic Imaging*
 
 </div>
 
