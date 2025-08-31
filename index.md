@@ -118,6 +118,7 @@ You can find the exhaustive list on [Google Scholar](https://scholar.google.com/
 ## Miscellaneous
 
 I love spending my free time:
+* doing photography 📸 (you can find some of my work [here](https://sceyonara.abletterer.synology.me/){:target="_blank"} and [there](https://www.instagram.com/sceyonara/){:target="_blank"})
 * doing recreative programming 👨‍💻
 * generating beautiful renderings with Blender <img width="16px" src="blender_icon_64x64.png"/>
 * playing bass guitar 🎸
