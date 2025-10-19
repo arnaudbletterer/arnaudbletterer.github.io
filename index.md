@@ -31,7 +31,7 @@ I believe that **research** should remain closely tied to **real-world industria
 `Since March 2023`
 **Research Team Leader** at [QuantifiCare](https://quantificare.com){:target="_blank"}
 
-* Leading a team of **7 researchers and engineers**, ensuring efficient **progress tracking** and **priority alignment** through weekly interactions.
+* Leading a team of **researchers and engineers**, ensuring efficient **progress tracking** and **priority alignment** through weekly interactions.
 * Driving **innovation strategy development** and overseeing the **planning and execution** of research activities to achieve organizational goals.
 
 `Since December 2018`
