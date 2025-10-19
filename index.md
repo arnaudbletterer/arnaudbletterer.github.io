@@ -87,6 +87,9 @@ More recently, my research interests have also expanded towards **image processi
 
 <div class="citations" markdown="1">
 
+`2025`
+**Objective Assessment of Target Vitiligo Areas by Semiautomatic Analysis of Standardized UV Images** <br/> Charles Jabour, <ins>Arnaud Bletterer</ins>, Thierry Passeron. *JAMA dermatology*
+
 `2024`
 **Automatic Acne Severity Grading with a Small and Imbalanced Data Set of Low-Resolution Images** <br/> Rémi Bernhard, <ins>Arnaud Bletterer</ins>, Maëlle Le Caro, Estrella García Álvarez, Belchin Kostov, and Diego Herrera Egea. *Dermatology and Therapy*
 
