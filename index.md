@@ -28,13 +28,18 @@ I believe that **research** should remain closely tied to **real-world industria
 
 ## Employment
 
-`Since March 2023`
+`Since January 2026`  
+**Research Team Leader / Research Engineer / Technical Lead** at [Quartier Latin](https://qlatin.com){:target="_blank"} ([QuantifiCare](https://quantificare.com){:target="_blank"} spin-off)
+
+* Continuation of **hands-on research** and **technical leadership** responsibilities alongside **team management**.
+
+`March 2023 - December 2025`
 **Research Team Leader** at [QuantifiCare](https://quantificare.com){:target="_blank"}
 
 * Leading a team of **researchers and engineers**, ensuring efficient **progress tracking** and **priority alignment** through weekly interactions.
 * Driving **innovation strategy development** and overseeing the **planning and execution** of research activities to achieve organizational goals.
 
-`Since December 2018`
+`December 2018 - December 2025`
 **Research Engineer**/**Technical Lead** at [QuantifiCare](https://quantificare.com){:target="_blank"}
 
 * Collaborating daily with R&D engineers to design and implement **cutting-edge technical solutions**.
@@ -45,7 +50,7 @@ I believe that **research** should remain closely tied to **real-world industria
   - Advanced **mesh texturing** methods.
   - Intuitive **3D visualization** tools.
 
-`2014 - 2018`
+`October 2014 - December 2018`
 **Ph.D student** at [I3S Laboratory](https://www.i3s.unice.fr/en/){:target="_blank"} in the [MediaCoding team](https://mediacoding.i3s.unice.fr){:target="_blank"} and in collaboration with [Cintoo](https://cintoo.com/){:target="_blank"}
 
 [A graph-based approach for modeling and processing gigantic point clouds from terrestrial LiDARs acquisitions](https://theses.hal.science/tel-02099777){:target="_blank"} (french version)
