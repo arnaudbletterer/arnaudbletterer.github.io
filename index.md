@@ -29,7 +29,7 @@ I believe that **research** should remain closely tied to **real-world industria
 ## Employment
 
 `Since January 2026`
-**Research Team Leader / Research Engineer** at [Quartier Latin](https://qlatin.com){:target="_blank"} ([QuantifiCare](https://quantificare.com){:target="_blank"} spin-off)
+**Research Team Leader**/**Research Engineer**  at [Quartier Latin](https://qlatin.com){:target="_blank"} ([QuantifiCare](https://quantificare.com){:target="_blank"} spin-off)
 
 * Continuation of **hands-on research** and **technical leadership** responsibilities alongside **team management**.
 
@@ -40,7 +40,7 @@ I believe that **research** should remain closely tied to **real-world industria
 * Driving **innovation strategy development** and overseeing the **planning and execution** of research activities to achieve organizational goals.
 
 `December 2018 - December 2025`
-**Research Engineer**/**Technical Lead** at [QuantifiCare](https://quantificare.com){:target="_blank"}
+**Research Engineer** at [QuantifiCare](https://quantificare.com){:target="_blank"}
 
 * Collaborating daily with R&D engineers to design and implement **cutting-edge technical solutions**.
 * Delivering **presentations** and simplifying complex technical concepts for diverse audiences.
