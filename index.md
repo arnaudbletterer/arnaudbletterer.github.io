@@ -28,7 +28,7 @@ I believe that **research** should remain closely tied to **real-world industria
 
 ## Employment
 
-`Since January 2026`  
+`Since January 2026`
 **Research Team Leader / Research Engineer** at [Quartier Latin](https://qlatin.com){:target="_blank"} ([QuantifiCare](https://quantificare.com){:target="_blank"} spin-off)
 
 * Continuation of **hands-on research** and **technical leadership** responsibilities alongside **team management**.
