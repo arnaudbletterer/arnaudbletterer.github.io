@@ -82,117 +82,152 @@ table {
 
 /* end of reset */
 
-
-
 body {
-	font: normal normal 400;
-	font-size: 12pt;
+	font: normal normal 400 10.5pt Montserrat;
 	line-height: 1.35em;
-	/*also written as...  font: normal normal 400 100%/1.5em;*/
-	font-family: Montserrat;
-	margin-top: 1em;
-	margin-left: 0;
-	padding-left:0;
+	color: #000;
+	background-color: #ffffff;
+	margin: 0;
+	padding: 0;
+}
+
+#content {
+	display: grid;
+	grid-template-columns: 20% 77%;
+	column-gap: 3%;
+	row-gap: 0.4em;
+	width: 100%;
+}
+
+.profile-container {
+	grid-column: 1;
+	grid-row: 1 / 5;
+	justify-self: center;
+	align-self: start;
+	width: 100%;
+	max-width: 110px;
+}
+
+.profile {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 1 / 1;
+	border-radius: 50%;
+	border: 1px solid #777;
+	padding: 3px;
+	object-fit: cover;
+	box-sizing: border-box;
+}
+
+h1 {
+	grid-column: 2;
+	grid-row: 1;
+	font-size: 2.2em;
+	font-weight: bold;
+	line-height: 1.1em;
+}
+
+h1 + p {
+	grid-column: 2;
+	grid-row: 2;
+	font-size: 1.1em;
+	color: #333;
+}
+
+#content > p:nth-of-type(2) {
+	grid-column: 2;
+	grid-row: 3;
+	font-style: italic;
+	color: #444;
+}
+
+#webaddress {
+	grid-column: 2;
+	grid-row: 4;
+	color: rgb(0, 65, 170);
+	font-size: 95%;
+	margin-bottom: 1em;
+}
+
+h2 {
+	grid-column: 1;
+	color: rgb(0, 65, 170);
+	font-weight: bold;
+	font-size: 10pt;
+	text-align: right;
+	margin-top: 1.2em;
+}
+
+h3 {
+	grid-column: 1;
+	font-weight: bold;
+	font-size: 9pt;
+	line-height: 1.6em;
+	text-align: right;
+	margin-top: 0.4em;
+}
+
+p, ul, table, div, blockquote {
+	grid-column: 2;
+	position: relative;
+	width: 100%;
 }
 
 p {
-	position: relative;
-	left: 22.5%;
-	margin-bottom: 0.2em;
-	margin-right: 0;
-	width: 70%;
+	margin-bottom: 0.4em;
+	padding-right: 140px; /* Prevents text overlap with dates */
+}
+
+.citations p, .citations li, p.intro, blockquote p, #webaddress p {
+	padding-right: 0;
 }
 
 code {
-	font: normal normal;
-	font-size: 90%;
-	/* font-family: FiraCode; */
-	color: #aaa;
+	font-family: FiraCode, monospace;
+	color: #333;
 }
 
 p code {
 	position: absolute;
+	right: 0;
+	top: 0;
 	text-align: right;
-	right: -5%;
+	font-weight: 600;
 }
-
 
 ul {
-	position: relative;
-	left: 25%;
-	width: 75%;
-	margin-bottom: 1.5em;
-	/* margin-top: -0.5em; */
+	margin-bottom: 1em;
 }
 
-/*uncomment to get dashes in the list*/
+li {
+	position: relative;
+	padding-left: 1.25em;
+	text-indent: -1.25em;
+	padding-right: 140px; /* Prevents text overlap with dates */
+	margin-bottom: 0.3em;
+}
+
 li:before {
 	content: "-";
 	position: relative;
 	left: -0.25em;
 }
 
-li {
-	/*second line indent*/
-	padding-left: 1.25em;
-	text-indent: -1.25em;
-	/*color: #777;*/
-}
-
 li ul {
-	position: relative;
-	left: 0;
-	/* width: 90%; */
-	margin-top: 0.25em;
+	margin-top: 0.2em;
+	margin-bottom: 0;
 }
 
-ul li em {
-	display:none;
+li ul li {
+	padding-right: 0;
 }
 
 li code {
-	float: right;
-	position:absolute;
-	right:5%;
-}
-
-h1,h2,h3,h4 {
-	font-weight: bold;
-	width: 80%;
-}
-
-h1 {
-	text-align: left;
-	font-size: 3em;
-	line-height: 1em;
-	position: relative;
-	left: 22.5%;
-}
-
-h1+p {
-	/*subtitle*/
-	/* font-style: italic; */
-	font-size: 110%;
-}
-
-h2 {
-	font-size: 1em;
-	color: rgb(0, 65, 170);
-	margin-top: 1em;
-	position: relative;
-	top: 1.35em;
+	position: absolute;
+	right: 0;
+	top: 0;
 	text-align: right;
-	width: 20%;
-}
-
-
-h3 {
-	font-size: 1em;
-	line-height: 2em;
-	position: relative;
-	top: 1.6em;
-	text-align: right;
-	width: 20%;
+	font-weight: 600;
 }
 
 a {
@@ -201,69 +236,28 @@ a {
 	text-decoration: none;
 }
 
-a:hover {
-	color:#39f
-}
-
-#webaddress {
-	margin-top: 1em;
-	position: relative;
-	left: 22.5%;
-	color: rgb(0, 65, 170);
-	font-size: 100%;
-}
-
-#webaddress a {
-	text-decoration: none;
-}
-
-em {
-	font-style: italic;
-}
-
-strong {
-	font-weight: bold;
-}
-
-#ghbutton {
-	display: none;
-	visibility: hidden;
-}
-
-.profile {
-	left: 0;
-	right: 0;
-	margin: 0 auto;
-	border-radius: 50%;
-	width:65%;
-	max-width:200px;
-	position:absolute;
-	border: 2px solid #aaa;
-	padding: 5px;
-}
-
 .trailer {
-	margin: 0 auto;
-	width:800px;
-	height:auto;
-	text-align: center;
+	margin: 1em auto;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	gap: 4%;
 }
 
 .trailer img {
-	margin:0 2%;
-	width:40%;
-	border: 2px solid #aaa;
+	width: 48%;
+	border: 1px solid #777;
 	border-radius: 4px;
-	padding: 5px;
+	padding: 3px;
+	box-sizing: border-box;
 }
 
 .citations {
-	width:100%;
-	font-size: 11pt;
+	width: 100%;
+	font-size: 10pt;
 }
 
-table{
-	position: relative;
-	left: 25%;
-	width: 55%;
+table {
+	width: 100%;
+	margin-bottom: 1.5em;
 }

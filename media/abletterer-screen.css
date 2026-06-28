@@ -82,133 +82,183 @@ table {
 
 /* end of reset */
 
-
-
 body {
-	font: normal normal 400;
+	font: normal normal 400 100%/1.5em Montserrat;
+	color: #222;
+}
+
+#main {
+	width: 100%;
+}
+
+#content {
+	display: grid;
+	grid-template-columns: 20% 75%; /* 20% for sidebar, 75% for content */
+	column-gap: 5%;
+	row-gap: 0.6em;
+	width: 90%;
+	max-width: 1200px;
+	margin: 3em auto;
+	align-items: baseline; /* Typographical baseline alignment for perfect vertical text alignment */
+}
+
+/* Profile Image positioning next to Header */
+.profile-container {
+	grid-column: 1;
+	grid-row: 1 / 5;
+	justify-self: right;
+	align-self: start; /* Override baseline alignment to align to the top */
+	width: 100%;
+	max-width: 160px;
+}
+
+.profile {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 1 / 1;
+	border-radius: 50%;
+	border: 2px solid #ccc;
+	padding: 5px;
+	object-fit: cover;
+	box-sizing: border-box;
+}
+
+h1 {
+	grid-column: 2;
+	grid-row: 1;
+	font-size: 3em;
+	font-weight: bold;
+	line-height: 1em;
+	margin-bottom: 0.2em;
+	align-self: start; /* Override baseline alignment to align to the top */
+}
+
+h1 + p {
+	grid-column: 2;
+	grid-row: 2;
+	font-size: 1.15em;
+	color: #555;
+	margin-bottom: 0.2em;
+	align-self: start;
+}
+
+#content > p:nth-of-type(2) {
+	grid-column: 2;
+	grid-row: 3;
+	font-style: italic;
+	color: #666;
+	margin-bottom: 0.2em;
+	align-self: start;
+}
+
+#webaddress {
+	grid-column: 2;
+	grid-row: 4;
+	color: rgb(0, 65, 170);
 	font-size: 100%;
-	line-height: 1.5em;
-	/*also written as...  font: normal normal 400 100%/1.5em;*/
-	font-family: Montserrat;
-	margin-top: 1em;
-	margin-left: 1em;
+	margin-bottom: 1.5em;
+	align-self: start;
+}
+
+/* Layout for sections, CV details, and lists */
+h2 {
+	grid-column: 1;
+	color: rgb(0, 65, 170);
+	font-weight: bold;
+	font-size: 1.1em;
+	text-align: right;
+	margin-top: 1.8em;
+	margin-bottom: 0;
+}
+
+/* Match vertical spacing of the first element in each section with its corresponding H2 header */
+h2 + * {
+	margin-top: 1.8em !important;
+}
+
+h3 {
+	grid-column: 1;
+	font-weight: bold;
+	font-size: 1em;
+	line-height: 1.8em;
+	text-align: right;
+	margin-top: 0.5em;
+}
+
+p, ul, table, div, blockquote {
+	grid-column: 2;
+	position: relative;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 p {
-	position: relative;
-	left: 25%;
-	margin-bottom: 0.7em;
-	margin-right: 0;
-	width: 55%;
+	margin-bottom: 0.8em;
+	padding-right: 160px; /* Prevents text from overlapping the absolutely positioned dates */
+}
+
+/* Specific styling for paragraphs inside citations and standalone text without dates */
+.citations p, .citations li, p.intro, blockquote p, #webaddress p {
+	padding-right: 0;
 }
 
 code {
-	font: normal normal;
-	font-size: 100%;
-	font-family: FiraCode;
-	color: #aaa;
+	font-family: FiraCode, monospace;
+	color: #555; /* Higher contrast for accessibility (passes WCAG AA) */
 }
 
 p code {
 	position: absolute;
+	right: 0;
+	top: 0;
 	text-align: right;
-	/* line-height: 1.75em; */
-	right: -0%;
+	font-weight: 500;
 }
-
 
 ul {
-	position: relative;
-	left: 25%;
-	width: 55%;
 	margin-bottom: 1.5em;
-	/* margin-top: -0.5em; */
 }
 
-/*uncomment to get dashes in the list*/
+li {
+	position: relative;
+	padding-left: 1.25em;
+	text-indent: -1.25em;
+	padding-right: 160px; /* Prevents text from overlapping dates */
+	margin-bottom: 0.4em;
+}
+
 li:before {
 	content: "-";
 	position: relative;
 	left: -0.25em;
 }
 
-li {
-	/*second line indent*/
-	padding-left: 1.25em;
-	text-indent: -1.25em;
-	/*color: #777;*/
+li ul {
+	margin-top: 0.25em;
+	margin-bottom: 0;
 }
 
-li ul {
-	left: 0;
-	margin-top: 0.25em;
+li ul li {
+	padding-right: 0;
 }
 
 li code {
-	float: right;
-	position:absolute;
-	right:0%;
-	line-height:1.75em;
-}
-
-h1,h2,h3,h4 {
-	font-weight: bold;
-	width: 80%;
-}
-
-h1 {
-	text-align: left;
-	font-size: 3em;
-	line-height: 1em;
-	position: relative;
-	left: 25%;
-}
-
-h1+p {
-	/*subtitle*/
-	/* font-style: italic; */
-	font-size: 110%;
-}
-
-h2 {
-	/* font-size: 110%; */
-	color: rgb(0, 65, 170);
-	margin-top: 1em;
-	position: relative;
-	top: 1.5em;
+	position: absolute;
+	right: 0;
+	top: 0;
 	text-align: right;
-	width: 20%;
-}
-
-h3 {
-	font-size: 1em;
-	line-height: 2em;
-	position: relative;
-	top: 1.7em;
-	text-align: right;
-	width: 20%;
+	font-weight: 500;
 }
 
 a {
 	font-weight: bold;
 	color: rgb(0, 65, 170);
 	text-decoration: none;
+	transition: color 0.2s ease;
 }
 
 a:hover {
-	color:#39f
-}
-
-#webaddress {
-	margin-top: 1em;
-	position: relative;
-	left: 25%;
-	color: rgb(0, 65, 170);
-	font-size: 100%;
-}
-
-#webaddress a {
-	text-decoration: none;
+	color: #0056b3; /* High contrast hover color */
 }
 
 em {
@@ -219,46 +269,118 @@ strong {
 	font-weight: bold;
 }
 
-#address {
-	display: none;
-}
-
-.profile {
-	left: 0;
-	right: 0;
-	margin: 0 auto;
-	border-radius: 50%;
-	width:50%;
-	max-width:200px;
-	position:absolute;
-	border: 2px solid #aaa;
-	padding: 5px;
-}
-
 .trailer {
-	margin: 0 auto;
-	width:75%;
-	height:auto;
-	text-align: center;
+	margin: 1.5em 0;
+	display: flex;
+	justify-content: space-between;
+	gap: 4%;
 }
 
 .trailer img {
-	margin:0 2%;
-	width:41%;
+	width: 48%;
 	border: 2px solid #aaa;
 	border-radius: 4px;
 	padding: 5px;
+	box-sizing: border-box;
 }
 
-table{
-	position: relative;
-	left: 25%;
-	width: 55%;
+.citations {
+	width: 100%;
 }
 
-@media only screen and (max-width: 1300px) {
-	ul li code {
-	  display: none;
+table {
+	width: 100%;
+	margin-bottom: 1.5em;
+}
+
+table td {
+	padding: 0.5em 0;
+}
+
+/* Responsive Styling for Mobile & Tablets */
+@media only screen and (max-width: 850px) {
+	#content {
+		grid-template-columns: 1fr;
+		row-gap: 0.8em;
+		padding: 0 1.5em;
+		margin: 1.5em auto;
+		align-items: stretch; /* Stack items and use normal vertical flow on mobile */
+	}
+
+	.profile-container {
+		grid-column: 1;
+		grid-row: auto;
+		justify-self: center;
+		margin-bottom: 1em;
+		width: 140px;
+	}
+
+	h1 {
+		grid-column: 1;
+		grid-row: auto;
+		text-align: center;
+		font-size: 2.2em;
+		align-self: stretch;
+	}
+
+	h1 + p {
+		grid-column: 1;
+		grid-row: auto;
+		text-align: center;
+		align-self: stretch;
+	}
+
+	#content > p:nth-of-type(2) {
+		grid-column: 1;
+		grid-row: auto;
+		text-align: center;
+		align-self: stretch;
+	}
+
+	#webaddress {
+		grid-column: 1;
+		grid-row: auto;
+		text-align: center;
+		margin-bottom: 1em;
+		align-self: stretch;
+	}
+
+	h2, h3 {
+		grid-column: 1;
+		text-align: left;
+		margin-top: 1em;
+		border-bottom: 1px solid #eee;
+		padding-bottom: 0.3em;
+	}
+
+	h2 + * {
+		margin-top: 0 !important; /* Reset margin alignment on single-column mobile view */
+	}
+
+	p, ul, table, div, blockquote {
+		grid-column: 1;
+	}
+
+	p, li {
+		padding-right: 0; /* Reset padding since dates stack */
+	}
+
+	p code, li code {
+		position: static;
+		display: block;
+		text-align: left;
+		margin-top: 0.25em;
+		margin-bottom: 0.5em;
+		color: #666;
+		font-size: 0.9em;
+	}
+	
+	.trailer {
+		flex-direction: column;
+		gap: 1em;
+	}
+	
+	.trailer img {
+		width: 100%;
 	}
 }
-  
