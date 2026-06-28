@@ -14,7 +14,8 @@ Research scientist, Research Team Leader
 *Computer Graphics, Image/Geometry processing, Machine learning*
 
 <div id="webaddress">
-    <a href="mailto:arnaud.bletterer@gmail.com" target="_blank">Mail</a>
+    <a href="media/arnaud-bletterer-cv.pdf" target="_blank" class="pdf-link">PDF Version</a>
+|   <a href="mailto:arnaud.bletterer@gmail.com" target="_blank">Mail</a>
 |   <a href="https://www.linkedin.com/in/arnaud-bletterer-5635b671/" target="_blank">LinkedIn</a>
 |   <a href="https://twitter.com/abletterer" target="_blank">Twitter</a>
 |   <a href="https://ko-fi.com/abletterer" target="_blank">Ko-fi</a>
@@ -85,6 +86,14 @@ __Bachelor in Computer Science__, Université de Strasbourg
 | French 🇫🇷 : native speaker | German 🇩🇪 : school level |
 | English 🇬🇧/🇺🇸 : professional use | Russian 🇷🇺 : beginner |
 
+## Miscellaneous
+
+I love spending my free time:
+* doing photography 📸 (you can find some of my work [here](https://sceyonara.abletterer.synology.me/){:target="_blank"} and [there](https://www.instagram.com/sceyonara/){:target="_blank"})
+* doing recreative programming 👨‍💻
+* generating beautiful renderings with Blender <img width="16px" src="blender_icon_64x64.png" alt="Blender icon"/>
+* playing bass guitar 🎸
+
 <div style="page-break-after: always"></div>
 
 ## Publications
@@ -124,13 +133,5 @@ More recently, my research interests have also expanded towards **image processi
 </div>
 
 You can find the exhaustive list on [Google Scholar](https://scholar.google.com/citations?user=fEbApYQAAAAJ){:target="_blank"}
-
-## Miscellaneous
-
-I love spending my free time:
-* doing photography 📸 (you can find some of my work [here](https://sceyonara.abletterer.synology.me/){:target="_blank"} and [there](https://www.instagram.com/sceyonara/){:target="_blank"})
-* doing recreative programming 👨‍💻
-* generating beautiful renderings with Blender <img width="16px" src="blender_icon_64x64.png" alt="Blender icon"/>
-* playing bass guitar 🎸
 
 

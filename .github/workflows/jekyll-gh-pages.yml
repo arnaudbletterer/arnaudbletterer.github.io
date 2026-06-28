@@ -35,6 +35,9 @@ jobs:
         with:
           source: ./
           destination: ./_site
+      - name: Generate PDF CV from HTML
+        run: |
+          google-chrome --headless --disable-gpu --no-sandbox --print-to-pdf=_site/media/arnaud-bletterer-cv.pdf --no-pdf-header-footer --run-all-compositor-stages-before-draw file://${{ github.workspace }}/_site/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 

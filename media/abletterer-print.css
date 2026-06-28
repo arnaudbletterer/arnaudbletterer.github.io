@@ -82,9 +82,18 @@ table {
 
 /* end of reset */
 
+@page {
+	size: A4;
+	margin: 1.5cm 1.5cm 1.5cm 1.5cm;
+}
+
+* {
+	-webkit-print-color-adjust: exact !important;
+	print-color-adjust: exact !important;
+}
+
 body {
-	font: normal normal 400 10.5pt Montserrat;
-	line-height: 1.35em;
+	font: normal normal 400 10pt/1.4em Montserrat; /* Slightly smaller base font for A4 paper print fit */
 	color: #000;
 	background-color: #ffffff;
 	margin: 0;
@@ -93,16 +102,23 @@ body {
 
 #content {
 	display: grid;
-	grid-template-columns: 20% 77%;
-	column-gap: 3%;
-	row-gap: 0.4em;
+	grid-template-columns: 20% 75%;
+	column-gap: 5%;
+	row-gap: 0.5em;
 	width: 100%;
+	align-items: baseline; /* Align headers and text perfectly on typographic baseline */
+}
+
+/* Hide the PDF download link when printing to the PDF itself */
+#pdf-download, .pdf-link {
+	display: none !important;
+	visibility: hidden !important;
 }
 
 .profile-container {
 	grid-column: 1;
 	grid-row: 1 / 5;
-	justify-self: center;
+	justify-self: right;
 	align-self: start;
 	width: 100%;
 	max-width: 110px;
@@ -125,6 +141,7 @@ h1 {
 	font-size: 2.2em;
 	font-weight: bold;
 	line-height: 1.1em;
+	align-self: start;
 }
 
 h1 + p {
@@ -132,6 +149,7 @@ h1 + p {
 	grid-row: 2;
 	font-size: 1.1em;
 	color: #333;
+	align-self: start;
 }
 
 #content > p:nth-of-type(2) {
@@ -139,6 +157,7 @@ h1 + p {
 	grid-row: 3;
 	font-style: italic;
 	color: #444;
+	align-self: start;
 }
 
 #webaddress {
@@ -147,6 +166,7 @@ h1 + p {
 	color: rgb(0, 65, 170);
 	font-size: 95%;
 	margin-bottom: 1em;
+	align-self: start;
 }
 
 h2 {
@@ -156,6 +176,12 @@ h2 {
 	font-size: 10pt;
 	text-align: right;
 	margin-top: 1.2em;
+	margin-bottom: 0;
+}
+
+/* Match vertical spacing of the first element in each section with its corresponding H2 header */
+h2 + * {
+	margin-top: 1.2em !important;
 }
 
 h3 {
@@ -175,12 +201,17 @@ p, ul, table, div, blockquote {
 
 p {
 	margin-bottom: 0.4em;
-	overflow: flow-root; /* Contains floated elements */
+	overflow: flow-root;
+}
+
+.citations p, .citations li, p.intro, blockquote p, #webaddress p {
+	padding-right: 0;
 }
 
 code {
 	font-family: FiraCode, monospace;
-	color: #333;
+	font-size: 90%;
+	color: #555;
 }
 
 p code {
@@ -188,8 +219,9 @@ p code {
 	margin-left: 2em;
 	margin-bottom: 0.2em;
 	text-align: right;
-	font-weight: 600;
-	position: static !important;
+	font-weight: 500;
+	position: relative !important;
+	top: 0.08em;
 }
 
 ul {
@@ -197,7 +229,7 @@ ul {
 }
 
 li {
-	overflow: flow-root; /* Contains floated elements */
+	overflow: flow-root;
 	position: relative;
 	padding-left: 1.25em;
 	text-indent: -1.25em;
@@ -220,14 +252,22 @@ li code {
 	margin-left: 2em;
 	margin-bottom: 0.2em;
 	text-align: right;
-	font-weight: 600;
-	position: static !important;
+	font-weight: 500;
+	position: relative !important;
+	top: 0.08em;
 }
 
 a {
 	font-weight: bold;
 	color: rgb(0, 65, 170);
 	text-decoration: none;
+}
+
+/* Ensure clean page breaks matching the markdown break */
+div[style*="page-break-after"] {
+	page-break-after: always !important;
+	break-after: page !important;
+	grid-column: 1 / -1; /* Stretch page break to avoid grid issues */
 }
 
 .trailer {
@@ -254,4 +294,16 @@ a {
 table {
 	width: 100%;
 	margin-bottom: 1.5em;
+}
+
+em {
+	font-style: italic;
+}
+
+strong {
+	font-weight: bold;
+}
+
+ins {
+	text-decoration: underline;
 }
