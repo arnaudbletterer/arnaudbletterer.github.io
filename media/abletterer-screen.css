@@ -164,13 +164,12 @@ h1 + p {
 	display: inline-block;
 	background-color: rgb(0, 65, 170);
 	color: #ffffff !important;
-	padding: 4px 10px;
+	padding: 3px 10px 4px;
 	border-radius: 4px;
 	font-size: 0.85em;
-	margin-right: 0.5em;
+	margin-right: 0.3em;
 	transition: background-color 0.2s ease, transform 0.1s ease;
-	vertical-align: middle;
-	line-height: 1.2em;
+	vertical-align: baseline;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -218,7 +217,12 @@ p, ul, table, div, blockquote {
 
 p {
 	margin-bottom: 0.8em;
-	overflow: flow-root; /* Contains floated dates so they do not collapse or run into other paragraphs */
+	box-sizing: border-box;
+}
+
+/* Only reserve right space in paragraphs that contain a date badge */
+p:has(code) {
+	padding-right: 12em;
 }
 
 code {
@@ -234,16 +238,22 @@ code {
 	letter-spacing: -0.02em;
 }
 
-/* Float dates and framework badges to the right */
-p code,
+/* Date badges: absolutely positioned to top-right of their paragraph */
+p code {
+	position: absolute;
+	top: 0;
+	right: 0;
+	text-align: right;
+	font-weight: 500;
+}
+
+/* Skill framework badges: floated right within their flow-root li */
 li code {
 	float: right;
 	margin-left: 2em;
 	margin-bottom: 0.2em;
 	text-align: right;
 	font-weight: 500;
-	position: relative !important;
-	top: 0.08em;
 }
 
 ul {
@@ -386,6 +396,10 @@ table td {
 
 	p, ul, table, div, blockquote {
 		grid-column: 1;
+	}
+
+	p:has(code) {
+		padding-right: 0; /* Badge is below the text on mobile, no right padding needed */
 	}
 
 	p code {

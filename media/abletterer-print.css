@@ -202,7 +202,11 @@ p, ul, table, div, blockquote {
 
 p {
 	margin-bottom: 0.4em;
-	overflow: flow-root;
+	box-sizing: border-box;
+}
+
+p:has(code) {
+	padding-right: 12em;
 }
 
 .citations p, .citations li, p.intro, blockquote p, #webaddress p {
@@ -221,15 +225,20 @@ code {
 	vertical-align: middle;
 }
 
-p code,
+p code {
+	position: absolute;
+	top: 0;
+	right: 0;
+	text-align: right;
+	font-weight: 500;
+}
+
 li code {
 	float: right;
 	margin-left: 2em;
 	margin-bottom: 0.2em;
 	text-align: right;
 	font-weight: 500;
-	position: relative !important;
-	top: 0.08em;
 }
 
 ul {

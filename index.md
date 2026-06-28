@@ -44,9 +44,8 @@ My core philosophy is that **research and development** must remain directly ali
 * **Exchanged regularly with development teams** to integrate innovative methods and ensure seamless coherence with final software deliverables.
 
 `October 2014 - December 2018`
-**Ph.D Student** at [I3S Laboratory](https://www.i3s.unice.fr/en/){:target="_blank"} (MediaCoding team) in collaboration with Cintoo
-
-* **Researched and developed** novel graph-based algorithms for the compression and out-of-core resampling of massive terrestrial LiDAR point clouds.
+**Ph.D Student** at [I3S Laboratory](https://www.i3s.unice.fr/en/){:target="_blank"} / [Cintoo](https://www.cintoo.com){:target="_blank"}
+* **Researched and developed** novel algorithms for the compression and out-of-core resampling of massive terrestrial LiDAR point clouds.
 * Author of the thesis: *[A graph-based approach for modeling and processing gigantic point clouds from terrestrial LiDAR acquisitions](https://theses.hal.science/tel-02099777){:target="_blank"}*.
 
 ## Education
