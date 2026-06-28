@@ -93,7 +93,8 @@ table {
 }
 
 body {
-	font: normal normal 400 10pt/1.4em Montserrat; /* Slightly smaller base font for A4 paper print fit */
+	font: normal normal 400 10.5pt Montserrat;
+	line-height: 1.35em;
 	color: #000;
 	background-color: #ffffff;
 	margin: 0;
@@ -102,9 +103,9 @@ body {
 
 #content {
 	display: grid;
-	grid-template-columns: 20% 75%;
-	column-gap: 5%;
-	row-gap: 0.5em;
+	grid-template-columns: 20% 77%;
+	column-gap: 3%;
+	row-gap: 0.4em;
 	width: 100%;
 	align-items: baseline; /* Align headers and text perfectly on typographic baseline */
 }

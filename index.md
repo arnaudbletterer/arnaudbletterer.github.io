@@ -39,7 +39,7 @@ My core philosophy is that **research and development** must remain directly ali
 `December 2018 - March 2023`
 **Research Engineer** at [QuantifiCare](https://quantificare.com){:target="_blank"}
 
-* **Validated and industrialized** a 3D reconstruction algorithm (2022) robust to camera decalibration for daily clinical use.
+* **Validated and industrialized** a 3D reconstruction algorithm robust to camera decalibration for daily clinical use.
 * **Developed a fully autonomous face-stitching method** that tolerated acquisition errors, reducing user constraints and securing consistent model delivery.
 * **Exchanged regularly with development teams** to integrate innovative methods and ensure seamless coherence with final software deliverables.
 
@@ -64,13 +64,13 @@ __Bachelor in Computer Science__, Université de Strasbourg
 
 **Computer science**
 
-* Image processing *(convolution filters, superpixel segmentation)* `OpenCV/Pillow`
-* Geometry processing *(3d reconstruction, mesh processing)* `Meshlab/IGL`
-* Machine learning *(neural networks, PLS regression, morphable models)* `Pytorch/NumPy/scikit-learn`
-* Computer graphics *(multi-pass/multi-scale rendering, texturing)* `OpenGL/WebGL`
-* Programming *(C, C++, Python)* `Visual Studio/Visual Studio Code`
-* Code versioning *(Git)* `Gitlab/Gitea`
-* Systems *(Windows, MacOS, Linux)* `WSL/Debian/Arch Linux`
+* `OpenCV/Pillow` Image processing *(convolution filters, superpixel segmentation)*
+* `Meshlab/IGL` Geometry processing *(3d reconstruction, mesh processing)*
+* `Pytorch/scikit-learn` Machine learning *(neural networks, PLS regression, morphable models)*
+* `OpenGL/WebGL` Computer graphics *(multi-pass/multi-scale rendering, texturing)*
+* `Visual Studio/Visual Studio Code` Programming *(C, C++, Python)*
+* `Gitlab/Gitea` Code versioning *(Git)*
+* `WSL/Arch Linux` Systems *(Windows, MacOS, Linux)*
 
 **Languages**
 
