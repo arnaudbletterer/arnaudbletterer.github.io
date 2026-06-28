@@ -99,7 +99,7 @@ body {
 	width: 90%;
 	max-width: 1200px;
 	margin: 3em auto;
-	align-items: baseline; /* Typographical baseline alignment for perfect vertical text alignment */
+	align-items: baseline; /* Typographical baseline alignment */
 }
 
 /* Profile Image positioning next to Header */
@@ -107,7 +107,7 @@ body {
 	grid-column: 1;
 	grid-row: 1 / 5;
 	justify-self: right;
-	align-self: start; /* Override baseline alignment to align to the top */
+	align-self: start;
 	width: 100%;
 	max-width: 160px;
 }
@@ -130,7 +130,7 @@ h1 {
 	font-weight: bold;
 	line-height: 1em;
 	margin-bottom: 0.2em;
-	align-self: start; /* Override baseline alignment to align to the top */
+	align-self: start;
 }
 
 h1 + p {
@@ -194,12 +194,7 @@ p, ul, table, div, blockquote {
 
 p {
 	margin-bottom: 0.8em;
-	padding-right: 160px; /* Prevents text from overlapping the absolutely positioned dates */
-}
-
-/* Specific styling for paragraphs inside citations and standalone text without dates */
-.citations p, .citations li, p.intro, blockquote p, #webaddress p {
-	padding-right: 0;
+	overflow: flow-root; /* Contains floated dates so they do not collapse or run into other paragraphs */
 }
 
 code {
@@ -207,12 +202,14 @@ code {
 	color: #555; /* Higher contrast for accessibility (passes WCAG AA) */
 }
 
+/* Float dates to the right instead of absolute positioning to prevent overlaps */
 p code {
-	position: absolute;
-	right: 0;
-	top: 0;
+	float: right;
+	margin-left: 2em;
+	margin-bottom: 0.2em;
 	text-align: right;
 	font-weight: 500;
+	position: static !important;
 }
 
 ul {
@@ -220,10 +217,10 @@ ul {
 }
 
 li {
+	overflow: flow-root; /* Contains floated dates in list items */
 	position: relative;
 	padding-left: 1.25em;
 	text-indent: -1.25em;
-	padding-right: 160px; /* Prevents text from overlapping dates */
 	margin-bottom: 0.4em;
 }
 
@@ -238,16 +235,13 @@ li ul {
 	margin-bottom: 0;
 }
 
-li ul li {
-	padding-right: 0;
-}
-
 li code {
-	position: absolute;
-	right: 0;
-	top: 0;
+	float: right;
+	margin-left: 2em;
+	margin-bottom: 0.2em;
 	text-align: right;
 	font-weight: 500;
+	position: static !important;
 }
 
 a {
@@ -361,16 +355,13 @@ table td {
 		grid-column: 1;
 	}
 
-	p, li {
-		padding-right: 0; /* Reset padding since dates stack */
-	}
-
 	p code, li code {
-		position: static;
-		display: block;
-		text-align: left;
+		float: none;
+		margin-left: 0;
 		margin-top: 0.25em;
 		margin-bottom: 0.5em;
+		display: block;
+		text-align: left;
 		color: #666;
 		font-size: 0.9em;
 	}
