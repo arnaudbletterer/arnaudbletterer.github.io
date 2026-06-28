@@ -223,11 +223,20 @@ p {
 
 code {
 	font-family: FiraCode, monospace;
-	color: #555; /* Higher contrast for accessibility (passes WCAG AA) */
+	font-size: 0.82em;
+	background-color: rgba(0, 65, 170, 0.05);
+	color: rgb(0, 65, 170);
+	padding: 2px 8px;
+	border-radius: 6px;
+	border: 1px solid rgba(0, 65, 170, 0.12);
+	display: inline-block;
+	vertical-align: middle;
+	letter-spacing: -0.02em;
 }
 
-/* Float dates to the right. Baseline-aligned using relative positioning */
-p code {
+/* Float dates and framework badges to the right */
+p code,
+li code {
 	float: right;
 	margin-left: 2em;
 	margin-bottom: 0.2em;
@@ -242,17 +251,19 @@ ul {
 }
 
 li {
-	overflow: flow-root; /* Contains floated dates/frameworks in list items */
+	display: flow-root; /* Creates new block formatting context, containing child floats */
+	width: 100%;
+	box-sizing: border-box;
 	position: relative;
-	padding-left: 1.25em;
-	text-indent: -1.25em;
+	padding-left: 1.25em; /* Space for the absolutely positioned bullet */
 	margin-bottom: 0.4em;
 }
 
 li:before {
 	content: "-";
-	position: relative;
-	left: -0.25em;
+	position: absolute;
+	left: 0;
+	top: 0;
 }
 
 li ul {
@@ -260,16 +271,7 @@ li ul {
 	margin-bottom: 0;
 }
 
-/* Float frameworks to the right. Baseline-aligned using relative positioning */
-li code {
-	float: right;
-	margin-left: 2em;
-	margin-bottom: 0.2em;
-	text-align: right;
-	font-weight: 500;
-	position: relative !important;
-	top: 0.08em;
-}
+
 
 a {
 	font-weight: bold;
@@ -392,9 +394,8 @@ table td {
 		margin-top: 0.25em;
 		margin-bottom: 0.5em;
 		display: block;
+		width: fit-content;
 		text-align: left;
-		color: #666;
-		font-size: 0.9em;
 		position: static !important;
 	}
 
@@ -414,14 +415,11 @@ table td {
 	li code {
 		float: none;
 		order: 2;
-		flex-basis: 100%;
-		margin-left: 1.2em; /* Indent the code below the text, aligned with text start */
+		margin-left: 1.2em;
 		margin-top: 0.25em;
 		margin-bottom: 0.5em;
-		display: block;
+		display: inline-block; /* Size to content, not full width */
 		text-align: left;
-		color: #666;
-		font-size: 0.9em;
 		position: static !important;
 	}
 	

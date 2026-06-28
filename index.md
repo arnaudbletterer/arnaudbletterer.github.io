@@ -64,13 +64,13 @@ __Bachelor in Computer Science__, Université de Strasbourg
 
 **Computer science**
 
-* `OpenCV/Pillow` Image processing *(convolution filters, superpixel segmentation)*
-* `Meshlab/IGL` Geometry processing *(3d reconstruction, mesh processing)*
-* `Pytorch/scikit-learn` Machine learning *(neural networks, PLS regression, morphable models)*
-* `OpenGL/WebGL` Computer graphics *(multi-pass/multi-scale rendering, texturing)*
-* `Visual Studio/Visual Studio Code` Programming *(C, C++, Python)*
-* `Gitlab/Gitea` Code versioning *(Git)*
-* `WSL/Arch Linux` Systems *(Windows, MacOS, Linux)*
+* Image processing *(convolution filters, superpixel segmentation)* `OpenCV/Pillow`
+* Geometry processing *(3d reconstruction, mesh processing)* `Meshlab/IGL`
+* Machine learning *(neural networks, PLS regression, morphable models)* `Pytorch/scikit-learn`
+* Computer graphics *(multi-pass/multi-scale rendering, texturing)* `OpenGL/WebGL`
+* Programming *(C, C++, Python)* `Visual Studio/Visual Studio Code`
+* Code versioning *(Git)* `Gitlab/Gitea`
+* Systems *(Windows, MacOS, Linux)* `WSL/Arch Linux`
 
 **Languages**
 
