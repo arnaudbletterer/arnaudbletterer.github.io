@@ -9,7 +9,7 @@ pdf: true
 
 # Arnaud Bletterer
 
-Research scientist, Research Team Leader
+Research Scientist, Research Team Leader
 
 *Computer Graphics, Image/Geometry processing, Machine learning*
 
@@ -21,42 +21,33 @@ Research scientist, Research Team Leader
 |   <a href="https://ko-fi.com/abletterer" target="_blank">Ko-fi</a>
 </div>
 
-I am a **curious** individual, always striving to **question and solve challenging real-world problematics**. <br/>
-I have developed a particular proficiency at **identifying and implementing practical solutions**, with an **Occam's razor perspective** as often as possible. <br/>
-I love **explaining** how things work, and **identifying** how they can be improved. <br/>
-I believe that **research** should remain closely tied to **real-world industrial challenges**, ensuring its **relevance** and **applicability**. <br/>
-**Research development** should be conducted in **direct alignment** with the **final software deliverables**, enabling **solutions** that are more **tailored** to **specific market needs** and ensuring a **seamless** and **quick transition** from **innovation** to **implementation**.
+I am a **curious** research scientist and leader with a **12-year track record** of **bridging the gap between exploration and industrialization**. I possess a particular proficiency at **identifying and implementing practical, production-ready solutions** to complex real-world challenges, with an **Occam's razor perspective** as often as possible.
+
+My core philosophy is that **research and development** must remain directly aligned with **final software deliverables**, ensuring a **seamless and rapid transition** from innovation to commercial implementation.
 
 *"Bernard of Chartres used to compare us to dwarfs perched on the shoulders of giants. He pointed out that we see more and farther than our predecessors, not because we have keener vision or greater height, but because we are lifted up and borne aloft on their gigantic stature."* [John of Salisbury]
 
 ## Employment
 
-`Since January 2026`
-**Research Team Leader**/**Research Engineer**  at [Quartier Latin](https://qlatin.com){:target="_blank"} ([QuantifiCare](https://quantificare.com){:target="_blank"} spin-off)
+`Since March 2023`
+**Research Team Leader** & **Research Engineer** at [Quartier Latin](https://qlatin.com){:target="_blank"} *(Since Jan 2026)* & [QuantifiCare](https://quantificare.com){:target="_blank"} *(Mar 2023 - Dec 2025)*
 
-* Continuation of **hands-on research** and **technical leadership** responsibilities alongside **team management**.
+* **Led and mentored** up to 7 researchers, aligning activities with production deliverables.
+* **Professionalized workflows** by introducing automated validation pipelines for image processing and AI.
+* **Supervised clinical research**, co-authoring publications on acne grading (2024) and vitiligo assessment (2025).
 
-`March 2023 - December 2025`
-**Research Team Leader** at [QuantifiCare](https://quantificare.com){:target="_blank"}
-
-* Leading a team of **researchers and engineers**, ensuring efficient **progress tracking** and **priority alignment** through weekly interactions.
-* Driving **innovation strategy development** and overseeing the **planning and execution** of research activities to achieve organizational goals.
-
-`December 2018 - December 2025`
+`December 2018 - March 2023`
 **Research Engineer** at [QuantifiCare](https://quantificare.com){:target="_blank"}
 
-* Collaborating daily with R&D engineers to design and implement **cutting-edge technical solutions**.
-* Delivering **presentations** and simplifying complex technical concepts for diverse audiences.
-* Leading the **design, implementation, and validation** of algorithms across QuantifiCare's software portfolio, including:
-  - **3D reconstruction** from stereo images.
-  - **Rigid and non-rigid mesh registration** techniques.
-  - Advanced **mesh texturing** methods.
-  - Intuitive **3D visualization** tools.
+* **Validated and industrialized** a 3D reconstruction algorithm (2022) robust to camera decalibration for daily clinical use.
+* **Developed a fully autonomous face-stitching method** that tolerated acquisition errors, reducing user constraints and securing consistent model delivery.
+* **Exchanged regularly with development teams** to integrate innovative methods and ensure seamless coherence with final software deliverables.
 
 `October 2014 - December 2018`
-**Ph.D student** at [I3S Laboratory](https://www.i3s.unice.fr/en/){:target="_blank"} in the [MediaCoding team](https://mediacoding.i3s.unice.fr){:target="_blank"} and in collaboration with [Cintoo](https://cintoo.com/){:target="_blank"}
+**Ph.D Student** at [I3S Laboratory](https://www.i3s.unice.fr/en/){:target="_blank"} (MediaCoding team) in collaboration with Cintoo
 
-[A graph-based approach for modeling and processing gigantic point clouds from terrestrial LiDARs acquisitions](https://theses.hal.science/tel-02099777){:target="_blank"} (french version)
+* **Researched and developed** novel graph-based algorithms for the compression and out-of-core resampling of massive terrestrial LiDAR point clouds.
+* Author of the thesis: *[A graph-based approach for modeling and processing gigantic point clouds from terrestrial LiDAR acquisitions](https://theses.hal.science/tel-02099777){:target="_blank"}*.
 
 ## Education
 
@@ -133,5 +124,3 @@ More recently, my research interests have also expanded towards **image processi
 </div>
 
 You can find the exhaustive list on [Google Scholar](https://scholar.google.com/citations?user=fEbApYQAAAAJ){:target="_blank"}
-
-
