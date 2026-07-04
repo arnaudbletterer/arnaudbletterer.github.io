@@ -116,6 +116,10 @@ body {
 	visibility: hidden !important;
 }
 
+#webaddress .pdf-link + .sep {
+	display: none !important;
+}
+
 .profile-container {
 	grid-column: 1;
 	grid-row: 1 / 5;
@@ -168,6 +172,11 @@ h1 + p {
 	font-size: 95%;
 	margin-bottom: 1em;
 	align-self: start;
+}
+
+#webaddress .sep {
+	margin: 0 0.4em;
+	color: rgba(0, 65, 170, 0.4);
 }
 
 h2 {
