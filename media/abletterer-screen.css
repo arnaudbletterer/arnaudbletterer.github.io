@@ -117,7 +117,7 @@ body {
 	height: auto;
 	aspect-ratio: 1 / 1;
 	border-radius: 50%;
-	border: 2px solid #ccc;
+	border: 2px solid rgba(0, 65, 170, 0.15);
 	padding: 5px;
 	object-fit: cover;
 	box-sizing: border-box;
@@ -396,6 +396,13 @@ table td {
 	box-sizing: border-box;
 	display: flex;
 	align-items: center;
+}
+
+.inline-icon {
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+	margin-top: -2px;
 }
 
 /* Responsive Styling for Mobile & Tablets */

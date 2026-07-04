@@ -130,7 +130,7 @@ body {
 	height: auto;
 	aspect-ratio: 1 / 1;
 	border-radius: 50%;
-	border: 1px solid #777;
+	border: 1px solid rgba(0, 65, 170, 0.25);
 	padding: 3px;
 	object-fit: cover;
 	box-sizing: border-box;
@@ -365,6 +365,12 @@ table {
 	align-items: center;
 }
 
+.inline-icon {
+	width: 12pt;
+	height: 12pt;
+	vertical-align: middle;
+	margin-top: -1.5pt;
+}
 
 em {
 	font-style: italic;

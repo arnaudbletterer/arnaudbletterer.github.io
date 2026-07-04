@@ -89,7 +89,7 @@ __Bachelor in Computer Science__, Université de Strasbourg
 I love spending my free time:
 * doing photography 📸 (you can find some of my work [here](https://sceyonara.abletterer.synology.me/){:target="_blank"} and [there](https://www.instagram.com/sceyonara/){:target="_blank"})
 * doing recreative programming 👨‍💻
-* generating beautiful renderings with Blender <img width="16px" src="blender_icon_64x64.png" alt="Blender icon"/>
+* generating beautiful renderings with Blender <img class="inline-icon" src="blender_icon_64x64.png" alt="Blender icon"/>
 * playing bass guitar 🎸
 
 <div style="page-break-after: always"></div>
