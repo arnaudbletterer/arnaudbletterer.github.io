@@ -285,10 +285,13 @@ li {
 }
 
 li:before {
-	content: "-";
+	content: "•";
+	color: rgba(0, 65, 170, 0.45);
+	font-weight: bold;
 	position: absolute;
 	left: 0;
-	top: 0;
+	top: -0.05em;
+	font-size: 1.1em;
 }
 
 li ul {
@@ -498,7 +501,9 @@ table td {
 	}
 
 	li:has(code):before {
-		content: "-";
+		content: "•";
+		color: rgba(0, 65, 170, 0.45);
+		font-weight: bold;
 		margin-right: 0.5em;
 	}
 
