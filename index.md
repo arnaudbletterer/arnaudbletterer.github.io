@@ -15,10 +15,10 @@ Research Scientist, Research Team Leader
 
 <div id="webaddress">
     <a href="media/arnaud-bletterer-cv.pdf" target="_blank" class="pdf-link">PDF Version</a>
-    <span class="sep">|</span> <a href="mailto:arnaud.bletterer@gmail.com" target="_blank">Mail</a>
-    <span class="sep">|</span> <a href="https://www.linkedin.com/in/arnaud-bletterer-5635b671/" target="_blank">LinkedIn</a>
-    <span class="sep">|</span> <a href="https://twitter.com/abletterer" target="_blank">Twitter</a>
-    <span class="sep">|</span> <a href="https://ko-fi.com/abletterer" target="_blank">Ko-fi</a>
+    <span class="sep">|</span> <a href="mailto:arnaud.bletterer@gmail.com" target="_blank" class="contact-email">Mail</a>
+    <span class="sep">|</span> <a href="https://www.linkedin.com/in/arnaud-bletterer-5635b671/" target="_blank" class="contact-linkedin">LinkedIn</a>
+    <span class="sep">|</span> <a href="https://twitter.com/abletterer" target="_blank" class="contact-twitter">Twitter</a>
+    <span class="sep">|</span> <a href="https://ko-fi.com/abletterer" target="_blank" class="contact-kofi">Ko-fi</a>
 </div>
 
 I am a **curious** research scientist and leader with a **12-year track record** of **bridging the gap between exploration and industrialization**. I possess a particular proficiency at **identifying and implementing practical, production-ready solutions** to complex real-world challenges, with an **Occam's razor perspective** as often as possible.

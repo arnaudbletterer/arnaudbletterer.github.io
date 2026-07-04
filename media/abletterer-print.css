@@ -179,6 +179,23 @@ h1 + p {
 	color: rgba(0, 65, 170, 0.4);
 }
 
+#webaddress .contact-twitter,
+#webaddress .contact-kofi,
+#webaddress .contact-twitter + .sep,
+#webaddress .contact-kofi + .sep,
+#webaddress .contact-linkedin + .sep {
+	display: none !important;
+}
+
+#webaddress .contact-email::after {
+	content: " (arnaud.bletterer@gmail.com)";
+}
+
+#webaddress .contact-linkedin::after {
+	content: " (linkedin.com/in/arnaud-bletterer-5635b671/)";
+}
+
+
 h2 {
 	grid-column: 1;
 	color: rgb(0, 65, 170);
