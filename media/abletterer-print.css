@@ -110,8 +110,8 @@ body {
 	align-items: baseline; /* Align headers and text perfectly on typographic baseline */
 }
 
-/* Hide the PDF download link when printing to the PDF itself */
-#pdf-download, .pdf-link {
+/* Hide the PDF download link and theme toggle when printing to the PDF itself */
+#pdf-download, .pdf-link, #theme-toggle {
 	display: none !important;
 	visibility: hidden !important;
 }
