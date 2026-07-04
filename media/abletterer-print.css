@@ -179,11 +179,12 @@ h1 + p {
 	color: rgba(0, 65, 170, 0.4);
 }
 
+#webaddress .contact-linkedin,
 #webaddress .contact-twitter,
 #webaddress .contact-kofi,
+#webaddress .contact-linkedin + .sep,
 #webaddress .contact-twitter + .sep,
-#webaddress .contact-kofi + .sep,
-#webaddress .contact-linkedin + .sep {
+#webaddress .contact-kofi + .sep {
 	display: none !important;
 }
 
@@ -193,15 +194,6 @@ h1 + p {
 
 #webaddress .contact-email::after {
 	content: "arnaud.bletterer@gmail.com";
-	font-size: 9.5pt !important;
-}
-
-#webaddress .contact-linkedin {
-	font-size: 0 !important;
-}
-
-#webaddress .contact-linkedin::after {
-	content: "linkedin.com/in/arnaud-bletterer-5635b671/";
 	font-size: 9.5pt !important;
 }
 
