@@ -63,18 +63,26 @@ __Bachelor in Computer Science__, Université de Strasbourg
 
 **Computer science**
 
+<div class="skills-table" markdown="1">
+
 | :--- | :--- |
-| *Computer Vision* | `OpenCV` |
-| *3D & Geometry* | `MeshLab` `IGL` |
-| *Machine Learning* | `PyTorch` `scikit-learn` |
-| *Rendering* | `OpenGL` `WebGL` |
-| *Languages* | `Python` `C++` |
-| *Dev & Ops* | `Git` `GitLab` `Docker` `VS Code` `Linux` |
+| **Computer Vision** | `OpenCV` |
+| **3D & Geometry** | `MeshLab` `IGL` |
+| **Machine Learning** | `PyTorch` `scikit-learn` |
+| **Rendering** | `OpenGL` `WebGL` |
+| **Languages** | `Python` `C++` |
+| **Dev & Ops** | `Git` `GitLab` `Docker` `VS Code` `Linux` |
+
+</div>
 
 **Languages**
 
+<div class="languages-table" markdown="1">
+
 | French :fr: : native speaker | German :de: : school level |
 | English :gb:/:us: : professional use | Russian :ru: : beginner |
+
+</div>
 
 ## Miscellaneous
 

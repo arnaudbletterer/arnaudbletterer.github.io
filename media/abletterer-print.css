@@ -315,6 +315,57 @@ table {
 	margin-bottom: 1.5em;
 }
 
+.skills-table table {
+	width: 100%;
+	margin-bottom: 1.2em;
+	border-collapse: separate;
+	border-spacing: 0 0.6em;
+}
+
+.skills-table td {
+	padding: 0;
+	vertical-align: middle;
+}
+
+.skills-table td:first-child {
+	width: 30%;
+	font-weight: bold;
+	color: rgb(0, 65, 170);
+	font-size: 9.5pt;
+	padding-right: 15pt;
+	box-sizing: border-box;
+}
+
+.skills-table td:last-child {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5pt;
+}
+
+.languages-table table {
+	width: 100%;
+	margin-bottom: 1.2em;
+}
+
+.languages-table tr {
+	display: flex;
+	gap: 15pt;
+	margin-bottom: 0.6em;
+}
+
+.languages-table td {
+	flex: 1;
+	padding: 0.5em 0.8em;
+	background-color: rgba(0, 65, 170, 0.02);
+	border: 1px solid rgba(0, 65, 170, 0.06);
+	border-radius: 6px;
+	font-size: 9pt;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+}
+
+
 em {
 	font-style: italic;
 }
