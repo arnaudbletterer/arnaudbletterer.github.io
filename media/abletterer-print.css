@@ -187,12 +187,22 @@ h1 + p {
 	display: none !important;
 }
 
+#webaddress .contact-email {
+	font-size: 0 !important;
+}
+
 #webaddress .contact-email::after {
-	content: " (arnaud.bletterer@gmail.com)";
+	content: "arnaud.bletterer@gmail.com";
+	font-size: 9.5pt !important;
+}
+
+#webaddress .contact-linkedin {
+	font-size: 0 !important;
 }
 
 #webaddress .contact-linkedin::after {
-	content: " (linkedin.com/in/arnaud-bletterer-5635b671/)";
+	content: "linkedin.com/in/arnaud-bletterer-5635b671/";
+	font-size: 9.5pt !important;
 }
 
 
