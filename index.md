@@ -35,15 +35,8 @@ My core philosophy is that **research and development** must remain directly ali
 * **Leading core technical research** and algorithm design for advanced computer vision and geometry processing systems.
 * **Architecting high-performance pipelines** to deploy research prototypes into production-ready software modules.
 
-`January 2026 - June 2026`
-**Research Team Leader** & **Research Engineer** at [Quartier Latin](https://qlatin.com){:target="_blank"}
-
-* **Led and mentored** up to 7 researchers, aligning activities with production deliverables.
-* **Professionalized workflows** by introducing automated validation pipelines for image processing and AI.
-* **Supervised clinical research**, co-authoring publications on acne grading (2024) and vitiligo assessment (2025).
-
-`March 2023 - December 2025`
-**Research Team Leader** & **Research Engineer** at [QuantifiCare](https://quantificare.com){:target="_blank"}
+`March 2023 - June 2026`
+**Research Team Leader** & **Research Engineer** at [Quartier Latin](https://qlatin.com){:target="_blank"} *(Since Jan 2026, spin-off)* & [QuantifiCare](https://quantificare.com){:target="_blank"} *(Mar 2023 - Dec 2025)*
 
 * **Led and mentored** up to 7 researchers, aligning activities with production deliverables.
 * **Professionalized workflows** by introducing automated validation pipelines for image processing and AI.
