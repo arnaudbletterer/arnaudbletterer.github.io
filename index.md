@@ -105,34 +105,63 @@ I love spending my free time:
 I mostly published prior to joining the industry, in the fields of **point cloud processing** and **3D reconstruction from LiDAR acquisitions** of cultural heritage sites.
 More recently, my research interests have also expanded towards **image processing** and **machine learning** of medical images.
 
-<div class="citations" markdown="1">
+<div class="publications-list">
 
-`2025`
-**Objective Assessment of Target Vitiligo Areas by Semiautomatic Analysis of Standardized UV Images** <br/> Charles Jabour, <ins>Arnaud Bletterer</ins>, Thierry Passeron. *JAMA dermatology*
+  <div class="publication-card no-image">
+    <div class="pub-info">
+      <div class="pub-year"><code>2025</code></div>
+      <div class="pub-title">Objective Assessment of Target Vitiligo Areas by Semiautomatic Analysis of Standardized UV Images</div>
+      <div class="pub-authors">Charles Jabour, <ins>Arnaud Bletterer</ins>, Thierry Passeron</div>
+      <div class="pub-venue">JAMA dermatology</div>
+    </div>
+  </div>
 
-`2024`
-**Automatic Acne Severity Grading with a Small and Imbalanced Data Set of Low-Resolution Images** <br/> Rémi Bernhard, <ins>Arnaud Bletterer</ins>, Maëlle Le Caro, Estrella García Álvarez, Belchin Kostov, and Diego Herrera Egea. *Dermatology and Therapy*
+  <div class="publication-card no-image">
+    <div class="pub-info">
+      <div class="pub-year"><code>2024</code></div>
+      <div class="pub-title">Automatic Acne Severity Grading with a Small and Imbalanced Data Set of Low-Resolution Images</div>
+      <div class="pub-authors">Rémi Bernhard, <ins>Arnaud Bletterer</ins>, Maëlle Le Caro, Estrella García Álvarez, Belchin Kostov, and Diego Herrera Egea</div>
+      <div class="pub-venue">Dermatology and Therapy</div>
+    </div>
+  </div>
 
-</div>
+  <div class="publication-card no-image">
+    <div class="pub-info">
+      <div class="pub-year"><code>2022</code></div>
+      <div class="pub-title">Graph-based Computation of Voronoi Diagrams on Large-scale Point-based Surfaces</div>
+      <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini</div>
+      <div class="pub-venue">Eurographics</div>
+    </div>
+  </div>
 
-<div class="trailer">
-  <img src="trailer_1.png" alt="3D point cloud reconstruction visualization of cultural heritage site"/>
-  <img src="trailer_2.png" alt="Close-up of structured point cloud data detailing surface normals"/>
-</div>
+  <div class="publication-card">
+    <div class="pub-info">
+      <div class="pub-year"><code>2020</code></div>
+      <div class="pub-title">A local graph-based structure for processing gigantic aggregated 3D point clouds</div>
+      <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini</div>
+      <div class="pub-venue">IEEE TVCG</div>
+    </div>
+    <img class="pub-image" src="trailer_1.png" alt="3D point cloud reconstruction visualization of cultural heritage site"/>
+  </div>
 
-<div class="citations" markdown="1">
+  <div class="publication-card">
+    <div class="pub-info">
+      <div class="pub-year"><code>2018</code></div>
+      <div class="pub-title">Out-of-core Resampling of Gigantic Point Clouds</div>
+      <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, Marc Antonini, and Anis Meftah</div>
+      <div class="pub-venue">SGP</div>
+    </div>
+    <img class="pub-image" src="trailer_2.png" alt="Close-up of structured point cloud data detailing surface normals"/>
+  </div>
 
-`2022`
-**Graph-based Computation of Voronoi Diagrams on Large-scale Point-based Surfaces** <br/><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini. *Eurographics*
-
-`2020`
-**A local graph-based structure for processing gigantic aggregated 3D point clouds** <br/><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini. *IEEE TVCG*
-
-`2018`
-**Out-of-core Resampling of Gigantic Point Clouds** <br/><ins>Arnaud Bletterer</ins>, Frédéric Payan, Marc Antonini, and Anis Meftah. *SGP*
-
-`2016`
-**Point cloud compression using depth maps** <br/><ins>Arnaud Bletterer</ins>, Frédéric Payan, Marc Antonini, and Anis Meftah. *Electronic Imaging*
+  <div class="publication-card no-image">
+    <div class="pub-info">
+      <div class="pub-year"><code>2016</code></div>
+      <div class="pub-title">Point cloud compression using depth maps</div>
+      <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, Marc Antonini, and Anis Meftah</div>
+      <div class="pub-venue">Electronic Imaging</div>
+    </div>
+  </div>
 
 </div>
 
