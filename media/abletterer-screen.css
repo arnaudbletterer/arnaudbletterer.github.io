@@ -525,6 +525,7 @@ table td {
 	box-shadow: 0 1px 3px var(--shadow-color);
 	transition: transform 0.2s ease, box-shadow 0.2s ease;
 	box-sizing: border-box;
+	position: relative;
 }
 
 .publication-card:hover {
@@ -558,6 +559,19 @@ table td {
 	font-size: 0.9em;
 	font-style: italic;
 	color: var(--primary-blue);
+}
+
+/* Neutralise the global p code / p:has(code) rules inside publication cards */
+.publication-card code {
+	position: static;
+	float: none;
+	padding-right: 0;
+	margin-left: 0;
+	font-size: 0.8em;
+}
+
+.publication-card .pub-info {
+	padding-right: 0 !important;
 }
 
 
