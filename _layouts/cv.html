@@ -21,6 +21,12 @@
   <link href="media/{{ site.style }}-screen.css" type="text/css" rel="stylesheet" media="screen">
   <link href="media/{{ site.style }}-print.css" type="text/css" rel="stylesheet" media="print">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
   <script>
     (function() {
       const storedTheme = localStorage.getItem('theme');
@@ -38,6 +44,23 @@
   {% endif %}
 </head>
 <body>
+  <button id="nav-toggle" type="button" aria-expanded="false" aria-controls="section-toc" aria-label="Open navigation menu">
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+  </button>
+  <aside id="section-toc" data-state="closed" aria-label="On this page">
+    <div class="toc-inner">
+      <ul class="toc-list" role="list">
+        <li class="toc-top-item"><a href="#top" class="toc-link toc-link-top" id="toc-top-link"><span class="toc-arrow">↑</span>Profile</a></li>
+        <li><a href="#employment" class="toc-link"><span class="toc-dot"></span>Employment</a></li>
+        <li><a href="#education" class="toc-link"><span class="toc-dot"></span>Education</a></li>
+        <li><a href="#skills" class="toc-link"><span class="toc-dot"></span>Skills</a></li>
+        <li><a href="#miscellaneous" class="toc-link"><span class="toc-dot"></span>Miscellaneous</a></li>
+        <li><a href="#publications" class="toc-link"><span class="toc-dot"></span>Publications</a></li>
+      </ul>
+    </div>
+  </aside>
   <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
     <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
     <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -54,6 +77,164 @@
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
     });
+  </script>
+  <script>
+    (function() {
+      const toc = document.getElementById('section-toc');
+      const toggle = document.getElementById('nav-toggle');
+      if (!toc || !toggle) return;
+      const links = toc.querySelectorAll('.toc-link');
+      const headings = Array.from(document.querySelectorAll('h2[id]'));
+      if (!headings.length) return;
+
+      const linkById = new Map();
+      links.forEach(link => {
+        const id = link.getAttribute('href').slice(1);
+        linkById.set(id, link);
+      });
+
+      let currentActiveId = null;
+      function setActive(id) {
+        if (id === currentActiveId) return;
+        currentActiveId = id;
+        // Use a fresh querySelectorAll to avoid any stale NodeList issues
+        const allLinks = toc.querySelectorAll('.toc-link');
+        allLinks.forEach(l => {
+          l.classList.remove('is-active');
+          l.removeAttribute('aria-current');
+        });
+        const active = linkById.get(id);
+        if (active) {
+          active.classList.add('is-active');
+          active.setAttribute('aria-current', 'location');
+        }
+      }
+
+      function clearActive() {
+        if (currentActiveId === null) return;
+        currentActiveId = null;
+        const allLinks = toc.querySelectorAll('.toc-link');
+        allLinks.forEach(l => {
+          l.classList.remove('is-active');
+          l.removeAttribute('aria-current');
+        });
+      }
+
+      function isMobile() {
+        return window.matchMedia('(max-width: 1279px)').matches;
+      }
+
+      function setMenuOpen(open) {
+        toc.setAttribute('data-state', open ? 'open' : 'closed');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+        if (isMobile()) {
+          document.body.style.overflow = open ? 'hidden' : '';
+        }
+      }
+
+      toggle.addEventListener('click', () => {
+        const isOpen = toc.getAttribute('data-state') === 'open';
+        setMenuOpen(!isOpen);
+      });
+
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          // Don't set active immediately — let the scroll-spy progressively
+          // highlight sections as the page smooth-scrolls to the destination
+          if (isMobile()) {
+            setMenuOpen(false);
+          }
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && toc.getAttribute('data-state') === 'open') {
+          setMenuOpen(false);
+          toggle.focus();
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        if (!isMobile() && toc.getAttribute('data-state') === 'open') {
+          setMenuOpen(false);
+        }
+      });
+
+      // Scroll-spy: find the last heading whose top is at or above the trigger line
+      function updateActiveOnScroll() {
+        const triggerY = window.innerHeight * 0.2;
+        let activeId = null;
+        for (let i = 0; i < headings.length; i++) {
+          const rect = headings[i].getBoundingClientRect();
+          if (rect.top <= triggerY) {
+            activeId = headings[i].id;
+          } else {
+            break;
+          }
+        }
+        if (activeId) {
+          setActive(activeId);
+        } else {
+          clearActive();
+        }
+      }
+
+      // Scroll-spy: use IntersectionObserver for reliable detection across all scroll methods
+      function updateActiveOnScroll() {
+        const triggerY = window.innerHeight * 0.2;
+        let activeId = null;
+        for (let i = 0; i < headings.length; i++) {
+          const rect = headings[i].getBoundingClientRect();
+          if (rect.top <= triggerY) {
+            activeId = headings[i].id;
+          } else {
+            break;
+          }
+        }
+        if (activeId) {
+          setActive(activeId);
+        } else {
+          clearActive();
+        }
+      }
+
+      // Handle "Top" link click
+      const topLink = document.getElementById('toc-top-link');
+      if (topLink) {
+        topLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          clearActive();
+          if (isMobile()) {
+            setMenuOpen(false);
+          }
+        });
+      }
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(() => {
+          // Double rAF ensures layout is fully updated before reading positions
+          requestAnimationFrame(() => {
+            requestAnimationFrame(updateActiveOnScroll);
+          });
+        }, {
+          rootMargin: '0px 0px -80% 0px',
+          threshold: [0, 0.25, 0.5, 0.75, 1]
+        });
+        headings.forEach(h => observer.observe(h));
+      } else {
+        // Fallback for older browsers
+        window.addEventListener('scroll', updateActiveOnScroll, { passive: true });
+      }
+
+      // Also update on resize and on initial load
+      window.addEventListener('resize', updateActiveOnScroll, { passive: true });
+      updateActiveOnScroll();
+
+      // Initial call
+      updateActiveOnScroll();
+    })();
   </script>
 </body>
 </html>

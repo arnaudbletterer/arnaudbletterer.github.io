@@ -27,7 +27,7 @@ My core philosophy is that **research and development** must remain directly ali
 
 *"Bernard of Chartres used to compare us to dwarfs perched on the shoulders of giants. He pointed out that we see more and farther than our predecessors, not because we have keener vision or greater height, but because we are lifted up and borne aloft on their gigantic stature."* [John of Salisbury]
 
-## Employment
+<h2 id="employment">Employment</h2>
 
 `Since July 2026`
 **Expert Research Engineer** at [Quartier Latin](https://qlatin.com){:target="_blank"}
@@ -54,7 +54,7 @@ My core philosophy is that **research and development** must remain directly ali
 * **Researched and developed** novel algorithms for the compression and out-of-core resampling of massive terrestrial LiDAR point clouds.
 * Author of the thesis: *[A graph-based approach for modeling and processing gigantic point clouds from terrestrial LiDAR acquisitions](https://theses.hal.science/tel-02099777){:target="_blank"}*.
 
-## Education
+<h2 id="education">Education</h2>
 
 `2018`
 __Ph.D in Automatic, Signal and Image Processing__, Université Côte d'Azur
@@ -65,7 +65,7 @@ __Master in Computer Science__, Université de Strasbourg
 `2012`
 __Bachelor in Computer Science__, Université de Strasbourg
 
-## Skills
+<h2 id="skills">Skills</h2>
 
 **Computer science**
 
@@ -90,7 +90,7 @@ __Bachelor in Computer Science__, Université de Strasbourg
 
 </div>
 
-## Miscellaneous
+<h2 id="miscellaneous">Miscellaneous</h2>
 
 I love spending my free time:
 * doing photography 📸 (you can find some of my work [here](https://sceyonara.abletterer.synology.me/){:target="_blank"} and [there](https://www.instagram.com/sceyonara/){:target="_blank"})
@@ -100,7 +100,7 @@ I love spending my free time:
 
 <div style="page-break-after: always"></div>
 
-## Publications
+<h2 id="publications">Publications</h2>
 
 I mostly published prior to joining the industry, in the fields of **point cloud processing** and **3D reconstruction from LiDAR acquisitions** of cultural heritage sites.
 More recently, my research interests have also expanded towards **image processing** and **machine learning** of medical images.
