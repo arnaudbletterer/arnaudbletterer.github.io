@@ -144,7 +144,7 @@ More recently, my research interests have also expanded towards **image processi
       <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini</div>
       <div class="pub-venue">IEEE TVCG</div>
     </div>
-    <img class="pub-image" src="trailer_1.png" alt="3D point cloud reconstruction visualization of cultural heritage site"/>
+    <img class="pub-image" src="media/trailer_1.png" alt="3D point cloud reconstruction visualization of cultural heritage site"/>
   </div>
 
   <div class="publication-card">
@@ -154,7 +154,7 @@ More recently, my research interests have also expanded towards **image processi
       <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, Marc Antonini, and Anis Meftah</div>
       <div class="pub-venue">SGP</div>
     </div>
-    <img class="pub-image" src="trailer_2.png" alt="Close-up of structured point cloud data detailing surface normals"/>
+    <img class="pub-image" src="media/trailer_2.png" alt="Close-up of structured point cloud data detailing surface normals"/>
   </div>
 
   <div class="publication-card">
