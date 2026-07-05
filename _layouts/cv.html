@@ -183,7 +183,9 @@
       // Scroll-spy: use IntersectionObserver for reliable detection across all scroll methods
       function updateActiveOnScroll() {
         const triggerY = window.innerHeight * 0.2;
-        let activeId = null;
+        // Default to 'top' so the Profile link is highlighted when the user
+        // is above all section headings
+        let activeId = 'top';
         for (let i = 0; i < headings.length; i++) {
           const rect = headings[i].getBoundingClientRect();
           if (rect.top <= triggerY) {
@@ -192,11 +194,7 @@
             break;
           }
         }
-        if (activeId) {
-          setActive(activeId);
-        } else {
-          clearActive();
-        }
+        setActive(activeId);
       }
 
       // Handle "Top" link click
@@ -205,7 +203,7 @@
         topLink.addEventListener('click', (e) => {
           e.preventDefault();
           window.scrollTo({ top: 0, behavior: 'smooth' });
-          clearActive();
+          setActive('top');
           if (isMobile()) {
             setMenuOpen(false);
           }
