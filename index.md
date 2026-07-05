@@ -107,75 +107,57 @@ More recently, my research interests have also expanded towards **image processi
 
 <div class="publications-list">
 
-  <div class="publication-card">
+  <div class="publication-card no-image">
     <div class="pub-info">
       <div class="pub-year"><code>2025</code></div>
       <div class="pub-title">Objective Assessment of Target Vitiligo Areas by Semiautomatic Analysis of Standardized UV Images</div>
       <div class="pub-authors">Charles Jabour, <ins>Arnaud Bletterer</ins>, Thierry Passeron</div>
       <div class="pub-venue">JAMA dermatology</div>
     </div>
-    <div class="pub-image-wrapper" onerror="this.classList.add('hidden')">
-      <img class="pub-image" src="media/vitiligo_teaser.png" alt="Semiautomatic segmentation analysis of target vitiligo lesions under UV light" onerror="this.closest('.publication-card').classList.add('no-image'); this.closest('.pub-image-wrapper').remove();"/>
-    </div>
   </div>
 
-  <div class="publication-card">
+  <div class="publication-card no-image">
     <div class="pub-info">
       <div class="pub-year"><code>2024</code></div>
       <div class="pub-title">Automatic Acne Severity Grading with a Small and Imbalanced Data Set of Low-Resolution Images</div>
       <div class="pub-authors">Rémi Bernhard, <ins>Arnaud Bletterer</ins>, Maëlle Le Caro, Estrella García Álvarez, Belchin Kostov, and Diego Herrera Egea</div>
       <div class="pub-venue">Dermatology and Therapy</div>
     </div>
-    <div class="pub-image-wrapper">
-      <img class="pub-image" src="media/acne_teaser.png" alt="Acne severity classification heatmap and bounding boxes" onerror="this.closest('.publication-card').classList.add('no-image'); this.closest('.pub-image-wrapper').remove();"/>
-    </div>
   </div>
 
-  <div class="publication-card">
+  <div class="publication-card no-image">
     <div class="pub-info">
       <div class="pub-year"><code>2022</code></div>
       <div class="pub-title">Graph-based Computation of Voronoi Diagrams on Large-scale Point-based Surfaces</div>
       <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini</div>
       <div class="pub-venue">Eurographics</div>
     </div>
-    <div class="pub-image-wrapper">
-      <img class="pub-image" src="media/voronoi_teaser.png" alt="Voronoi cell computation and geodesic distances on 3D mesh surface"/>
-    </div>
   </div>
 
-  <div class="publication-card">
+  <div class="publication-card no-image">
     <div class="pub-info">
       <div class="pub-year"><code>2020</code></div>
       <div class="pub-title">A local graph-based structure for processing gigantic aggregated 3D point clouds</div>
       <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini</div>
       <div class="pub-venue">IEEE TVCG</div>
     </div>
-    <div class="pub-image-wrapper">
-      <img class="pub-image" src="media/trailer_1.png" alt="3D point cloud reconstruction visualization of cultural heritage site"/>
-    </div>
   </div>
 
-  <div class="publication-card">
+  <div class="publication-card no-image">
     <div class="pub-info">
       <div class="pub-year"><code>2018</code></div>
       <div class="pub-title">Out-of-core Resampling of Gigantic Point Clouds</div>
       <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, Marc Antonini, and Anis Meftah</div>
       <div class="pub-venue">SGP</div>
     </div>
-    <div class="pub-image-wrapper">
-      <img class="pub-image" src="media/trailer_2.png" alt="Close-up of structured point cloud data detailing surface normals"/>
-    </div>
   </div>
 
-  <div class="publication-card">
+  <div class="publication-card no-image">
     <div class="pub-info">
       <div class="pub-year"><code>2016</code></div>
       <div class="pub-title">Point cloud compression using depth maps</div>
       <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, Marc Antonini, and Anis Meftah</div>
       <div class="pub-venue">Electronic Imaging</div>
-    </div>
-    <div class="pub-image-wrapper">
-      <img class="pub-image" src="media/compression_teaser.png" alt="Projection of 3D point clouds into multi-view 2D depth maps for compression"/>
     </div>
   </div>
 

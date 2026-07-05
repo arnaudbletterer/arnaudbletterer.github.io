@@ -55,41 +55,5 @@
       localStorage.setItem('theme', newTheme);
     });
   </script>
-
-  <!-- Lightbox for publication figures -->
-  <div class="lightbox" id="pub-lightbox" role="dialog" aria-modal="true" aria-label="Figure preview">
-    <img src="" alt="" id="pub-lightbox-img"/>
-  </div>
-  <script>
-    (function() {
-      var lightbox = document.getElementById('pub-lightbox');
-      var lightboxImg = document.getElementById('pub-lightbox-img');
-
-      // Open lightbox on any .pub-image-wrapper click
-      document.querySelectorAll('.pub-image-wrapper').forEach(function(wrapper) {
-        wrapper.addEventListener('click', function() {
-          var img = wrapper.querySelector('.pub-image');
-          if (!img) return;
-          lightboxImg.src = img.src;
-          lightboxImg.alt = img.alt;
-          lightbox.classList.add('active');
-          document.body.style.overflow = 'hidden';
-        });
-      });
-
-      // Close on click outside image or press Escape
-      lightbox.addEventListener('click', function() {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-      });
-
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          lightbox.classList.remove('active');
-          document.body.style.overflow = '';
-        }
-      });
-    })();
-  </script>
 </body>
 </html>
