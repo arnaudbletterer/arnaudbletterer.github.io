@@ -114,7 +114,9 @@ More recently, my research interests have also expanded towards **image processi
       <div class="pub-authors">Charles Jabour, <ins>Arnaud Bletterer</ins>, Thierry Passeron</div>
       <div class="pub-venue">JAMA dermatology</div>
     </div>
-    <img class="pub-image" src="media/vitiligo_teaser.png" alt="Semiautomatic segmentation analysis of target vitiligo lesions under UV light" onerror="this.parentNode.classList.add('no-image'); this.remove();"/>
+    <div class="pub-image-wrapper" onerror="this.classList.add('hidden')">
+      <img class="pub-image" src="media/vitiligo_teaser.png" alt="Semiautomatic segmentation analysis of target vitiligo lesions under UV light" onerror="this.closest('.publication-card').classList.add('no-image'); this.closest('.pub-image-wrapper').remove();"/>
+    </div>
   </div>
 
   <div class="publication-card">
@@ -124,7 +126,9 @@ More recently, my research interests have also expanded towards **image processi
       <div class="pub-authors">Rémi Bernhard, <ins>Arnaud Bletterer</ins>, Maëlle Le Caro, Estrella García Álvarez, Belchin Kostov, and Diego Herrera Egea</div>
       <div class="pub-venue">Dermatology and Therapy</div>
     </div>
-    <img class="pub-image" src="media/acne_teaser.png" alt="Acne severity classification heatmap and bounding boxes" onerror="this.parentNode.classList.add('no-image'); this.remove();"/>
+    <div class="pub-image-wrapper">
+      <img class="pub-image" src="media/acne_teaser.png" alt="Acne severity classification heatmap and bounding boxes" onerror="this.closest('.publication-card').classList.add('no-image'); this.closest('.pub-image-wrapper').remove();"/>
+    </div>
   </div>
 
   <div class="publication-card">
@@ -134,7 +138,9 @@ More recently, my research interests have also expanded towards **image processi
       <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini</div>
       <div class="pub-venue">Eurographics</div>
     </div>
-    <img class="pub-image" src="media/voronoi_teaser.png" alt="Voronoi cell computation and geodesic distances on 3D mesh surface" onerror="this.parentNode.classList.add('no-image'); this.remove();"/>
+    <div class="pub-image-wrapper">
+      <img class="pub-image" src="media/voronoi_teaser.png" alt="Voronoi cell computation and geodesic distances on 3D mesh surface"/>
+    </div>
   </div>
 
   <div class="publication-card">
@@ -144,7 +150,9 @@ More recently, my research interests have also expanded towards **image processi
       <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini</div>
       <div class="pub-venue">IEEE TVCG</div>
     </div>
-    <img class="pub-image" src="media/trailer_1.png" alt="3D point cloud reconstruction visualization of cultural heritage site"/>
+    <div class="pub-image-wrapper">
+      <img class="pub-image" src="media/trailer_1.png" alt="3D point cloud reconstruction visualization of cultural heritage site"/>
+    </div>
   </div>
 
   <div class="publication-card">
@@ -154,7 +162,9 @@ More recently, my research interests have also expanded towards **image processi
       <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, Marc Antonini, and Anis Meftah</div>
       <div class="pub-venue">SGP</div>
     </div>
-    <img class="pub-image" src="media/trailer_2.png" alt="Close-up of structured point cloud data detailing surface normals"/>
+    <div class="pub-image-wrapper">
+      <img class="pub-image" src="media/trailer_2.png" alt="Close-up of structured point cloud data detailing surface normals"/>
+    </div>
   </div>
 
   <div class="publication-card">
@@ -164,7 +174,9 @@ More recently, my research interests have also expanded towards **image processi
       <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, Marc Antonini, and Anis Meftah</div>
       <div class="pub-venue">Electronic Imaging</div>
     </div>
-    <img class="pub-image" src="media/compression_teaser.png" alt="Projection of 3D point clouds into multi-view 2D depth maps for compression" onerror="this.parentNode.classList.add('no-image'); this.remove();"/>
+    <div class="pub-image-wrapper">
+      <img class="pub-image" src="media/compression_teaser.png" alt="Projection of 3D point clouds into multi-view 2D depth maps for compression"/>
+    </div>
   </div>
 
 </div>
