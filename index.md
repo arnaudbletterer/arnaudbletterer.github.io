@@ -85,8 +85,8 @@ __Bachelor in Computer Science__, Université de Strasbourg
 
 <div class="languages-table" markdown="1">
 
-| French :fr: : native speaker | German :de: : school level |
-| English :gb:/:us: : professional use | Russian :ru: : beginner |
+| French 🇫🇷 : native speaker | German 🇩🇪 : school level |
+| English 🇬🇧/🇺🇸 : professional use | Russian 🇷🇺 : beginner |
 
 </div>
 
