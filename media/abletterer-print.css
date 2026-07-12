@@ -87,6 +87,10 @@ table {
 	margin: 1.5cm 1.5cm 1.5cm 1.5cm;
 }
 
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
 * {
 	-webkit-print-color-adjust: exact !important;
 	print-color-adjust: exact !important;
@@ -108,6 +112,7 @@ body {
 	row-gap: 0.4em;
 	width: 100%;
 	align-items: baseline; /* Align headers and text perfectly on typographic baseline */
+	padding-right: 5pt;
 }
 
 /* Hide the PDF download link, theme toggle, nav, and lightbox when printing to the PDF itself */
@@ -323,11 +328,13 @@ div[style*="page-break-after"] {
 .publications-list {
 	grid-column: 2;
 	width: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 12pt;
+	display: block;
 	margin-bottom: 1.5em;
 	box-sizing: border-box;
+}
+
+.publications-list .publication-card + .publication-card {
+	margin-top: 12pt;
 }
 
 .publication-card {
@@ -397,32 +404,35 @@ table {
 }
 
 .skills-table td:last-child {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 5pt;
+	display: block;
+}
+
+.skills-table td:last-child code {
+	margin-right: 5pt;
+	margin-bottom: 5pt;
 }
 
 .languages-table table {
 	width: 100%;
 	margin-bottom: 1.2em;
+	border-collapse: separate;
+	border-spacing: 15pt 0.6em;
+	margin-left: -15pt;
 }
 
 .languages-table tr {
-	display: flex;
-	gap: 15pt;
-	margin-bottom: 0.6em;
+	/* Keep standard table row rendering */
 }
 
 .languages-table td {
-	flex: 1;
+	width: 50%;
 	padding: 0.5em 0.8em;
 	background-color: rgba(0, 65, 170, 0.02);
 	border: 1px solid rgba(0, 65, 170, 0.06);
 	border-radius: 6px;
 	font-size: 9pt;
 	box-sizing: border-box;
-	display: flex;
-	align-items: center;
+	vertical-align: middle;
 }
 
 .inline-icon {
