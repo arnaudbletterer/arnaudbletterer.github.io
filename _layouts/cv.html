@@ -2,21 +2,29 @@
 <html lang="en">
 <head>
   <meta charset=utf-8 />
-  <title> {% if page.title %} {{ page.title }} | {% endif %} CV</title>
+  <title>{% if page.title %}{{ page.title | strip }} - CV{% else %}CV{% endif %} | Arnaud Bletterer</title>
   <meta name="description" content="Arnaud Bletterer - Research Team Leader & Research Engineer specializing in Computer Graphics, Image/Geometry Processing, and Machine Learning." />
   <meta name="keywords" content="Arnaud Bletterer, Research Scientist, Research Team Leader, Research Engineer, Computer Graphics, Image Processing, Geometry Processing, Machine Learning, Resume, CV" />
   
+  <!-- Canonical -->
+  <link rel="canonical" href="{{ site.url }}/resume.html" />
+
   <!-- Open Graph / Facebook / LinkedIn -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="{% if page.title %}{{ page.title }} - CV{% else %}Arnaud Bletterer - CV{% endif %}" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="{% if page.title %}{{ page.title | strip }} - CV{% else %}Arnaud Bletterer - CV{% endif %}" />
   <meta property="og:description" content="Research Team Leader & Research Engineer specializing in Computer Graphics, Image/Geometry Processing, and Machine Learning." />
-  <meta property="og:image" content="profile.jpg" />
+  <meta property="og:url" content="{{ site.url }}/resume.html" />
+  <meta property="og:image" content="{{ site.url }}/profile.jpg" />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary" />
-  <meta property="twitter:title" content="{% if page.title %}{{ page.title }} - CV{% else %}Arnaud Bletterer - CV{% endif %}" />
-  <meta property="twitter:description" content="Research Team Leader & Research Engineer specializing in Computer Graphics, Image/Geometry Processing, and Machine Learning." />
-  <meta property="twitter:image" content="profile.jpg" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{% if page.title %}{{ page.title | strip }} - CV{% else %}Arnaud Bletterer - CV{% endif %}" />
+  <meta name="twitter:description" content="Research Team Leader & Research Engineer specializing in Computer Graphics, Image/Geometry Processing, and Machine Learning." />
+  <meta name="twitter:image" content="{{ site.url }}/profile.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ site.url }}/profile.jpg" />
 
   <link href="media/{{ site.style }}-screen.css" type="text/css" rel="stylesheet" media="screen">
   <link href="media/{{ site.style }}-print.css" type="text/css" rel="stylesheet" media="print">
