@@ -179,7 +179,7 @@ table {
 }
 
 body {
-	font: normal normal 400 100%/1.5em Montserrat;
+	font: normal normal 400 100%/1.5em 'Inter', 'Montserrat', sans-serif;
 	color: var(--text-color);
 	background-color: var(--bg-color);
 	transition: background-color 0.3s ease, color 0.3s ease;
@@ -257,41 +257,46 @@ h1 + p {
 }
 
 #webaddress {
-	grid-column: 2;
-	grid-row: 4;
-	color: var(--primary-blue);
-	font-size: 100%;
-	margin-bottom: 1.5em;
-	align-self: start;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+	align-items: center;
+	margin-top: 0.75rem;
+	margin-bottom: 2rem;
 }
 
-#webaddress a.pdf-link {
-	display: inline-block;
+#webaddress a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.4rem 0.85rem;
+	border-radius: 999px;
+	font-size: 0.82rem;
+	font-weight: 500;
+	line-height: 1;
+	border: 1px solid var(--badge-border);
+	background: var(--badge-bg);
+	color: var(--primary-blue) !important;
+	text-decoration: none;
+	transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+	vertical-align: middle;
+	box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+#webaddress a:hover {
 	background-color: var(--primary-blue);
 	color: #ffffff !important;
-	padding: 3px 10px 4px;
-	border-radius: 4px;
-	font-size: 0.85em;
-	margin-right: 0.3em;
-	transition: background-color 0.2s ease, transform 0.1s ease;
-	vertical-align: baseline;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	border-color: var(--primary-blue);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 18px var(--shadow-hover);
 }
 
-#webaddress a.pdf-link:hover {
-	background-color: #0056b3;
-	color: #ffffff !important;
-	transform: translateY(-0.5px);
-}
-
-#webaddress a.pdf-link:active {
+#webaddress a:active {
 	transform: translateY(0);
 }
 
 #webaddress .sep {
-	margin: 0 0.5em;
-	color: var(--primary-blue);
-	opacity: 0.35;
+	display: none;
 }
 
 /* Layout for sections, CV details, and lists */

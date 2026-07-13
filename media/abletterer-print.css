@@ -115,8 +115,8 @@ body {
 	padding-right: 5pt;
 }
 
-/* Hide the PDF download link, theme toggle, nav, and lightbox when printing to the PDF itself */
-#pdf-download, .pdf-link, #theme-toggle, #nav-toggle, #section-toc, .lightbox {
+/* Hide the PDF download link, theme toggle, nav, lightbox, and interactive demo links when printing */
+#pdf-download, .pdf-link, #theme-toggle, #nav-toggle, #section-toc, .lightbox, .pub-demo-link {
 	display: none !important;
 	visibility: hidden !important;
 }
