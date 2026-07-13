@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} | Arnaud Bletterer</title>
+  
+  <!-- Theme Initialization blocking script to prevent Flash of Unstyled Content -->
+  <script>
+    (function() {
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme) {
+        document.documentElement.setAttribute('data-theme', storedTheme);
+      } else {
+        const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', userPrefersDark ? 'dark' : 'light');
+      }
+    })();
+  </script>
+  
+  <!-- KaTeX CSS & JS for LaTeX Math Formulas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  
+  <!-- Marked Markdown Parser CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/lib/marked.umd.min.js"></script>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: rgb(0, 65, 170);
+      --primary-hover: #0056b3;
+      --primary-light: rgba(0, 65, 170, 0.08);
+      --primary-border: rgba(0, 65, 170, 0.12);
+      
+      --bg: #f8f9fc;
+      --card: #ffffff;
+      --border: rgba(0, 65, 170, 0.1);
+      --text: #1a1d2e;
+      --text-muted: #64748b;
+      
+      --shadow: 0 4px 24px rgba(0, 65, 170, 0.07);
+      
+      /* Canvas elements custom styling variables */
+      --cell-stroke: #1e293b;                /* Stays dark in light theme */
+      --boundary-fill: rgba(148, 163, 184, 0.2);
+    }
+
+    [data-theme="dark"] {
+      --primary: rgb(96, 165, 250);         /* High-contrast sky blue for dark mode */
+      --primary-hover: #93c5fd;
+      --primary-light: rgba(96, 165, 250, 0.15);
+      --primary-border: rgba(96, 165, 250, 0.18);
+      
+      --bg: #0f1117;
+      --card: #181c2a;
+      --border: rgba(96, 165, 250, 0.18);
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+      
+      /* Canvas elements dark mode styling variables */
+      --cell-stroke: #0f172a;                /* Stays dark (near-black) in dark theme */
+      --boundary-fill: rgba(51, 65, 85, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Montserrat', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    /* Header Nav */
+    .site-header {
+      background-color: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: var(--shadow);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--primary);
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background-color: var(--primary-light);
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      color: #ffffff;
+      border-color: var(--primary);
+      background-color: var(--primary);
+      text-decoration: none;
+      transform: translateY(-1.5px);
+    }
+
+    /* Go-further card */
+    .go-further-card {
+      text-align: center;
+    }
+    .go-further-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .go-further-card p {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Toolbox row in the workspace (Canvas Tools + Go Further) */
+    .workspace-row {
+      display: flex;
+      gap: 1rem;
+      width: 100%;
+      max-width: 600px;
+    }
+    .toolbox-card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .toolbox-card h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+    }
+    .toolbox-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+    }
+    .toolbox-card .btn-primary {
+      margin-top: 0;
+    }
+
+    /* Page transitions */
+    @keyframes page-fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    body { animation: page-fade-in 0.35s ease both; }
+
+    .header-title h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .header-title p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Main Layout Grid */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 2rem;
+      padding: 2rem;
+      flex: 1;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 1024px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+      }
+    }
+
+    /* Didactic Guide Sidebar */
+    .guide-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      height: fit-content;
+    }
+
+    .guide-card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* Stepper Progress bar */
+    .stepper {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .step-dot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .step-dot.active {
+      border-color: var(--primary);
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .step-dot.completed {
+      border-color: var(--primary);
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    /* Stepper Content */
+    .step-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .step-content h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    .step-description {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    
+    .step-description p {
+      margin-bottom: 0.5rem;
+    }
+
+    /* UX Callout Boxes */
+    .callout-box {
+      font-size: 0.84rem;
+      border-radius: 8px;
+      padding: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .callout-action {
+      background-color: rgba(245, 158, 11, 0.06);
+      border-left: 4px solid #f59e0b;
+      border-top: 1px solid rgba(245, 158, 11, 0.1);
+      border-bottom: 1px solid rgba(245, 158, 11, 0.1);
+      border-right: 1px solid rgba(245, 158, 11, 0.1);
+      color: var(--text);
+    }
+
+    .callout-action strong {
+      color: #d97706;
+    }
+
+    .callout-takeaway {
+      background-color: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      border-top: 1px solid var(--primary-border);
+      border-bottom: 1px solid var(--primary-border);
+      border-right: 1px solid var(--primary-border);
+      color: var(--text);
+    }
+
+    .callout-takeaway strong {
+      color: var(--primary);
+    }
+
+    /* Navigation buttons */
+    .stepper-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.4rem 0.85rem;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 500;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background-color: var(--primary-soft);
+      color: var(--primary);
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+      gap: 0.5rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn:hover {
+      background-color: var(--primary);
+      color: #ffffff !important;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 65, 170, 0.15);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff !important;
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      background-color: transparent;
+      color: var(--text-muted);
+      border-color: var(--border);
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--primary-soft);
+      color: var(--primary) !important;
+      border-color: var(--primary);
+    }
+
+    /* Workspace Content Area */
+    .workspace-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .viewport-card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 600px;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .viewport-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-left: 3px solid var(--primary);
+      padding-left: 0.5rem;
+    }
+
+    .svg-container {
+      width: 100%;
+      position: relative;
+    }
+
+    .svg-container svg {
+      display: block;
+      width: 100% !important;
+      height: auto !important;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background-color: var(--card); /* Match card background to integrate perfectly in dark mode */
+      touch-action: none;
+      box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    /* Styles for visualizer centroids - site contour (stroke) stays dark */
+    .sites circle {
+      fill: #ffffff !important;
+      stroke: var(--cell-stroke) !important;   /* Aligned with cell borders to stay dark in both themes */
+      stroke-width: 1.5px !important;
+      r: 4px !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    /* Theme Toggle Button Styling */
+    .theme-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      transition: all 0.2s;
+    }
+
+    .theme-btn:hover {
+      background-color: var(--primary-light);
+      border-color: var(--primary-border);
+      color: var(--primary);
+    }
+
+    .theme-btn svg {
+      width: 18px !important;
+      height: 18px !important;
+      display: block;
+    }
+
+    /* Toggle Sun/Moon visibility based on active theme */
+    [data-theme="light"] .theme-btn .sun-icon {
+      display: none;
+    }
+    [data-theme="light"] .theme-btn .moon-icon {
+      display: block;
+    }
+    [data-theme="dark"] .theme-btn .sun-icon {
+      display: block;
+    }
+    [data-theme="dark"] .theme-btn .moon-icon {
+      display: none;
+    }
+
+    /* Mathematical Tooltip styling */
+    .math-tooltip {
+      position: absolute;
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-left-width: 3px; /* Colored accent left bar — set per-term below */
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      z-index: 100;
+      max-width: 280px;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: var(--text);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(4px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      pointer-events: none;
+    }
+
+    .math-tooltip.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* Per-term color for left border + title */
+    .math-tooltip[data-term-class="math-term-vi"] .math-tooltip-title,
+    .math-tooltip[data-term-class="math-term-sik"] .math-tooltip-title,
+    .math-tooltip[data-term-class="math-term-bsi"] .math-tooltip-title { color: rgb(29, 78, 216); }
+    .math-tooltip[data-term-class="math-term-vi"],
+    .math-tooltip[data-term-class="math-term-sik"],
+    .math-tooltip[data-term-class="math-term-bsi"] { border-left-color: rgb(59, 130, 246); }
+
+    .math-tooltip[data-term-class="math-term-x"] .math-tooltip-title,
+    .math-tooltip[data-term-class="math-term-integral-top"] .math-tooltip-title,
+    .math-tooltip[data-term-class="math-term-union"] .math-tooltip-title { color: rgb(109, 40, 217); }
+    .math-tooltip[data-term-class="math-term-x"],
+    .math-tooltip[data-term-class="math-term-integral-top"],
+    .math-tooltip[data-term-class="math-term-union"] { border-left-color: rgb(139, 92, 246); }
+
+    .math-tooltip[data-term-class="math-term-omega"] .math-tooltip-title,
+    .math-tooltip[data-term-class="math-term-integral-bottom"] .math-tooltip-title { color: rgb(4, 120, 87); }
+    .math-tooltip[data-term-class="math-term-omega"],
+    .math-tooltip[data-term-class="math-term-integral-bottom"] { border-left-color: rgb(16, 185, 129); }
+
+    .math-tooltip[data-term-class="math-term-dxs"] .math-tooltip-title,
+    .math-tooltip[data-term-class="math-term-vertices"] .math-tooltip-title { color: rgb(180, 83, 9); }
+    .math-tooltip[data-term-class="math-term-dxs"],
+    .math-tooltip[data-term-class="math-term-vertices"] { border-left-color: rgb(245, 158, 11); }
+
+    .math-tooltip[data-term-class="math-term-dxs2"] .math-tooltip-title,
+    .math-tooltip[data-term-class="math-term-disk"] .math-tooltip-title { color: rgb(190, 24, 74); }
+    .math-tooltip[data-term-class="math-term-dxs2"],
+    .math-tooltip[data-term-class="math-term-disk"] { border-left-color: rgb(244, 63, 94); }
+
+    .math-tooltip[data-term-class="math-term-forall"] .math-tooltip-title { color: rgb(67, 56, 202); }
+    .math-tooltip[data-term-class="math-term-forall"] { border-left-color: rgb(99, 102, 241); }
+
+    .math-tooltip-title {
+      font-weight: 700;
+      color: var(--primary); /* Overridden per-term above */
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .math-tooltip-term {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      background-color: var(--primary-light);
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+      border: 1px solid var(--primary-border);
+      color: inherit; /* Inherit the per-term title color */
+    }
+
+    /* Prevent display math overflow in sidebar */
+    .katex-display {
+      overflow: visible !important;
+      max-width: 100% !important;
+      padding: 0.5rem 0 !important;
+      font-size: 0.82rem; /* Scale down so it fits completely without scrollbar */
+      text-align: center;
+    }
+
+    /* Math term pill styles — only safe properties that don't break KaTeX layout */
+    .katex [class*="math-term-"] {
+      transition: background-color 0.15s ease, box-shadow 0.15s ease;
+      border-radius: 3px;
+      /* Horizontal padding gives breathing room without breaking fractions/subscripts */
+      padding: 0.15em;
+      margin: 0 0.04em;
+    }
+
+    /* Light Theme — Color Coding */
+    .katex .math-term-vi,
+    .katex .math-term-sik,
+    .katex .math-term-bsi {
+      color: rgb(29, 78, 216) !important;
+      background-color: rgba(59, 130, 246, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.35);
+    }
+    .katex .math-term-x,
+    .katex .math-term-integral-top,
+    .katex .math-term-union {
+      color: rgb(109, 40, 217) !important;
+      background-color: rgba(139, 92, 246, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.35);
+    }
+    .katex .math-term-omega,
+    .katex .math-term-integral-bottom {
+      color: rgb(4, 120, 87) !important;
+      background-color: rgba(16, 185, 129, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.35);
+    }
+    .katex .math-term-dxs,
+    .katex .math-term-vertices {
+      color: rgb(180, 83, 9) !important;
+      background-color: rgba(245, 158, 11, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.35);
+    }
+    .katex .math-term-dxs2,
+    .katex .math-term-disk {
+      color: rgb(190, 24, 74) !important;
+      background-color: rgba(244, 63, 94, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(244, 63, 94, 0.35);
+    }
+    .katex .math-term-forall {
+      color: rgb(67, 56, 202) !important;
+      background-color: rgba(99, 102, 241, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(99, 102, 241, 0.35);
+    }
+
+    /* Dark Theme */
+    [data-theme="dark"] .katex .math-term-vi,
+    [data-theme="dark"] .katex .math-term-sik,
+    [data-theme="dark"] .katex .math-term-bsi {
+      color: rgb(147, 197, 253) !important;
+      background-color: rgba(96, 165, 250, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.4);
+    }
+    [data-theme="dark"] .katex .math-term-x,
+    [data-theme="dark"] .katex .math-term-integral-top,
+    [data-theme="dark"] .katex .math-term-union {
+      color: rgb(196, 181, 253) !important;
+      background-color: rgba(167, 139, 250, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(167, 139, 250, 0.4);
+    }
+    [data-theme="dark"] .katex .math-term-omega,
+    [data-theme="dark"] .katex .math-term-integral-bottom {
+      color: rgb(110, 231, 183) !important;
+      background-color: rgba(52, 211, 153, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(52, 211, 153, 0.4);
+    }
+    [data-theme="dark"] .katex .math-term-dxs,
+    [data-theme="dark"] .katex .math-term-vertices {
+      color: rgb(252, 211, 77) !important;
+      background-color: rgba(251, 191, 36, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.4);
+    }
+    [data-theme="dark"] .katex .math-term-dxs2,
+    [data-theme="dark"] .katex .math-term-disk {
+      color: rgb(253, 164, 175) !important;
+      background-color: rgba(251, 113, 133, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(251, 113, 133, 0.4);
+    }
+    [data-theme="dark"] .katex .math-term-forall {
+      color: rgb(165, 180, 252) !important;
+      background-color: rgba(129, 140, 248, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(129, 140, 248, 0.4);
+    }
+
+    /* Hover — darken background only, no layout changes */
+    .katex .math-term-vi:hover, .katex .math-term-sik:hover, .katex .math-term-bsi:hover {
+      background-color: rgba(59, 130, 246, 0.22) !important;
+      box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.6) !important;
+    }
+    .katex .math-term-x:hover, .katex .math-term-integral-top:hover, .katex .math-term-union:hover {
+      background-color: rgba(139, 92, 246, 0.22) !important;
+      box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.6) !important;
+    }
+    .katex .math-term-omega:hover, .katex .math-term-integral-bottom:hover {
+      background-color: rgba(16, 185, 129, 0.22) !important;
+      box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.6) !important;
+    }
+    .katex .math-term-dxs:hover, .katex .math-term-vertices:hover {
+      background-color: rgba(245, 158, 11, 0.22) !important;
+      box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.6) !important;
+    }
+    .katex .math-term-dxs2:hover, .katex .math-term-disk:hover {
+      background-color: rgba(244, 63, 94, 0.22) !important;
+      box-shadow: inset 0 0 0 1px rgba(244, 63, 94, 0.6) !important;
+    }
+    .katex .math-term-forall:hover {
+      background-color: rgba(99, 102, 241, 0.22) !important;
+      box-shadow: inset 0 0 0 1px rgba(99, 102, 241, 0.6) !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header Nav -->
+  <header class="site-header">
+    <div class="header-left">
+      <a href="/" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Home
+      </a>
+      <div class="header-title">
+        <h1>{{ page.title }}</h1>
+        <p>An interactive exploration of Lloyd's relaxation and distance-bounded Voronoi partitioning</p>
+      </div>
+    </div>
+    
+    <div class="header-right">
+      <div class="status-badges">
+        <div class="badge badge-primary">
+          Step <span id="current-step-badge">1</span> of 4
+        </div>
+      </div>
+      <button class="theme-btn" id="theme-toggle-btn" aria-label="Toggle Theme">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Layout Grid -->
+  <div class="main-layout">
+    
+    <!-- Sidebar - Didactic Guide -->
+    <aside class="guide-panel">
+      <div class="guide-card">
+        <!-- Stepper header -->
+        <div class="stepper">
+          <div class="step-dot active" id="step-dot-1" onclick="setStep(1)">1</div>
+          <div class="step-dot" id="step-dot-2" onclick="setStep(2)">2</div>
+          <div class="step-dot" id="step-dot-3" onclick="setStep(3)">3</div>
+          <div class="step-dot" id="step-dot-4" onclick="setStep(4)">4</div>
+        </div>
+
+        <!-- Step content -->
+        <div class="step-content" id="step-container">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Stepper Navigation buttons -->
+        <div class="stepper-nav">
+          <button class="btn" id="prev-btn" onclick="prevStep()">← Previous</button>
+          <button class="btn btn-primary" id="next-btn" onclick="nextStep()">Next Step →</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Workspace Content Area -->
+    <main class="workspace-content">
+
+      <!-- SVG Viewport -->
+      <div class="viewport-card">
+        <h3 id="main-canvas-title">Interactive Sandbox</h3>
+        <div class="svg-container">
+          <svg width="600" height="500" viewBox="0 0 600 500" id="main_svg">
+            <defs>
+              <clipPath id="clip-known-domain">
+                <path id="clip-known-path" />
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Action Card - Canvas Tools (below canvas for visibility) -->
+      <div class="workspace-row">
+        <div class="toolbox-card">
+          <h2>Canvas Tools</h2>
+          <div class="toolbox-buttons">
+            <button class="btn btn-secondary" onclick="clearCanvasUI()">Clear Canvas / Reset</button>
+            <button class="btn btn-secondary" onclick="exportMainSVG()">Export SVG Illustration</button>
+          </div>
+        </div>
+        <div class="toolbox-card go-further-card">
+          <div class="go-further-icon">📖</div>
+          <h2>Go Further</h2>
+          <p>This demo is based on some research work presented in my doctoral thesis on graph-based approaches to massive point cloud processing (in french).</p>
+          <a href="https://theses.hal.science/tel-02099777" target="_blank" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:0.4rem;text-decoration:none;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Read the Thesis
+          </a>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- D3.js v4 CDN -->
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+
+  <!-- Original JS Scripts -->
+  <script src="voronoi.js"></script>
+  <script src="FileSaver.js"></script>
+  <script src="voronoi_bassin.js"></script>
+  <script src="main.js"></script>
+
+  <script>
+    // Theme Management Click Listener
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const target = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', target);
+        localStorage.setItem('theme', target);
+      });
+    }
+
+    // Page-exit transition: fade body out before navigating away
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href]');
+      if (!a) return;
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('http') || a.target === '_blank') return;
+      e.preventDefault();
+      document.body.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      document.body.style.opacity = '0';
+      document.body.style.transform = 'translateY(-8px)';
+      setTimeout(() => { window.location.href = href; }, 260);
+    });
+
+    // Define the wobbly center-domain boundary
+    function isInsideKnownDomain(p) {
+      const dx = p[0] - 300;
+      const dy = p[1] - 250;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      const angle = Math.atan2(dy, dx);
+      
+      // Irregular, natural boundary formula
+      const r_boundary = 160 + 18 * Math.sin(6 * angle) + 12 * Math.cos(4 * angle);
+      return dist <= r_boundary;
+    }
+
+    // Generate path definition for wobbly boundary
+    function getBoundaryPathString() {
+      const n_points = 72;
+      let points = [];
+      for (let i = 0; i < n_points; ++i) {
+        const angle = (i * 2 * Math.PI) / n_points;
+        const r_boundary = 160 + 18 * Math.sin(6 * angle) + 12 * Math.cos(4 * angle);
+        const bx = 300 + r_boundary * Math.cos(angle);
+        const by = 250 + r_boundary * Math.sin(angle);
+        points.push(bx.toFixed(1) + "," + by.toFixed(1));
+      }
+      return "M" + points.join("L") + "Z";
+    }
+
+    // Set clip path attribute dynamically
+    d3.select("#clip-known-path").attr("d", getBoundaryPathString());
+
+    // DOM node caches to avoid costly live DOM collection queries during 60fps animations
+    var cachedPolyPaths = [];
+    var cachedSiteCircles = [];
+
+    // Persistent backup of all sites ever created (never filtered), so switching
+    // between bounded (steps 3/4) and unbounded (steps 1/2) modes doesn't lose sites.
+    var sitesAll = [];
+    var sitesAll_color = [];
+    var sitesAll_mobility = [];
+
+    // Generate virtual boundary sites along wobbly perimeter
+    function initBoundarySites() {
+      line_sites_only = [];
+      const n_points = 72;
+      for (let i = 0; i < n_points; ++i) {
+        const angle = (i * 2 * Math.PI) / n_points;
+        const r_boundary = 160 + 18 * Math.sin(6 * angle) + 12 * Math.cos(4 * angle);
+        const bx = 300 + r_boundary * Math.cos(angle);
+        const by = 250 + r_boundary * Math.sin(angle);
+        line_sites_only.push([bx, by]);
+      }
+    }
+
+    // Helper to pre-populate sites inside the wobbly domain.
+    // Keeps a full backup (sitesAll) so sites outside the "unknown region"
+    // are never lost when switching between steps 1/2 and 3/4.
+    // activeToAll maps active site index -> sitesAll index for coordinated updates.
+    var activeToAll = [];
+
+    function ensureInitialSites(insideWobbleOnly = false) {
+      if (sites.length > 0 || (sitesAll && sitesAll.length > 0)) {
+        if (insideWobbleOnly) {
+          // Switch to bounded mode: use only sites inside the known domain.
+          // Keep sitesAll as the complete backup; activeToAll tracks
+          // which sitesAll indices correspond to active sites.
+          var insideIdx = [];
+          for (var i = 0; i < sites.length; i++) {
+            if (isInsideKnownDomain(sites[i])) {
+              insideIdx.push(activeToAll[i]);
+            }
+          }
+          sites = insideIdx.map(function(j) { return sitesAll[j]; });
+          sites_color = insideIdx.map(function(j) { return sitesAll_color[j]; });
+          sites_mobility = insideIdx.map(function(j) { return sitesAll_mobility[j]; });
+          activeToAll = insideIdx.slice();
+          
+          if (sites.length < 5) {
+            for (let i = 0; i < (10 - sites.length); i++) {
+              let x, y;
+              do {
+                x = Math.random() * 400 + 100;
+                y = Math.random() * 360 + 70;
+              } while (!isInsideKnownDomain([x, y]));
+              
+              const chosen_color = chooseColorHSL(Math.floor(Math.random()*1000+1), 1000);
+              var idx = sitesAll.length;
+              sites.push([x, y]);
+              sites_color.push(chosen_color);
+              sites_mobility.push(true);
+              sitesAll.push([x, y]);
+              sitesAll_color.push(chosen_color);
+              sitesAll_mobility.push(true);
+              activeToAll.push(idx);
+            }
+          }
+          recomputeCellColors();
+        } else {
+          // Switch to unbounded mode: restore all sites from backup
+          sites = sitesAll.slice();
+          sites_color = sitesAll_color.slice();
+          sites_mobility = sitesAll_mobility.slice();
+          activeToAll = d3.range(sites.length);
+          recomputeCellColors();
+        }
+        return;
+      }
+      
+      const count = insideWobbleOnly ? 10 : 20;
+      for (let i = 0; i < count; i++) {
+        let x, y;
+        if (insideWobbleOnly) {
+          do {
+            x = Math.random() * 400 + 100;
+            y = Math.random() * 360 + 70;
+          } while (!isInsideKnownDomain([x, y]));
+        } else {
+          x = Math.random() * 500 + 50;
+          y = Math.random() * 400 + 50;
+        }
+        
+        const chosen_color = chooseColorHSL(Math.floor(Math.random()*1000+1), 1000);
+        sites.push([x, y]);
+        sites_color.push(chosen_color);
+        sites_mobility.push(true);
+        sitesAll.push([x, y]);
+        sitesAll_color.push(chosen_color);
+        sitesAll_mobility.push(true);
+      }
+      activeToAll = d3.range(sites.length);
+      recomputeCellColors();
+    }
+
+    // Safely parse Markdown while protecting Math blocks ($$...$$ and $...$) from being mangled by Marked
+    function parseMarkdownWithMath(text) {
+      const mathBlocks = [];
+      let placeholderCounter = 0;
+      
+      // Match block math ($$ ... $$)
+      let processedText = text.replace(/\$\$([\s\S]+?)\$\$/g, (match, math) => {
+        const placeholder = `MATHBLOCKPLACEHOLDER${placeholderCounter++}`;
+        mathBlocks.push({ placeholder, math, isBlock: true });
+        return placeholder;
+      });
+      
+      // Match inline math ($ ... $)
+      processedText = processedText.replace(/\$([^$\n]+?)\$/g, (match, math) => {
+        const placeholder = `MATHBLOCKPLACEHOLDER${placeholderCounter++}`;
+        mathBlocks.push({ placeholder, math, isBlock: false });
+        return placeholder;
+      });
+      
+      // Parse markdown text using marked.js
+      let html = marked.parse(processedText);
+      
+      // Put the pristine math blocks back
+      for (const block of mathBlocks) {
+        const delimiter = block.isBlock ? "$$" : "$";
+        const mathHtml = delimiter + block.math + delimiter;
+        html = html.replace(block.placeholder, () => mathHtml);
+      }
+      
+      return html;
+    }
+
+    // Didactic Guide Steps Content (Loaded from markdown front-matter variables via Jekyll Liquid)
+    const stepsData = {
+      {% for step in page.steps %}
+      {{ forloop.index }}: {
+        title: {{ step.title | jsonify }},
+        description: {{ step.description | jsonify }},
+        instruction: {{ step.instruction | jsonify }},
+        takeaway: {{ step.takeaway | jsonify }},
+        init: () => {
+          to_manipulate = {% if forloop.index == 3 %}false{% else %}true{% endif %};
+          to_relax = false;
+          if (update_timer) update_timer.stop();
+          
+          lines = [];
+          if (currentStep >= 3) {
+            initBoundarySites();
+            ensureInitialSites(true);
+          } else {
+            line_sites_only = [];
+            d3.selectAll(".lines line").remove();
+            ensureInitialSites(false);
+          }
+
+          if (currentStep === 1) {
+            document.getElementById('main-canvas-title').innerText = "Interactive Sandbox";
+          } else if (currentStep === 2) {
+            document.getElementById('main-canvas-title').innerText = "Interactive Centroidal Voronoi";
+          } else if (currentStep === 3) {
+            document.getElementById('main-canvas-title').innerText = "Voronoi Basin Influence Evaluation";
+            if (sites.length > 0 && last_cell_selected === -1) {
+              last_cell_selected = 0;
+            }
+          } else if (currentStep === 4) {
+            document.getElementById('main-canvas-title').innerText = "Lloyd Relaxation with Boundary Barrier";
+          }
+          
+          redraw();
+        }
+      },
+      {% endfor %}
+    };
+
+    let currentStep = 1;
+
+    function renderStep() {
+      const step = stepsData[currentStep];
+      const container = document.getElementById('step-container');
+      
+      // Parse markdown to HTML using our safe markdown-math compiler
+      const htmlDesc = parseMarkdownWithMath(step.description);
+      const htmlInst = parseMarkdownWithMath(step.instruction);
+      const htmlTakeaway = parseMarkdownWithMath(step.takeaway);
+      
+      // Dynamic controls generator based on step - Aligned titles and removed Basin button
+      let controlsHTML = '';
+      if (currentStep === 1) {
+        controlsHTML = `<button class="btn btn-primary" onclick="addSamplePoints()">Add Random Sites</button>`;
+      } else if (currentStep === 2) {
+        controlsHTML = `
+          <div style="display:flex; flex-direction:column; gap:0.5rem; width:100%;">
+            <button class="btn btn-primary" id="relax-btn-ui" onclick="toggleRelaxationUI()">Run Lloyd Relaxation</button>
+            <button class="btn" onclick="addSamplePoints()">Add Random Sites</button>
+          </div>
+        `;
+      } else if (currentStep === 3) {
+        controlsHTML = `
+          <div style="display:flex; flex-direction:column; gap:0.5rem; width:100%;">
+            <button class="btn btn-primary" onclick="addLeftSamplePoints()">Add Explored Sites</button>
+          </div>
+        `;
+      } else if (currentStep === 4) {
+        controlsHTML = `
+          <div style="display:flex; flex-direction:column; gap:0.5rem; width:100%;">
+            <button class="btn btn-primary" id="relax-btn-ui" onclick="toggleRelaxationUI()">Run Lloyd Relaxation</button>
+            <button class="btn" onclick="addLeftSamplePoints()">Add Explored Sites</button>
+          </div>
+        `;
+      }
+      
+      // Update badge
+      document.getElementById('current-step-badge').innerText = currentStep;
+      
+      // Render content HTML
+      container.innerHTML = `
+        <h2>${step.title}</h2>
+        <div class="step-description">${htmlDesc}</div>
+        <div class="callout-box callout-action">
+          ${htmlInst}
+        </div>
+        <div class="callout-box callout-takeaway">
+          ${htmlTakeaway}
+        </div>
+        <div class="step-controls" style="margin-top: 0.5rem; display: flex; width: 100%;">
+          ${controlsHTML}
+        </div>
+      `;
+
+      // Auto-render KaTeX math formulas with trust: true enabled to allow custom HTML classes
+      if (typeof renderMathInElement !== 'undefined') {
+        renderMathInElement(container, {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+          ],
+          trust: true,
+          strict: false
+        });
+      }
+
+      // Update stepper dots
+      for (let i = 1; i <= 4; i++) {
+        const dot = document.getElementById(`step-dot-${i}`);
+        dot.className = "step-dot";
+        if (i === currentStep) {
+          dot.classList.add('active');
+        } else if (i < currentStep) {
+          dot.classList.add('completed');
+        }
+      }
+
+      // Update nav buttons
+      document.getElementById('prev-btn').disabled = (currentStep === 1);
+      if (currentStep === 4) {
+        document.getElementById('next-btn').innerText = "Finish / Restart";
+      } else {
+        document.getElementById('next-btn').innerText = "Next Step →";
+      }
+
+      // Run step init
+      step.init();
+      syncRelaxationButtonText();
+    }
+
+    function setStep(stepNum) {
+      currentStep = stepNum;
+      renderStep();
+    }
+
+    // Next step click handler
+    function nextStep() {
+      if (currentStep < 4) {
+        currentStep++;
+        renderStep();
+      } else {
+        currentStep = 1;
+        clearCanvasUI();
+      }
+    }
+
+    // Previous step click handler
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        renderStep();
+      }
+    }
+
+    // Helper functions for step actions
+    function addSamplePoints() {
+      const svgW = 600;
+      const svgH = 500;
+      
+      for (let i = 0; i < 25; i++) {
+        const x = Math.random() * (svgW - 80) + 40;
+        const y = Math.random() * (svgH - 80) + 40;
+        addSiteBatch([x, y]);
+      }
+      diagram = voronoi(sites.concat(line_sites_only));
+      redraw();
+    }
+
+    // Helper to insert points inside wobbly center domain
+    function addLeftSamplePoints() {
+      for (let i = 0; i < 15; i++) {
+        let x, y;
+        do {
+          x = Math.random() * 400 + 100;
+          y = Math.random() * 360 + 70;
+        } while (!isInsideKnownDomain([x, y]));
+        addSiteBatch([x, y]);
+      }
+      diagram = voronoi(sites.concat(line_sites_only));
+      redraw();
+      if (currentStep === 3 && last_cell_selected === -1 && sites.length > 0) {
+        last_cell_selected = 0;
+        redraw();
+      }
+    }
+
+    function syncRelaxationButtonText() {
+      const relaxBtn = document.getElementById('relax-btn-ui');
+      if (!relaxBtn) return;
+      
+      if (to_relax) {
+        relaxBtn.innerText = "Stop Lloyd Relaxation";
+        relaxBtn.className = "btn btn-active";
+      } else {
+        relaxBtn.innerText = "Run Lloyd Relaxation";
+        relaxBtn.className = "btn btn-primary";
+      }
+    }
+
+    // Safe update animation frame executor without continuous drag-painting addition of sites
+    function customRelaxUpdate() {
+      repositionSites();
+      redraw();
+    }
+
+    function toggleRelaxationUI() {
+      to_relax = !to_relax;
+      if (to_relax) {
+        update_timer.restart(customRelaxUpdate);
+      } else {
+        update_timer.stop();
+      }
+      redraw();
+      syncRelaxationButtonText();
+    }
+
+    function clearCanvasUI() {
+      sites = [];
+      line_sites_only = [];
+      lines = [];
+      sites_color = [];
+      sites_mobility = [];
+      cellFillColors = [];
+      sitesAll = [];
+      sitesAll_color = [];
+      sitesAll_mobility = [];
+      activeToAll = [];
+      batchSites = [];
+      batchScheduled = false;
+      
+      const svgEl = d3.select("#main_svg");
+      svgEl.selectAll(".polygons path").remove();
+      svgEl.selectAll(".sites circle").remove();
+      svgEl.selectAll(".basin-circles").remove();
+      svgEl.selectAll(".fog-of-war-group").remove();
+      svgEl.selectAll(".barrier-line-group").remove();
+      svgEl.selectAll(".lines *").remove();
+      
+      // Invalidate DOM caches
+      cachedPolyPaths = [];
+      cachedSiteCircles = [];
+      
+      if (voronoi_bassin) {
+        voronoi_bassin.selectAll("circle").remove();
+      }
+      
+      last_cell_selected = -1;
+      last_cell_hovered = -1;
+      to_relax = false;
+      if (update_timer) {
+        update_timer.stop();
+      }
+      
+      initHiddenSites();
+      redraw();
+      renderStep();
+    }
+
+    // Check if a point is far enough from all existing sites to prevent overlaps/duplicates
+    // Safety threshold of 1.5px to prevent identical coordinates
+    function isFarEnough(p) {
+      const threshold = 1.5; 
+      for (let i = 0; i < sites.length; i++) {
+        const dx = p[0] - sites[i][0];
+        const dy = p[1] - sites[i][1];
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < threshold) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // Overridden clicked function to correctly select cells inside the wobbly domain
+    window.clicked = function() {
+      const coords = d3.mouse(document.getElementById("main_svg"));
+      
+      // Restrict actions to the explored domain in Step 3 & 4
+      if (currentStep >= 3 && !isInsideKnownDomain(coords)) {
+        return; 
+      }
+      
+      if (to_manipulate) {
+        if (isFarEnough(coords)) {
+          addSite(coords, false);
+        }
+      } else {
+        // Selection Mode (Step 3) - Explicitly find closest known site to prevent virtual boundary site hijacking
+        if (diagram && sites.length > 0) {
+          let minDist = Infinity;
+          let nearestIdx = -1;
+          for (let i = 0; i < sites.length; i++) {
+            const dx = coords[0] - sites[i][0];
+            const dy = coords[1] - sites[i][1];
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < minDist) {
+              minDist = dist;
+              nearestIdx = i;
+            }
+          }
+          if (nearestIdx !== -1) {
+            last_cell_selected = nearestIdx;
+          }
+        }
+      }
+      redraw();
+      syncRelaxationButtonText();
+    };
+
+    // Re-bind click event to run our updated clicked function
+    d3.select("#main_svg").on("click", window.clicked);
+
+    // Batch and throttle drag-painting: accumulate sites during mousemove/interval,
+    // recompute voronoi and redraw at a throttled rate instead of per-site.
+    let spawnInterval = null;
+    let batchSites = [];
+    let batchScheduled = false;
+
+    function flushBatch() {
+      batchScheduled = false;
+      if (batchSites.length === 0) return;
+      for (const pos of batchSites) {
+        addSiteBatch(pos);
+      }
+      batchSites = [];
+      diagram = voronoi(sites.concat(line_sites_only));
+      redraw();
+    }
+
+    function queueSite(pos) {
+      if (!isFarEnough(pos)) return;
+      batchSites.push(pos);
+      if (!batchScheduled) {
+        batchScheduled = true;
+        requestAnimationFrame(flushBatch);
+      }
+    }
+
+    // Re-bind mouse handlers on main SVG to enable smooth continuous drag-painting
+    // with an interval timer to continuously spawn sites while the mouse is pressed
+    d3.select("#main_svg")
+      .on("mousedown", function() {
+        mouse_is_clicking = true;
+        const coords = d3.mouse(this);
+        
+        if (to_manipulate && (currentStep < 3 || isInsideKnownDomain(coords))) {
+          queueSite(coords);
+        }
+        
+        // Start continuous spawning interval while mouse button is pressed down
+        if (spawnInterval) clearInterval(spawnInterval);
+        spawnInterval = setInterval(function() {
+          if (mouse_is_clicking && to_manipulate && mouse_pos) {
+            if (currentStep >= 3 && !isInsideKnownDomain(mouse_pos)) {
+              return;
+            }
+            
+            // Add a tiny random jitter (+/- 2 pixels) to guarantee unique coordinates
+            const jitterX = (Math.random() - 0.5) * 4;
+            const jitterY = (Math.random() - 0.5) * 4;
+            
+            queueSite([mouse_pos[0] + jitterX, mouse_pos[1] + jitterY]);
+          }
+        }, 80);
+      })
+      .on("mouseup", function() {
+        mouse_is_clicking = false;
+        if (spawnInterval) {
+          clearInterval(spawnInterval);
+          spawnInterval = null;
+        }
+        flushBatch();
+      })
+      .on("mouseleave", function() {
+        mouse_is_clicking = false;
+        if (spawnInterval) {
+          clearInterval(spawnInterval);
+          spawnInterval = null;
+        }
+        flushBatch();
+      })
+      .on("mousemove", function() {
+        mouse_pos = d3.mouse(this);
+        if (to_manipulate && mouse_is_clicking) {
+          if (currentStep >= 3 && !isInsideKnownDomain(mouse_pos)) {
+            return;
+          }
+          queueSite(mouse_pos);
+        } else if (!to_manipulate && with_cell_hovering && diagram) {
+          var found = diagram.find(mouse_pos[0], mouse_pos[1]);
+          if (found) {
+            highlightCell(found.index);
+          }
+        }
+      })
+      .on("mouseout", function() {
+        if (!to_manipulate && last_cell_hovered !== -1) {
+          const path = cachedPolyPaths[last_cell_hovered];
+          if (path) path.style.filter = "none";
+          last_cell_hovered = -1;
+        }
+      });
+
+    // Custom high-performance, color-safe cell highlight functions using CSS filters
+    window.highlightCell = function(cell_index) {
+      if (cell_index !== -1 && cell_index < sites.length) {
+        if (last_cell_hovered !== -1 && last_cell_hovered < sites.length) {
+          const prevPath = cachedPolyPaths[last_cell_hovered];
+          if (prevPath) prevPath.style.filter = "none";
+        }
+        last_cell_hovered = cell_index;
+        const currentPath = cachedPolyPaths[cell_index];
+        if (currentPath) {
+          currentPath.style.filter = "brightness(0.9) saturate(1.15)";
+        }
+      }
+    };
+
+    window.unhighlightCellAndNeighbors = function(cell_index) {
+      if (cell_index !== -1 && cell_index < sites.length) {
+        const path = cachedPolyPaths[cell_index];
+        if (path) path.style.filter = "none";
+      }
+      var neighboring_cells = getNeighboringCells(cell_index);
+      for (var n_cell of neighboring_cells) {
+        if (n_cell !== -1 && n_cell < sites.length) {
+          const path = cachedPolyPaths[n_cell];
+          if (path) path.style.filter = "none";
+        }
+      }
+    };
+
+    // Batch add sites without redrawing — caller must redraw once
+    window.addSiteBatch = function(mouse_pos) {
+      const chosen_color = chooseColorHSL(Math.floor(Math.random()*1000+1), 1000);
+      sites.push(mouse_pos);
+      sites_color.push(chosen_color);
+      sites_mobility.push(true);
+      sitesAll.push(mouse_pos);
+      sitesAll_color.push(chosen_color);
+      sitesAll_mobility.push(true);
+      activeToAll.push(sitesAll.length - 1);
+      recomputeCellColors();
+    };
+
+    // Override addSite to prevent appending any paths/circles via legacy D3 code,
+    // delegating all visual updates to our single unified redraw() function instead
+    window.addSite = function(mouse_pos, is_part_of_line) {
+      if (is_part_of_line) {
+        line_sites_only.push(mouse_pos);
+        return;
+      }
+      addSiteBatch(mouse_pos);
+      diagram = voronoi(sites.concat(line_sites_only));
+      redraw();
+    };
+
+    // Intercept keydown to sync didactics
+    const originalKeydown = keydown;
+    keydown = function() {
+      originalKeydown();
+      syncRelaxationButtonText();
+    };
+    d3.select('body').on('keydown', keydown);
+
+    // Override the checkbox-based drawing functions to avoid using checkbox inputs
+    window.drawVoronoiEdgesFromCheckbox = function() {};
+    window.drawVoronoiSitesFromCheckbox = function() {};
+    window.drawVoronoiBassinFromCheckbox = function() {};
+
+    // Global D3 coordinates for main SVG
+    d3.select("#main_svg").attr("width", 600).attr("height", 500).attr("viewBox", "0 0 600 500");
+
+    // Pre-computed fill colors for voronoi cells — computed once per site add/remove
+    let cellFillColors = [];
+
+    function recomputeCellColors() {
+      cellFillColors = [];
+      for (let i = 0; i < sites.length; i++) {
+        cellFillColors.push("hsl(" + sites_color[i] + ", 85%, 75%)");
+      }
+    }
+
+    // Overridden redraw function to control the single canvas didactically
+    window.redraw = function() {
+      const svgEl = d3.select("#main_svg");
+
+      // CLEAR LEGACY POLYGONS DOM PATHS
+      svgEl.selectAll(".polygons").remove();
+
+      if (sites.length === 0) {
+        svgEl.selectAll(".polygons path").remove();
+        svgEl.selectAll(".sites circle").remove();
+        svgEl.selectAll(".basin-circles").remove();
+        svgEl.selectAll(".fog-of-war-group").remove();
+        svgEl.selectAll(".barrier-line-group").remove();
+        return;
+      }
+
+      // Determine clipping (bounded by domain) properties
+      let enableBoundaryClipping = (currentStep >= 3);
+
+      // Compute standard Voronoi diagram on known sites
+      // If wobbly boundary clipping is active, include virtual wobbly perimeter sites
+      var diagramSites = sites;
+      if (enableBoundaryClipping) {
+        diagramSites = sites.concat(line_sites_only);
+      }
+      var diagramKnown = d3.voronoi().extent([[-1, -1], [601, 501]])(diagramSites);
+      diagram = diagramKnown;
+
+      // Ensure fill colors are up to date
+      if (cellFillColors.length !== sites.length) {
+        recomputeCellColors();
+      }
+
+      // Render Polygons & Sites
+      var polyGroup = svgEl.select(".polygons");
+      if (polyGroup.empty()) {
+        polyGroup = svgEl.insert("g", ".sites").attr("class", "polygons");
+      }
+      polygon = polyGroup; // Keep legacy global selection in sync to prevent detached-DOM bugs
+      
+      var siteGroup = svgEl.select(".sites");
+      if (siteGroup.empty()) {
+        siteGroup = svgEl.append("g").attr("class", "sites");
+      }
+      site = siteGroup; // Keep legacy global selection in sync to prevent detached-DOM bugs
+
+      var polygons = diagramKnown.polygons();
+      var polyNodes = polyGroup.node().children;
+      var siteNodes = siteGroup.node().children;
+
+      // Fast path during active relaxation: update geometry only via cached DOM nodes
+      if (to_relax &&
+          polyNodes.length === polygons.length &&
+          siteNodes.length === sites.length) {
+        for (let i = 0; i < polygons.length; i++) {
+          const poly = polygons[i];
+          if (poly) {
+            polyNodes[i].setAttribute("d", "M" + poly.join("L") + "Z");
+          } else {
+            polyNodes[i].removeAttribute("d");
+          }
+        }
+        for (let i = 0; i < sites.length; i++) {
+          const site = sites[i];
+          siteNodes[i].setAttribute("cx", site[0]);
+          siteNodes[i].setAttribute("cy", site[1]);
+        }
+      } else {
+        // Full D3 data-binding (only runs when sites are added, removed, or cleared)
+        var paths = polyGroup.selectAll("path")
+          .data(polygons);
+          
+        paths.exit().remove();
+        
+        paths.enter().append("path")
+          .merge(paths)
+          .attr("d", function(d) { return d ? "M" + d.join("L") + "Z" : null; })
+          .attr("stroke", function(d, i) {
+            return i < sites.length ? "var(--cell-stroke)" : "none";
+          })
+          .attr("stroke-width", function(d, i) {
+            return i < sites.length ? "0.5px" : "0";
+          })
+          .attr("fill", function(d, i) {
+            return i < sites.length ? cellFillColors[i] : "var(--boundary-fill)";
+          })
+          .attr("clip-path", enableBoundaryClipping ? "url(#clip-known-domain)" : null);
+
+        var circles = siteGroup.selectAll("circle")
+          .data(sites);
+          
+        circles.exit().remove();
+        
+        circles.enter().append("circle")
+          .attr("r", 4)
+          .merge(circles)
+          .attr("cx", function(d) { return d[0]; })
+          .attr("cy", function(d) { return d[1]; })
+          .attr("stroke", "var(--cell-stroke)")
+          .attr("fill", "#ffffff")
+          .attr("stroke-width", "1.5px");
+      }
+
+      // Cache the newly created DOM nodes for fast-path during relaxation
+      cachedPolyPaths = Array.from(polyGroup.node().children);
+      cachedSiteCircles = Array.from(siteGroup.node().children);
+
+      // Draw Unexplored Domain overlay (if step >= 3)
+      var fog = svgEl.select(".fog-of-war-group");
+      if (currentStep >= 3) {
+        if (fog.empty()) {
+          fog = svgEl.append("g").attr("class", "fog-of-war-group").style("pointer-events", "none");
+        }
+        
+        var pathCheck = fog.select("path");
+        if (pathCheck.empty()) {
+          // Draw solid dark Unexplored Domain overlay covering everything outside the wobbly boundary
+          fog.append("path")
+            .attr("d", "M0,0 L600,0 L600,500 L0,500 Z " + getBoundaryPathString())
+            .attr("fill", "rgba(15, 23, 42, 0.85)")
+            .attr("fill-rule", "evenodd");
+            
+          // Draw dashed delimitation boundary line
+          fog.append("path")
+            .attr("d", getBoundaryPathString())
+            .attr("stroke", "#ef4444")
+            .attr("stroke-width", "1.5")
+            .attr("stroke-dasharray", "4,4")
+            .attr("fill", "none");
+            
+          fog.append("text")
+            .attr("x", 480)
+            .attr("y", 60)
+            .attr("text-anchor", "middle")
+            .attr("fill", "#ef4444")
+            .attr("font-size", "0.85rem")
+            .attr("font-weight", "bold");
+        }
+      } else {
+        fog.remove();
+      }
+
+      // Basin specific handling in Step 3 - Appended at the end to render on top of the fog
+      var basinGroup = svgEl.select(".basin-circles");
+      if (currentStep === 3 && last_cell_selected !== -1) {
+        if (basinGroup.empty()) {
+          basinGroup = svgEl.append("g").attr("class", "basin-circles");
+        }
+        basinGroup.selectAll("*").remove();
+        renderBasinElements(svgEl, diagramKnown);
+      } else {
+        basinGroup.remove();
+      }
+    };
+
+    // Helper to draw Basin Circles in Step 3
+    function renderBasinElements(svgEl, diagramKnown) {
+      // Compute Voronoi diagram on known sites only (no boundary virtual sites)
+      var diagramOnlyKnown = d3.voronoi().extent([[-1, -1], [601, 501]])(sites);
+      var cell = diagramOnlyKnown.polygons()[last_cell_selected];
+      var site_pos = sites[last_cell_selected];
+      if (!cell || !site_pos) return;
+      
+      var basinGroup = svgEl.select(".basin-circles");
+      
+      // Determine which disks intersect the boundary
+      const diskData = [];
+      let anyIntersects = false;
+      for (var i = 0; i < cell.length; ++i) {
+        var vertex = cell[i];
+        var dx = site_pos[0] - vertex[0];
+        var dy = site_pos[1] - vertex[1];
+        var radius = Math.sqrt(dx*dx + dy*dy);
+        
+        var vx = vertex[0];
+        var vy = vertex[1];
+        var cdx = vx - 300;
+        var cdy = vy - 250;
+        var angle = Math.atan2(cdy, cdx);
+        var r_boundary = 160 + 18 * Math.sin(6 * angle) + 12 * Math.cos(4 * angle);
+        var bx = 300 + r_boundary * Math.cos(angle);
+        var by = 250 + r_boundary * Math.sin(angle);
+        var distToBoundary = Math.sqrt((vx - bx) * (vx - bx) + (vy - by) * (vy - by));
+        var intersects = radius > distToBoundary;
+        if (intersects) anyIntersects = true;
+        diskData.push({ vertex: vertex, radius: radius, intersects: intersects });
+      }
+      
+      // Draw vertex dots
+      for (var i = 0; i < cell.length; ++i) {
+        basinGroup.append("circle")
+          .attr("cx", cell[i][0])
+          .attr("cy", cell[i][1])
+          .attr("r", 3)
+          .attr("fill", "#1e293b")
+          .attr("stroke", "none")
+          .style("pointer-events", "none");
+      }
+      
+      // Draw basin disks
+      for (var i = 0; i < diskData.length; ++i) {
+        var d = diskData[i];
+        var fill = d.intersects ? "rgba(239, 68, 68, 0.06)" : "rgba(34, 197, 94, 0.06)";
+        var stroke = d.intersects ? "#ef4444" : "#22c55e";
+        
+        basinGroup.append("circle")
+          .attr("cx", d.vertex[0])
+          .attr("cy", d.vertex[1])
+          .attr("r", d.radius)
+          .attr("fill", fill)
+          .attr("stroke", stroke)
+          .attr("stroke-width", "1.5px")
+          .attr("stroke-dasharray", "4,4")
+          .attr("opacity", 0.85);
+      }
+      
+    }
+
+    // Override repositionSites to be completely safe against undefined/NaN polygons and handle boundary clipping
+    window.repositionSites = function() {
+      if (!diagram) return;
+      var polygons = diagram.polygons();
+      if (!polygons) return;
+      
+      for (var i = 0; i < sites.length; ++i) {
+        if (sites_mobility[i] && polygons[i]) {
+          var centroid = d3.polygonCentroid(polygons[i]);
+          if (centroid && !isNaN(centroid[0]) && !isNaN(centroid[1])) {
+            sites[i] = centroid;
+            if (activeToAll && activeToAll[i] < sitesAll.length) {
+              sitesAll[activeToAll[i]] = centroid;
+            }
+          }
+        }
+      }
+    };
+
+    // Override update to prevent continuous addition of duplicate sites during relaxation
+    window.update = function() {
+      repositionSites();
+      redraw();
+    };
+
+    // Override exportSVG to resolve CSS variables and bake ALL attributes and styles for visual indistinguishability
+    window.exportSVG = function(svg_elems, name) {
+      const origSvg = svg_elems[0].node();
+      const clonedSvg = origSvg.cloneNode(true);
+      
+      clonedSvg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+      clonedSvg.setAttribute("version", "1.1");
+      
+      const origEls = [origSvg, ...origSvg.querySelectorAll("*")];
+      const cloneEls = [clonedSvg, ...clonedSvg.querySelectorAll("*")];
+      
+      for (let i = 0; i < origEls.length; i++) {
+        const origEl = origEls[i];
+        const cloneEl = cloneEls[i];
+        if (!origEl || !cloneEl) continue;
+        
+        // Copy all attributes from original to clone (very robust!)
+        for (const attr of origEl.attributes) {
+          cloneEl.setAttribute(attr.name, attr.value);
+        }
+        
+        const style = window.getComputedStyle(origEl);
+        
+        // Resolve CSS variables in attributes (e.g. fill: var(--primary))
+        for (const attr of origEl.attributes) {
+          const val = attr.value;
+          if (val && val.startsWith("var(")) {
+            const varName = val.slice(4, -1).trim();
+            const computedVal = style.getPropertyValue(varName);
+            cloneEl.setAttribute(attr.name, computedVal);
+          }
+        }
+        
+        // Bake crucial CSS layout properties that are set in stylesheets (including stroke-dasharray/opacity/r)
+        const cssPropsToBake = ["fill", "stroke", "stroke-width", "opacity", "r", "stroke-dasharray"];
+        for (const prop of cssPropsToBake) {
+          const hasStaticAttr = origEl.hasAttribute(prop);
+          const val = origEl.getAttribute(prop);
+          const hasVar = val && val.startsWith("var(");
+          if (!hasStaticAttr || hasVar) {
+            const computedVal = style.getPropertyValue(prop);
+            if (computedVal && computedVal !== "none" && computedVal !== "normal" && computedVal !== "auto" && computedVal !== "") {
+              cloneEl.setAttribute(prop, computedVal);
+            }
+          }
+        }
+        
+        // Explicitly bake background-color onto the SVG root element
+        if (origEl === origSvg) {
+          const bgColor = style.getPropertyValue("background-color");
+          cloneEl.style.backgroundColor = bgColor;
+        }
+      }
+      
+      const serializer = new XMLSerializer();
+      const html = serializer.serializeToString(clonedSvg);
+      
+      const blob = new Blob([html], {type: "image/svg+xml"});
+      saveAs(blob, name + ".svg");
+    };
+
+    // Initial checkboxes to satisfy older scripts
+    const hiddenInputsContainer = document.createElement('div');
+    hiddenInputsContainer.style.display = 'none';
+    hiddenInputsContainer.innerHTML = `
+      <input type="checkbox" id="voronoi_edges_checkbox" checked>
+      <input type="checkbox" id="voronoi_sites_checkbox" checked>
+      <input type="checkbox" id="voronoi_bassin_checkbox" checked>
+    `;
+    document.body.appendChild(hiddenInputsContainer);
+
+    // Override secondary SVG checks to avoid crash since secondary SVG is removed
+    const mockSecondarySvg = document.createElement('div');
+    mockSecondarySvg.innerHTML = '<svg id="secondary_svg" width="10" height="10" style="display:none;"></svg>';
+    document.body.appendChild(mockSecondarySvg);
+
+    renderStep();
+
+    // --- Interactive Mathematical Tooltips Handler ---
+    
+    // Dictionary of mathematical terms explanation for didactic tooltips
+    const mathTermsDb = {
+      "math-term-vi": {
+        title: "Voronoi Cell",
+        term: "V_i",
+        desc: "The region of space associated with site $\\mathbf{s}_i$. It contains all points that are closer to $\\mathbf{s}_i$ than to any other site."
+      },
+      "math-term-x": {
+        title: "Point in Space",
+        term: "\\mathbf{x}",
+        desc: "An arbitrary coordinate vector within the domain space."
+      },
+      "math-term-omega": {
+        title: "Domain Space",
+        term: "\\Omega",
+        desc: "The entire bounded area in which the sites and cells are defined."
+      },
+      "math-term-dxs": {
+        title: "Distance to Site",
+        term: "d(\\mathbf{x}, \\mathbf{s}_i)",
+        desc: "The Euclidean distance between point $\\mathbf{x}$ and the current site $\\mathbf{s}_i$."
+      },
+      "math-term-dxs2": {
+        title: "Distance to other Site",
+        term: "d(\\mathbf{x}, \\mathbf{s}_j)",
+        desc: "The Euclidean distance between point $\\mathbf{x}$ and any other generator site $\\mathbf{s}_j$."
+      },
+      "math-term-forall": {
+        title: "Universal Condition",
+        term: "\\forall j \\neq i",
+        desc: "Requires the distance inequality to hold true for every other site $j$ in the diagram."
+      },
+      "math-term-sik": {
+        title: "Next Position",
+        term: "\\mathbf{s}_i^{(k+1)}",
+        desc: "The updated position coordinates vector of site $i$ for the next iteration $(k+1)$."
+      },
+      "math-term-centroid": {
+        title: "Cell Centroid",
+        term: "\\text{Centroid}(V_i)",
+        desc: "The geometric center of mass of the Voronoi cell. Moving the site here minimizes the dispersion of the cell."
+      },
+      "math-term-integral-top": {
+        title: "First Moment of Area",
+        term: "\\int_{V_i} \\mathbf{x} d\\mathbf{x}",
+        desc: "The area-weighted coordinate integral over the cell, representing the numerator in centroid computation."
+      },
+      "math-term-integral-bottom": {
+        title: "Cell Area",
+        term: "\\int_{V_i} d\\mathbf{x}",
+        desc: "The total geometric area of the Voronoi cell (integrating the area element $d\\mathbf{x}$), acting as the normalising denominator."
+      },
+      "math-term-bsi": {
+        title: "Voronoi Basin",
+        term: "B(\\mathbf{s}_i)",
+        desc: "The safety envelope of site $\\mathbf{s}_i$. It is the union of circles centered at cell vertices."
+      },
+      "math-term-union": {
+        title: "Union Operator",
+        term: "\\bigcup",
+        desc: "The combined area covered by all individual vertex disks taken together."
+      },
+      "math-term-vertices": {
+        title: "Cell Vertices",
+        term: "v \\in \\text{vertices}(V_i)",
+        desc: "The corner points where the edges of cell $V_i$ intersect."
+      },
+      "math-term-disk": {
+        title: "Disks (Circles)",
+        term: "D(v, d(v, \\mathbf{s}_i))",
+        desc: "A closed disk centered at vertex $v$ with a radius equal to the distance from $v$ to the site $\\mathbf{s}_i$."
+      }
+    };
+
+    // Create the tooltip element
+    const tooltipEl = document.createElement("div");
+    tooltipEl.id = "math-tooltip";
+    tooltipEl.className = "math-tooltip";
+    document.body.appendChild(tooltipEl);
+
+    // stepContainer is used for mousemove-based tooltip detection below
+    const stepContainer = document.getElementById("step-container");
+
+    // Use mousemove + getBoundingClientRect instead of mouseover/mouseout.
+    // This correctly detects hover over the FULL visual bounding box of each
+    // math term, including subscripts and denominators that overflow their
+    // KaTeX vlist containers and cannot be reliably detected via DOM bubbling.
+    let currentHoveredTerm = null;
+
+    document.addEventListener("mousemove", (e) => {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      // Query all math-term elements in the step container
+      const mathTermEls = stepContainer.querySelectorAll('[class*="math-term-"]');
+      let found = null;
+
+      for (const el of mathTermEls) {
+        const rect = el.getBoundingClientRect();
+        // Add a small padding (4px) around each rect to make small targets easier to hit
+        if (
+          mouseX >= rect.left - 4 &&
+          mouseX <= rect.right + 4 &&
+          mouseY >= rect.top - 4 &&
+          mouseY <= rect.bottom + 4
+        ) {
+          found = el;
+          break;
+        }
+      }
+
+      if (found === currentHoveredTerm) return; // No change
+      currentHoveredTerm = found;
+
+      if (!found) {
+        tooltipEl.classList.remove("visible");
+        return;
+      }
+
+      // Extract the math-term class
+      let termClass = null;
+      for (const cls of found.classList) {
+        if (cls.startsWith("math-term-")) {
+          termClass = cls;
+          break;
+        }
+      }
+      if (!termClass || !mathTermsDb[termClass]) {
+        tooltipEl.classList.remove("visible");
+        return;
+      }
+
+      const termData = mathTermsDb[termClass];
+
+      // Set tooltip contents
+      tooltipEl.innerHTML = `
+        <div class="math-tooltip-title">
+          <span>${termData.title}</span>
+          <span class="math-tooltip-term" id="tooltip-term-render"></span>
+        </div>
+        <div class="math-tooltip-desc" id="tooltip-desc-render">${termData.desc}</div>
+      `;
+
+      if (typeof katex !== 'undefined') {
+        katex.render(termData.term, tooltipEl.querySelector('#tooltip-term-render'), {
+          throwOnError: false, trust: true, strict: false
+        });
+        if (typeof renderMathInElement !== 'undefined') {
+          renderMathInElement(tooltipEl.querySelector('#tooltip-desc-render'), {
+            delimiters: [{left: "$", right: "$", display: false}],
+            trust: true, strict: false
+          });
+        }
+      }
+
+      // Position tooltip: measure actual size synchronously (works on hidden elements)
+      // then compute the clamped position before making it visible — no timing race.
+      const rect = found.getBoundingClientRect();
+      const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const margin = 10; // px gap from each viewport edge
+
+      // Reset to a neutral state so offsetWidth/offsetHeight reflect the real content size
+      tooltipEl.style.transform = "none";
+      tooltipEl.style.left = "0px";
+      tooltipEl.style.top  = "0px";
+      const tipW = tooltipEl.offsetWidth;
+      const tipH = tooltipEl.offsetHeight;
+
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      // --- Horizontal: clamp the center point so neither edge escapes ---
+      let centerX = rect.left + rect.width / 2 + scrollX;
+      const minCX = scrollX + margin + tipW / 2;
+      const maxCX = scrollX + vw - margin - tipW / 2;
+      centerX = Math.max(minCX, Math.min(maxCX, centerX));
+
+      // --- Vertical: show above by default, flip below if clipped at top ---
+      let finalTop, transformStr;
+      if (rect.top - tipH - 12 < margin) {
+        // Not enough room above — show below the element
+        finalTop = rect.bottom + 8 + scrollY;
+        transformStr = "translate(-50%, 0)";
+      } else {
+        finalTop = rect.top - 12 + scrollY;
+        transformStr = "translate(-50%, -100%)";
+      }
+
+      // Clamp bottom (short screens)
+      const screenBottom = scrollY + vh - margin;
+      if (finalTop + tipH > screenBottom) {
+        finalTop = screenBottom - tipH;
+      }
+
+      tooltipEl.style.left      = centerX + "px";
+      tooltipEl.style.top       = finalTop + "px";
+      tooltipEl.style.transform = transformStr;
+      tooltipEl.dataset.termClass = termClass;
+      tooltipEl.classList.add("visible");
+    });
+
+    // Hide tooltip when mouse leaves the step container entirely
+    stepContainer.addEventListener("mouseleave", () => {
+      currentHoveredTerm = null;
+      tooltipEl.classList.remove("visible");
+    });
+  </script>
+</body>
+</html>
