@@ -109,7 +109,7 @@ table {
 }
 
 body {
-	font: normal normal 400 10.5pt Montserrat, sans-serif;
+	font: normal normal 400 10.5pt 'Inter', Montserrat, sans-serif;
 	line-height: 1.35em;
 	color: #000;
 	background-color: #ffffff;

@@ -38,7 +38,11 @@ jobs:
       - name: Generate PDF CV from HTML
         run: |
           sudo chown -R $USER:$USER _site
-          google-chrome --headless=new --disable-gpu --no-sandbox --disable-dev-shm-usage --allow-file-access-from-files --virtual-time-budget=10000 --print-to-pdf=_site/media/arnaud-bletterer-cv.pdf --no-pdf-header-footer --run-all-compositor-stages-before-draw file://${{ github.workspace }}/_site/resume.html
+          python3 -m http.server 8089 --directory _site &
+          SERVER_PID=$!
+          sleep 2
+          google-chrome --headless=new --disable-gpu --no-sandbox --disable-dev-shm-usage --virtual-time-budget=10000 --print-to-pdf=_site/media/arnaud-bletterer-cv.pdf --no-pdf-header-footer --run-all-compositor-stages-before-draw http://localhost:8089/resume.html
+          kill $SERVER_PID
           ls -la _site/media/arnaud-bletterer-cv.pdf
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
