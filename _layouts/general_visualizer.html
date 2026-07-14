@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} | Arnaud Bletterer</title>
+  <meta name="description" content="{{ page.description | default: 'An interactive didactic guide' }}" />
+  <meta name="keywords" content="{{ page.keywords | default: 'interactive visualization, computational geometry, computer graphics' }}" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="{{ page.title }} | Arnaud Bletterer" />
+  <meta property="og:description" content="{{ page.description | default: 'An interactive didactic guide' }}" />
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  {% if page.teaser_image %}
+  <meta property="og:image" content="{{ site.url }}/{{ page.teaser_image }}" />
+  {% endif %}
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ site.url }}/profile.jpg" />
+
+  <!-- Theme Initialization blocking script to prevent Flash of Unstyled Content -->
+  <script>
+    (function() {
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme) {
+        document.documentElement.setAttribute('data-theme', storedTheme);
+      } else {
+        const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', userPrefersDark ? 'dark' : 'light');
+      }
+    })();
+  </script>
+  
+  <!-- KaTeX CSS & JS for LaTeX Math Formulas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  
+  <!-- Marked Markdown Parser CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/lib/marked.umd.min.js"></script>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="{{ site.baseurl }}/media/visualizer.css">
+</head>
+<body>
+
+  <!-- Top Header Nav -->
+  <header class="site-header">
+    <div class="header-left">
+      <a href="/" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Home
+      </a>
+      <div class="header-title">
+        <h1>{{ page.title }}</h1>
+        <p>{{ page.subtitle | default: 'Interactive Visual Explanation' }}</p>
+      </div>
+    </div>
+    
+    <div class="header-right">
+      <div class="status-badges">
+        <div class="badge badge-primary">
+          Step <span id="current-step-badge">1</span> of {{ page.steps | size }}
+        </div>
+      </div>
+      <button class="theme-btn" id="theme-toggle-btn" aria-label="Toggle Theme">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Layout Grid -->
+  <div class="main-layout">
+    
+    <!-- Sidebar - Didactic Guide -->
+    <aside class="guide-panel">
+      <div class="guide-card">
+        <!-- Stepper header -->
+        <div class="stepper">
+          {% for step in page.steps %}
+          <div class="step-dot {% if forloop.first %}active{% endif %}" id="step-dot-{{ forloop.index }}" onclick="setStep({{ forloop.index }})">{{ forloop.index }}</div>
+          {% endfor %}
+        </div>
+
+        <!-- Step content -->
+        <div class="step-content" id="step-container">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Stepper Navigation buttons -->
+        <div class="stepper-nav">
+          <button class="btn" id="prev-btn" onclick="prevStep()">← Previous</button>
+          <button class="btn btn-primary" id="next-btn" onclick="nextStep()">Next Step →</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Workspace Content Area -->
+    <main class="workspace-content">
+      {{ content }}
+    </main>
+  </div>
+
+  <!-- Custom Scripts specified in frontmatter -->
+  {% for script in page.custom_scripts %}
+  <script src="{{ script }}"></script>
+  {% endfor %}
+
+  <script>
+    // Theme Management
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        
+        // Let workspace scripts react to theme change
+        if (typeof onThemeChange === 'function') {
+          onThemeChange(next);
+        }
+      });
+    }
+
+    // Markdown compiler with basic support for LaTeX math formulas ($...$ and $$...$$)
+    function parseMarkdownWithMath(mdString) {
+      if (!mdString) return '';
+      let text = mdString;
+      
+      // Temporary block math placeholders
+      const blockMath = [];
+      text = text.replace(/\$\$([\s\S]*?)\$\$/g, (match, math) => {
+        blockMath.push(math);
+        return `BLOCKMATHPLACEHOLDER${blockMath.length - 1}BLOCK`;
+      });
+      
+      // Temporary inline math placeholders
+      const inlineMath = [];
+      text = text.replace(/\$([\s\S]*?)\$/g, (match, math) => {
+        inlineMath.push(math);
+        return `INLINEMATHPLACEHOLDER${inlineMath.length - 1}INLINE`;
+      });
+      
+      // Compile Markdown using marked
+      let html = marked.parse ? marked.parse(text) : marked(text);
+      
+      // Restore block math
+      html = html.replace(/BLOCKMATHPLACEHOLDER(\d+)BLOCK/g, (match, idx) => {
+        return `$$${blockMath[parseInt(idx)]}$$`;
+      });
+      
+      // Restore inline math
+      html = html.replace(/INLINEMATHPLACEHOLDER(\d+)INLINE/g, (match, idx) => {
+        return `$${inlineMath[parseInt(idx)]}$`;
+      });
+      
+      return html;
+    }
+
+    // Load steps data
+    const stepsData = {
+      {% for step in page.steps %}
+      {{ forloop.index }}: {
+        title: {{ step.title | jsonify }},
+        description: {{ step.description | jsonify }},
+        instruction: {{ step.instruction | jsonify }},
+        takeaway: {{ step.takeaway | jsonify }}
+      },
+      {% endfor %}
+    };
+
+    let currentStep = 1;
+    const totalSteps = {{ page.steps | size }};
+
+    function renderStep() {
+      const step = stepsData[currentStep];
+      const container = document.getElementById('step-container');
+      
+      const htmlDesc = parseMarkdownWithMath(step.description);
+      const htmlInst = parseMarkdownWithMath(step.instruction);
+      const htmlTakeaway = parseMarkdownWithMath(step.takeaway);
+      
+      document.getElementById('current-step-badge').innerText = currentStep;
+      
+      // Update Stepper Dots
+      for (let i = 1; i <= totalSteps; i++) {
+        const dot = document.getElementById(`step-dot-${i}`);
+        if (dot) {
+          dot.classList.remove('active', 'completed');
+          if (i === currentStep) {
+            dot.classList.add('active');
+          } else if (i < currentStep) {
+            dot.classList.add('completed');
+          }
+        }
+      }
+      
+      container.innerHTML = `
+        <h2>${step.title}</h2>
+        <div class="step-description">${htmlDesc}</div>
+        <div class="callout-box callout-action">
+          ${htmlInst}
+        </div>
+        <div class="callout-box callout-takeaway">
+          ${htmlTakeaway}
+        </div>
+      `;
+
+      // KaTeX rendering
+      if (typeof renderMathInElement !== 'undefined') {
+        renderMathInElement(container, {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+          ],
+          trust: true,
+          strict: false
+        });
+      }
+
+      // Update Nav Buttons
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      if (prevBtn) prevBtn.disabled = (currentStep === 1);
+      if (nextBtn) nextBtn.disabled = (currentStep === totalSteps);
+
+      // Fire hook for canvas script
+      if (typeof onStepChange === 'function') {
+        onStepChange(currentStep);
+      }
+    }
+
+    function setStep(step) {
+      if (step < 1 || step > totalSteps) return;
+      currentStep = step;
+      renderStep();
+    }
+
+    function prevStep() {
+      setStep(currentStep - 1);
+    }
+
+    function nextStep() {
+      setStep(currentStep + 1);
+    }
+
+    // Mathematical Hover Tooltips Implementation
+    const mathTermsDb = {
+      "math-term-g": {
+        title: "Input Value",
+        term: "f(\\mathbf{y})",
+        desc: "The intensity/color value of the neighboring pixel $\\mathbf{y}$ before filtering."
+      },
+      "math-term-gs": {
+        title: "Spatial Weight",
+        term: "w_s(\\mathbf{y}, \\mathbf{x})",
+        desc: "Evaluates the geometric proximity between the neighbor pixel $\\mathbf{y}$ and the center pixel $\\mathbf{x}$ using a Gaussian curve. Decreases as spatial distance increases."
+      },
+      "math-term-gr": {
+        title: "Range Weight",
+        term: "w_r(\\mathbf{y}, \\mathbf{x})",
+        desc: "Evaluates the intensity/color similarity between the neighbor value $f(\\mathbf{y})$ and center value $f(\\mathbf{x})$ using a Gaussian curve. Drops to zero if values are very different."
+      },
+      "math-term-bf": {
+        title: "Bilateral Output",
+        term: "BF(f)(\\mathbf{x})",
+        desc: "The new edge-preserving filtered color/intensity computed for the target pixel $\\mathbf{x}$."
+      },
+      "math-term-x": {
+        title: "Target Pixel",
+        term: "\\mathbf{x}",
+        desc: "The spatial coordinate vector $(x,y)$ of the center pixel currently being processed."
+      },
+      "math-term-y": {
+        title: "Neighbor Pixel",
+        term: "\\mathbf{y}",
+        desc: "A spatial coordinate vector $(x', y')$ of a neighboring pixel inside the filter window."
+      },
+      "math-term-sigmas": {
+        title: "Spatial Sigma",
+        term: "\\sigma_s",
+        desc: "The spatial standard deviation. Controls the radius and weight distribution of the geometric neighborhood."
+      },
+      "math-term-sigmar": {
+        title: "Range Sigma",
+        term: "\\sigma_r",
+        desc: "The range standard deviation. Controls how sensitive the filter is to intensity differences (edge sensitivity)."
+      },
+      "math-term-fx": {
+        title: "Center Value",
+        term: "f(\\mathbf{x})",
+        desc: "The intensity/color value of the center target pixel $\\mathbf{x}$."
+      },
+      "math-term-fy": {
+        title: "Neighbor Value",
+        term: "f(\\mathbf{y})",
+        desc: "The intensity/color value of the neighbor pixel $\\mathbf{y}$."
+      },
+      "math-term-wx": {
+        title: "Normalization Factor",
+        term: "W(\\mathbf{x})",
+        desc: "The sum of all combined weights over the neighborhood. Normalizes the output so the filtered intensity remains valid."
+      }
+    };
+
+    let currentHoveredTerm = null;
+    const tooltipEl = document.createElement("div");
+    tooltipEl.id = "math-tooltip";
+    tooltipEl.className = "math-tooltip";
+    document.body.appendChild(tooltipEl);
+
+    const stepContainer = document.getElementById("step-container");
+
+    document.addEventListener("mousemove", (e) => {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      const mathTermEls = stepContainer.querySelectorAll('[class*="math-term-"]');
+      let found = null;
+
+      for (const el of mathTermEls) {
+        const rect = el.getBoundingClientRect();
+        if (
+          mouseX >= rect.left - 4 &&
+          mouseX <= rect.right + 4 &&
+          mouseY >= rect.top - 4 &&
+          mouseY <= rect.bottom + 4
+        ) {
+          found = el;
+          break;
+        }
+      }
+
+      if (found === currentHoveredTerm) return;
+      currentHoveredTerm = found;
+
+      if (!found) {
+        tooltipEl.classList.remove("visible");
+        return;
+      }
+
+      let termClass = null;
+      for (const cls of found.classList) {
+        if (cls.startsWith("math-term-")) {
+          termClass = cls;
+          break;
+        }
+      }
+      if (!termClass || !mathTermsDb[termClass]) {
+        tooltipEl.classList.remove("visible");
+        return;
+      }
+
+      const termData = mathTermsDb[termClass];
+
+      tooltipEl.innerHTML = `
+        <div class="math-tooltip-title">
+          <span>${termData.title}</span>
+          <span class="math-tooltip-term" id="tooltip-term-render"></span>
+        </div>
+        <div class="math-tooltip-desc" id="tooltip-desc-render">${termData.desc}</div>
+      `;
+
+      if (typeof katex !== 'undefined') {
+        katex.render(termData.term, tooltipEl.querySelector('#tooltip-term-render'), {
+          throwOnError: false, trust: true, strict: false
+        });
+        if (typeof renderMathInElement !== 'undefined') {
+          renderMathInElement(tooltipEl.querySelector('#tooltip-desc-render'), {
+            delimiters: [{left: "$", right: "$", display: false}],
+            trust: true, strict: false
+          });
+        }
+      }
+
+      const rect = found.getBoundingClientRect();
+      const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const margin = 10;
+
+      tooltipEl.style.transform = "none";
+      tooltipEl.style.left = "0px";
+      tooltipEl.style.top  = "0px";
+      const tipW = tooltipEl.offsetWidth;
+      const tipH = tooltipEl.offsetHeight;
+
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      let centerX = rect.left + rect.width / 2 + scrollX;
+      const minCX = scrollX + margin + tipW / 2;
+      const maxCX = scrollX + vw - margin - tipW / 2;
+      centerX = Math.max(minCX, Math.min(maxCX, centerX));
+
+      let finalTop, transformStr;
+      if (rect.top - tipH - 12 < margin) {
+        finalTop = rect.bottom + 8 + scrollY;
+        transformStr = "translate(-50%, 0)";
+      } else {
+        finalTop = rect.top - 12 + scrollY;
+        transformStr = "translate(-50%, -100%)";
+      }
+
+      const screenBottom = scrollY + vh - margin;
+      if (finalTop + tipH > screenBottom) {
+        finalTop = screenBottom - tipH;
+      }
+
+      tooltipEl.style.left      = centerX + "px";
+      tooltipEl.style.top       = finalTop + "px";
+      tooltipEl.style.transform = transformStr;
+      tooltipEl.dataset.termClass = termClass;
+      tooltipEl.classList.add("visible");
+    });
+
+    stepContainer.addEventListener("mouseleave", () => {
+      currentHoveredTerm = null;
+      tooltipEl.classList.remove("visible");
+    });
+
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      renderStep();
+    });
+  </script>
+</body>
+</html>

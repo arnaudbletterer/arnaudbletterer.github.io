@@ -1,0 +1,827 @@
+    :root {
+      --primary: rgb(0, 65, 170);
+      --primary-hover: #0056b3;
+      --primary-light: rgba(0, 65, 170, 0.08);
+      --primary-border: rgba(0, 65, 170, 0.12);
+      
+      --bg: #f8f9fc;
+      --card: #ffffff;
+      --border: rgba(0, 65, 170, 0.1);
+      --text: #1a1d2e;
+      --text-muted: #64748b;
+      
+      --shadow: 0 4px 24px rgba(0, 65, 170, 0.07);
+      
+      /* Canvas elements custom styling variables */
+      --cell-stroke: #1e293b;                /* Stays dark in light theme */
+      --boundary-fill: rgba(148, 163, 184, 0.2);
+    }
+
+    [data-theme="dark"] {
+      --primary: rgb(96, 165, 250);         /* High-contrast sky blue for dark mode */
+      --primary-hover: #93c5fd;
+      --primary-light: rgba(96, 165, 250, 0.15);
+      --primary-border: rgba(96, 165, 250, 0.18);
+      
+      --bg: #0f1117;
+      --card: #181c2a;
+      --border: rgba(96, 165, 250, 0.18);
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+      
+      /* Canvas elements dark mode styling variables */
+      --cell-stroke: #0f172a;                /* Stays dark (near-black) in dark theme */
+      --boundary-fill: rgba(51, 65, 85, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Montserrat', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    /* Header Nav */
+    .site-header {
+      background-color: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: var(--shadow);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--primary);
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background-color: var(--primary-light);
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      color: #ffffff;
+      border-color: var(--primary);
+      background-color: var(--primary);
+      text-decoration: none;
+      transform: translateY(-1.5px);
+    }
+
+    /* Go-further card */
+    .go-further-card {
+      text-align: center;
+    }
+    .go-further-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .go-further-card p {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Toolbox row in the workspace (Canvas Tools + Go Further) */
+    .workspace-row {
+      display: flex;
+      gap: 1rem;
+      width: 100%;
+      max-width: 600px;
+    }
+    .toolbox-card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .toolbox-card h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+    }
+    .toolbox-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+    }
+    .toolbox-card .btn-primary {
+      margin-top: 0;
+    }
+
+    /* Page transitions */
+    @keyframes page-fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @media screen { body { animation: page-fade-in 0.35s ease both; } }
+
+    .header-title h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .header-title p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Main Layout Grid */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 2rem;
+      padding: 2rem;
+      flex: 1;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 1024px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+      }
+    }
+
+    /* Didactic Guide Sidebar */
+    .guide-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      height: fit-content;
+    }
+
+    .guide-card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* Stepper Progress bar */
+    .stepper {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .step-dot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .step-dot.active {
+      border-color: var(--primary);
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .step-dot.completed {
+      border-color: var(--primary);
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    /* Stepper Content */
+    .step-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .step-content h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    .step-description {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    
+    .step-description p {
+      margin-bottom: 0.5rem;
+    }
+
+    /* UX Callout Boxes */
+    .callout-box {
+      font-size: 0.84rem;
+      border-radius: 8px;
+      padding: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .callout-action {
+      background-color: rgba(245, 158, 11, 0.06);
+      border-left: 4px solid #f59e0b;
+      border-top: 1px solid rgba(245, 158, 11, 0.1);
+      border-bottom: 1px solid rgba(245, 158, 11, 0.1);
+      border-right: 1px solid rgba(245, 158, 11, 0.1);
+      color: var(--text);
+    }
+
+    .callout-action strong {
+      color: #d97706;
+    }
+
+    .callout-takeaway {
+      background-color: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      border-top: 1px solid var(--primary-border);
+      border-bottom: 1px solid var(--primary-border);
+      border-right: 1px solid var(--primary-border);
+      color: var(--text);
+    }
+
+    .callout-takeaway strong {
+      color: var(--primary);
+    }
+
+    /* Navigation buttons */
+    .stepper-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.4rem 0.85rem;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 500;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background-color: var(--primary-soft);
+      color: var(--primary);
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+      gap: 0.5rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn:hover {
+      background-color: var(--primary);
+      color: #ffffff !important;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 65, 170, 0.15);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff !important;
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      background-color: transparent;
+      color: var(--text-muted);
+      border-color: var(--border);
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--primary-soft);
+      color: var(--primary) !important;
+      border-color: var(--primary);
+    }
+
+    /* Workspace Content Area */
+    .workspace-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .viewport-card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 600px;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .viewport-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-left: 3px solid var(--primary);
+      padding-left: 0.5rem;
+    }
+
+    .svg-container {
+      width: 100%;
+      position: relative;
+    }
+
+    .svg-container svg {
+      display: block;
+      width: 100% !important;
+      height: auto !important;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background-color: var(--card); /* Match card background to integrate perfectly in dark mode */
+      touch-action: none;
+      box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    /* Styles for visualizer centroids - site contour (stroke) stays dark */
+    .sites circle {
+      fill: #ffffff !important;
+      stroke: var(--cell-stroke) !important;   /* Aligned with cell borders to stay dark in both themes */
+      stroke-width: 1.5px !important;
+      r: 4px !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    /* Theme Toggle Button Styling */
+    .theme-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      transition: all 0.2s;
+    }
+
+    .theme-btn:hover {
+      background-color: var(--primary-light);
+      border-color: var(--primary-border);
+      color: var(--primary);
+    }
+
+    .theme-btn svg {
+      width: 18px !important;
+      height: 18px !important;
+      display: block;
+    }
+
+    /* Toggle Sun/Moon visibility based on active theme */
+    [data-theme="light"] .theme-btn .sun-icon {
+      display: none;
+    }
+    [data-theme="light"] .theme-btn .moon-icon {
+      display: block;
+    }
+    [data-theme="dark"] .theme-btn .sun-icon {
+      display: block;
+    }
+    [data-theme="dark"] .theme-btn .moon-icon {
+      display: none;
+    }
+
+    /* Mathematical Tooltip styling */
+    .math-tooltip {
+      position: absolute;
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-left-width: 3px; /* Colored accent left bar — set per-term below */
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      z-index: 100;
+      max-width: 280px;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: var(--text);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(4px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      pointer-events: none;
+    }
+
+    .math-tooltip.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* Per-term color mapping using CSS variables to keep tooltip text and backgrounds matched */
+    .math-tooltip[data-term-class="math-term-vi"],
+    .math-tooltip[data-term-class="math-term-sik"],
+    .math-tooltip[data-term-class="math-term-bsi"] {
+      --term-color: rgb(29, 78, 216);
+      --term-bg: rgba(59, 130, 246, 0.08);
+      --term-border: rgba(59, 130, 246, 0.15);
+    }
+
+    .math-tooltip[data-term-class="math-term-x"],
+    .math-tooltip[data-term-class="math-term-integral-top"],
+    .math-tooltip[data-term-class="math-term-union"] {
+      --term-color: rgb(109, 40, 217);
+      --term-bg: rgba(139, 92, 246, 0.08);
+      --term-border: rgba(139, 92, 246, 0.15);
+    }
+
+    .math-tooltip[data-term-class="math-term-omega"],
+    .math-tooltip[data-term-class="math-term-integral-bottom"] {
+      --term-color: rgb(4, 120, 87);
+      --term-bg: rgba(16, 185, 129, 0.08);
+      --term-border: rgba(16, 185, 129, 0.15);
+    }
+
+    .math-tooltip[data-term-class="math-term-dxs"],
+    .math-tooltip[data-term-class="math-term-vertices"] {
+      --term-color: rgb(180, 83, 9);
+      --term-bg: rgba(245, 158, 11, 0.08);
+      --term-border: rgba(245, 158, 11, 0.15);
+    }
+
+    .math-tooltip[data-term-class="math-term-dxs2"],
+    .math-tooltip[data-term-class="math-term-disk"] {
+      --term-color: rgb(190, 24, 74);
+      --term-bg: rgba(244, 63, 94, 0.08);
+      --term-border: rgba(244, 63, 94, 0.15);
+    }
+
+    .math-tooltip[data-term-class="math-term-forall"] {
+      --term-color: rgb(67, 56, 202);
+      --term-bg: rgba(99, 102, 241, 0.08);
+      --term-border: rgba(99, 102, 241, 0.15);
+    }
+
+    .math-tooltip-title {
+      font-weight: 700;
+      color: var(--term-color);
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .math-tooltip-term {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      background-color: var(--term-bg);
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+      border: 1px solid var(--term-border);
+      color: var(--term-color);
+    }
+
+    /* Prevent display math overflow in sidebar */
+    .katex-display {
+      overflow: visible !important;
+      max-width: 100% !important;
+      padding: 0.5rem 0 !important;
+      font-size: 0.82rem; /* Scale down so it fits completely without scrollbar */
+      text-align: center;
+    }
+
+    /* Math term pill styles — only safe properties that don't break KaTeX layout */
+    .katex [class*="math-term-"] {
+      transition: background-color 0.15s ease, box-shadow 0.15s ease;
+      border-radius: 3px;
+      /* Horizontal padding gives breathing room without breaking fractions/subscripts */
+      padding: 0.15em;
+      margin: 0 0.04em;
+    }
+
+    /* Light Theme — Color Coding */
+    .katex .math-term-vi,
+    .katex .math-term-sik,
+    .katex .math-term-bsi {
+      color: rgb(29, 78, 216) !important;
+      background-color: rgba(59, 130, 246, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.35);
+    }
+    .katex .math-term-x,
+    .katex .math-term-integral-top,
+    .katex .math-term-union {
+      color: rgb(109, 40, 217) !important;
+      background-color: rgba(139, 92, 246, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.35);
+    }
+    .katex .math-term-omega,
+    .katex .math-term-integral-bottom {
+      color: rgb(4, 120, 87) !important;
+      background-color: rgba(16, 185, 129, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.35);
+    }
+    .katex .math-term-dxs,
+    .katex .math-term-vertices {
+      color: rgb(180, 83, 9) !important;
+      background-color: rgba(245, 158, 11, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.35);
+    }
+    .katex .math-term-dxs2,
+    .katex .math-term-disk {
+      color: rgb(190, 24, 74) !important;
+      background-color: rgba(244, 63, 94, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(244, 63, 94, 0.35);
+    }
+    .katex .math-term-forall {
+      color: rgb(67, 56, 202) !important;
+      background-color: rgba(99, 102, 241, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(99, 102, 241, 0.35);
+    }
+
+    /* Dark Theme */
+    [data-theme="dark"] .katex .math-term-vi,
+    [data-theme="dark"] .katex .math-term-sik,
+    [data-theme="dark"] .katex .math-term-bsi {
+      color: rgb(147, 197, 253) !important;
+      background-color: rgba(96, 165, 250, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.4);
+    }
+    [data-theme="dark"] .katex .math-term-x,
+    [data-theme="dark"] .katex .math-term-integral-top,
+    [data-theme="dark"] .katex .math-term-union {
+      color: rgb(196, 181, 253) !important;
+      background-color: rgba(167, 139, 250, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(167, 139, 250, 0.4);
+    }
+    [data-theme="dark"] .katex .math-term-omega,
+    [data-theme="dark"] .katex .math-term-integral-bottom {
+      color: rgb(110, 231, 183) !important;
+      background-color: rgba(52, 211, 153, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(52, 211, 153, 0.4);
+    }
+    [data-theme="dark"] .katex .math-term-dxs,
+    [data-theme="dark"] .katex .math-term-vertices {
+      color: rgb(252, 211, 77) !important;
+      background-color: rgba(251, 191, 36, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.4);
+    }
+    [data-theme="dark"] .katex .math-term-dxs2,
+    [data-theme="dark"] .katex .math-term-disk {
+      color: rgb(253, 164, 175) !important;
+      background-color: rgba(251, 113, 133, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(251, 113, 133, 0.4);
+    }
+    [data-theme="dark"] .katex .math-term-forall {
+      color: rgb(165, 180, 252) !important;
+      background-color: rgba(129, 140, 248, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(129, 140, 248, 0.4);
+    }
+
+    /* Hover — darken background only, no layout changes */
+    .katex .math-term-vi:hover, .katex .math-term-sik:hover, .katex .math-term-bsi:hover {
+      background-color: rgba(59, 130, 246, 0.22) !important;
+      box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.6) !important;
+    }
+    .katex .math-term-x:hover, .katex .math-term-integral-top:hover, .katex .math-term-union:hover {
+      background-color: rgba(139, 92, 246, 0.22) !important;
+      box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.6) !important;
+    }
+    .katex .math-term-omega:hover, .katex .math-term-integral-bottom:hover {
+      background-color: rgba(16, 185, 129, 0.22) !important;
+      box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.6) !important;
+    }
+    .katex .math-term-dxs:hover, .katex .math-term-vertices:hover {
+      background-color: rgba(245, 158, 11, 0.22) !important;
+      box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.6) !important;
+    }
+    .katex .math-term-dxs2:hover, .katex .math-term-disk:hover {
+      background-color: rgba(244, 63, 94, 0.22) !important;
+      box-shadow: inset 0 0 0 1px rgba(244, 63, 94, 0.6) !important;
+    }
+    .katex .math-term-forall:hover {
+      background-color: rgba(99, 102, 241, 0.22) !important;
+      box-shadow: inset 0 0 0 1px rgba(99, 102, 241, 0.6) !important;
+    }
+
+    /* Bilateral Filter Specific Math Highlights */
+    .katex .math-term-g {
+      color: rgb(0, 65, 170) !important;
+      background-color: rgba(0, 65, 170, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(0, 65, 170, 0.2);
+    }
+    .katex .math-term-gs {
+      color: rgb(109, 40, 217) !important;
+      background-color: rgba(139, 92, 246, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.2);
+    }
+    .katex .math-term-gr {
+      color: rgb(4, 120, 87) !important;
+      background-color: rgba(16, 185, 129, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.2);
+    }
+    .katex .math-term-bf {
+      color: rgb(219, 39, 119) !important;
+      background-color: rgba(219, 39, 119, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(219, 39, 119, 0.2);
+    }
+    .katex .math-term-y {
+      color: rgb(79, 70, 229) !important;
+      background-color: rgba(79, 70, 229, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(79, 70, 229, 0.2);
+    }
+    .katex .math-term-sigmas {
+      color: rgb(13, 148, 136) !important;
+      background-color: rgba(13, 148, 136, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(13, 148, 136, 0.2);
+    }
+    .katex .math-term-sigmar {
+      color: rgb(22, 163, 74) !important;
+      background-color: rgba(22, 163, 74, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(22, 163, 74, 0.2);
+    }
+    .katex .math-term-fx {
+      color: rgb(217, 119, 6) !important;
+      background-color: rgba(217, 119, 6, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(217, 119, 6, 0.2);
+    }
+    .katex .math-term-fy {
+      color: rgb(180, 83, 9) !important;
+      background-color: rgba(180, 83, 9, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(180, 83, 9, 0.2);
+    }
+    .katex .math-term-wx {
+      color: rgb(8, 145, 178) !important;
+      background-color: rgba(8, 145, 178, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(8, 145, 178, 0.2);
+    }
+
+    /* Dark Theme */
+    [data-theme="dark"] .katex .math-term-g {
+      color: rgb(96, 165, 250) !important;
+      background-color: rgba(96, 165, 250, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.3);
+    }
+    [data-theme="dark"] .katex .math-term-gs {
+      color: rgb(196, 181, 250) !important;
+      background-color: rgba(167, 139, 250, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(167, 139, 250, 0.3);
+    }
+    [data-theme="dark"] .katex .math-term-gr {
+      color: rgb(110, 231, 183) !important;
+      background-color: rgba(52, 211, 153, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(52, 211, 153, 0.3);
+    }
+    [data-theme="dark"] .katex .math-term-bf {
+      color: rgb(244, 114, 182) !important;
+      background-color: rgba(244, 114, 182, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(244, 114, 182, 0.3);
+    }
+    [data-theme="dark"] .katex .math-term-y {
+      color: rgb(129, 140, 248) !important;
+      background-color: rgba(129, 140, 248, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(129, 140, 248, 0.3);
+    }
+    [data-theme="dark"] .katex .math-term-sigmas {
+      color: rgb(45, 212, 191) !important;
+      background-color: rgba(45, 212, 191, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(45, 212, 191, 0.3);
+    }
+    [data-theme="dark"] .katex .math-term-sigmar {
+      color: rgb(74, 222, 128) !important;
+      background-color: rgba(74, 222, 128, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(74, 222, 128, 0.3);
+    }
+    [data-theme="dark"] .katex .math-term-fx {
+      color: rgb(251, 191, 36) !important;
+      background-color: rgba(251, 191, 36, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.3);
+    }
+    [data-theme="dark"] .katex .math-term-fy {
+      color: rgb(245, 158, 11) !important;
+      background-color: rgba(245, 158, 11, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.3);
+    }
+    [data-theme="dark"] .katex .math-term-wx {
+      color: rgb(34, 211, 238) !important;
+      background-color: rgba(34, 211, 238, 0.15);
+      box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.3);
+    }
+
+    /* Per-term tooltip variables for Bilateral Filter */
+    .math-tooltip[data-term-class="math-term-g"] {
+      --term-color: rgb(0, 65, 170);
+      --term-bg: rgba(0, 65, 170, 0.08);
+      --term-border: rgba(0, 65, 170, 0.15);
+    }
+    .math-tooltip[data-term-class="math-term-gs"] {
+      --term-color: rgb(109, 40, 217);
+      --term-bg: rgba(139, 92, 246, 0.08);
+      --term-border: rgba(139, 92, 246, 0.15);
+    }
+    .math-tooltip[data-term-class="math-term-gr"] {
+      --term-color: rgb(4, 120, 87);
+      --term-bg: rgba(16, 185, 129, 0.08);
+      --term-border: rgba(16, 185, 129, 0.15);
+    }
+    .math-tooltip[data-term-class="math-term-bf"] {
+      --term-color: rgb(219, 39, 119);
+      --term-bg: rgba(219, 39, 119, 0.08);
+      --term-border: rgba(219, 39, 119, 0.15);
+    }
+    .math-tooltip[data-term-class="math-term-y"] {
+      --term-color: rgb(79, 70, 229);
+      --term-bg: rgba(79, 70, 229, 0.08);
+      --term-border: rgba(79, 70, 229, 0.15);
+    }
+    .math-tooltip[data-term-class="math-term-sigmas"] {
+      --term-color: rgb(13, 148, 136);
+      --term-bg: rgba(13, 148, 136, 0.08);
+      --term-border: rgba(13, 148, 136, 0.15);
+    }
+    .math-tooltip[data-term-class="math-term-sigmar"] {
+      --term-color: rgb(22, 163, 74);
+      --term-bg: rgba(22, 163, 74, 0.08);
+      --term-border: rgba(22, 163, 74, 0.15);
+    }
+    .math-tooltip[data-term-class="math-term-fx"] {
+      --term-color: rgb(217, 119, 6);
+      --term-bg: rgba(217, 119, 6, 0.08);
+      --term-border: rgba(217, 119, 6, 0.15);
+    }
+    .math-tooltip[data-term-class="math-term-fy"] {
+      --term-color: rgb(180, 83, 9);
+      --term-bg: rgba(180, 83, 9, 0.08);
+      --term-border: rgba(180, 83, 9, 0.15);
+    }
+    .math-tooltip[data-term-class="math-term-wx"] {
+      --term-color: rgb(8, 145, 178);
+      --term-bg: rgba(8, 145, 178, 0.08);
+      --term-border: rgba(8, 145, 178, 0.15);
+    }
