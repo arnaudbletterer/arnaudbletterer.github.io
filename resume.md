@@ -128,7 +128,7 @@ More recently, my research interests have also expanded towards **image processi
       <div class="pub-year"><code>2022</code></div>
       <div class="pub-title">Graph-based Computation of Voronoi Diagrams on Large-scale Point-based Surfaces</div>
       <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, and Marc Antonini</div>
-      <div class="pub-venue">Eurographics | <a href="projects/partial-voronoi/" target="_blank" class="pub-demo-link">Interactive Demo</a></div>
+      <div class="pub-venue">Eurographics</div>
     </div>
   </div>
 
@@ -146,7 +146,7 @@ More recently, my research interests have also expanded towards **image processi
       <div class="pub-year"><code>2018</code></div>
       <div class="pub-title">Out-of-core Resampling of Gigantic Point Clouds</div>
       <div class="pub-authors"><ins>Arnaud Bletterer</ins>, Frédéric Payan, Marc Antonini, and Anis Meftah</div>
-      <div class="pub-venue">SGP | <a href="projects/partial-voronoi/" target="_blank" class="pub-demo-link">Interactive Demo</a></div>
+      <div class="pub-venue">SGP</div>
     </div>
   </div>
 
