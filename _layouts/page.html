@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ page.title }} | Arnaud Bletterer</title>
+  <meta name="description" content="{{ page.description | default: 'R&D Philosophy & Principles — Bridging the gap between exploration and industrialization.' }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="{{ page.title }} | Arnaud Bletterer" />
+  <meta property="og:description" content="{{ page.description | default: 'R&D Philosophy & Principles — Bridging the gap between exploration and industrialization.' }}" />
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  <meta property="og:image" content="{{ site.url }}/profile.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ page.title }} | Arnaud Bletterer" />
+  <meta name="twitter:description" content="{{ page.description | default: 'R&D Philosophy & Principles — Bridging the gap between exploration and industrialization.' }}" />
+  <meta name="twitter:image" content="{{ site.url }}/profile.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ site.url }}/profile.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
+
+  {% if site.umami_id %}
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="{{ site.umami_id }}"></script>
+  {% endif %}
+
+  <script>
+    (function() {
+      const stored = localStorage.getItem('theme');
+      if (stored) {
+        document.documentElement.setAttribute('data-theme', stored);
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+      }
+    })();
+  </script>
+
+  <style>
+    /* ── Design Tokens ─────────────────────────────────────────────────── */
+    :root {
+      --bg:           #f8f9fc;
+      --bg-card:      #ffffff;
+      --text:         #1a1d2e;
+      --text-muted:   #64748b;
+      --primary:      rgb(0, 65, 170);
+      --primary-soft: rgba(0, 65, 170, 0.08);
+      --border:       rgba(0, 65, 170, 0.1);
+      --shadow:       0 4px 24px rgba(0, 65, 170, 0.07);
+      --shadow-hover: 0 12px 40px rgba(0, 65, 170, 0.14);
+      --radius:       1rem;
+      --font:         'Inter', system-ui, sans-serif;
+      --font-title:   'Montserrat', 'Inter', sans-serif;
+    }
+    [data-theme="dark"] {
+      --bg:           #0f1117;
+      --bg-card:      #181c2a;
+      --text:         #e2e8f0;
+      --text-muted:   #94a3b8;
+      --primary:      rgb(96, 165, 250);
+      --primary-soft: rgba(96, 165, 250, 0.1);
+      --border:       rgba(96, 165, 250, 0.18);
+      --shadow:       0 4px 24px rgba(0, 0, 0, 0.35);
+      --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6rem 1.5rem 4rem;
+      transition: background 0.3s, color 0.3s;
+      line-height: 1.7;
+    }
+
+    /* Page fade-in */
+    @keyframes page-fade-in {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    body { animation: page-fade-in 0.4s ease both; }
+
+    /* ── Controls (Header) ──────────────────────────────────────────────── */
+    #theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
+      z-index: 1000;
+      padding: 0;
+    }
+    #theme-toggle:hover { transform: scale(1.08); box-shadow: var(--shadow-hover); }
+    #theme-toggle svg { width: 1.1rem; height: 1.1rem; }
+    [data-theme="dark"]  .sun-icon  { display: block; }
+    [data-theme="dark"]  .moon-icon { display: none;  }
+    [data-theme="light"] .sun-icon  { display: none;  }
+    [data-theme="light"] .moon-icon { display: block; }
+    .sun-icon, .moon-icon { display: none; }
+
+    #home-btn {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 1000;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
+    }
+    #home-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      background: var(--primary-soft);
+    }
+    #home-btn svg { width: 0.85rem; height: 0.85rem; flex-shrink: 0; }
+
+    /* ── Article Layout ─────────────────────────────────────────────────── */
+    .article-container {
+      width: 100%;
+      max-width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    header.article-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2rem;
+    }
+
+    .article-title {
+      font-family: var(--font-title);
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .article-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* ── Content Styling ────────────────────────────────────────────────── */
+    .article-content {
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+
+    .article-content img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin: 1.5rem 0 2rem;
+      box-shadow: var(--shadow);
+      display: block;
+    }
+
+    .article-content h2 {
+      font-family: var(--font-title);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.4rem;
+    }
+
+    .article-content h3 {
+      font-family: var(--font-title);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .article-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .article-content p strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .article-content blockquote {
+      border-left: 4px solid var(--primary);
+      padding: 0.75rem 1.5rem;
+      margin: 2rem 0;
+      background: var(--primary-soft);
+      border-radius: 0 0.5rem 0.5rem 0;
+      font-style: italic;
+      color: var(--text);
+    }
+
+    .article-content blockquote p {
+      margin-bottom: 0;
+    }
+
+    .article-content ul, .article-content ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+
+    .article-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Custom visual block for principles */
+    .principle-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin: 2rem 0;
+      box-shadow: var(--shadow);
+    }
+    
+    .principle-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .principle-num {
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: 0.9rem;
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .principle-title {
+      font-family: var(--font-title);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .principle-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────────────────── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      margin-top: 4rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+ 
+    .site-footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .site-footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive ─────────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      body { padding-top: 5rem; }
+      #home-btn { top: auto; bottom: 1.5rem; left: 1.5rem; }
+      #theme-toggle { top: auto; bottom: 1.5rem; right: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
+    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+
+  <a id="home-btn" href="/">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Home
+  </a>
+
+  <main class="article-container" role="main">
+    <header class="article-header">
+      <h1 class="article-title">{{ page.title }}</h1>
+      <p class="article-subtitle">{{ page.subtitle }}</p>
+    </header>
+
+    <article class="article-content">
+      {{ content }}
+    </article>
+
+    {% include footer.html %}
+  </main>
+
+  <script>
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    // Page-exit transition: fade out before navigating
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href]');
+      if (!a) return;
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('http') || a.target === '_blank') return;
+      e.preventDefault();
+      document.body.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      document.body.style.opacity = '0';
+      document.body.style.transform = 'translateY(-8px)';
+      setTimeout(() => { window.location.href = href; }, 260);
+    });
+
+    (function syncIcons() {
+      const theme = document.documentElement.getAttribute('data-theme') || 'light';
+      document.querySelectorAll('.sun-icon').forEach(el => el.style.display = theme === 'dark' ? 'block' : 'none');
+      document.querySelectorAll('.moon-icon').forEach(el => el.style.display = theme === 'dark' ? 'none' : 'block');
+    })();
+  </script>
+
+</body>
+</html>

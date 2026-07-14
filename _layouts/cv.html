@@ -71,6 +71,21 @@
       box-shadow: 0 6px 18px var(--shadow-hover);
     }
     #home-btn svg { width: 0.85rem; height: 0.85rem; flex-shrink: 0; }
+    
+    /* Coherent Footer */
+    .site-footer {
+      border-top: 1px solid var(--border-color);
+      padding: 2rem 0;
+      margin: 4rem auto 2rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      width: 90%;
+      max-width: 1200px;
+    }
+    @media print {
+      .site-footer { display: none; }
+    }
   </style>
   <script>
     (function() {
@@ -118,6 +133,7 @@
     <div id="content">
     {{ content }}
     </div>
+    {% include footer.html %}
   </div>
   <script>
     document.getElementById('theme-toggle').addEventListener('click', () => {
