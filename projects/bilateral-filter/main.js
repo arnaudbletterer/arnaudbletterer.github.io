@@ -305,20 +305,20 @@ function updateSVGOverlay() {
   if (probeDotInput) {
     probeDotInput.setAttribute('cx', mouseX);
     probeDotInput.setAttribute('cy', mouseY);
-    probeDotInput.setAttribute('stroke-width', isHovering ? '1.5' : '1.0');
-    probeDotInput.setAttribute('stroke-dasharray', isHovering ? 'none' : '1.5,1.5');
+    probeDotInput.setAttribute('stroke-width', '1.2');
+    probeDotInput.removeAttribute('stroke-dasharray');
   }
   if (probeDotKernel) {
     probeDotKernel.setAttribute('cx', mouseX);
     probeDotKernel.setAttribute('cy', mouseY);
-    probeDotKernel.setAttribute('stroke-width', isHovering ? '1.5' : '1.0');
-    probeDotKernel.setAttribute('stroke-dasharray', isHovering ? 'none' : '1.5,1.5');
+    probeDotKernel.setAttribute('stroke-width', '1.2');
+    probeDotKernel.removeAttribute('stroke-dasharray');
   }
   if (probeDotOutput) {
     probeDotOutput.setAttribute('cx', mouseX);
     probeDotOutput.setAttribute('cy', mouseY);
-    probeDotOutput.setAttribute('stroke-width', isHovering ? '1.5' : '1.0');
-    probeDotOutput.setAttribute('stroke-dasharray', isHovering ? 'none' : '1.5,1.5');
+    probeDotOutput.setAttribute('stroke-width', '1.2');
+    probeDotOutput.removeAttribute('stroke-dasharray');
   }
   
   // Update horizontal guide lines position
