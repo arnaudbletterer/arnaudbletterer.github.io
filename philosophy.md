@@ -72,6 +72,6 @@ Keeping highly talented, scientifically curious individuals motivated within a c
 
 By embedding researchers directly in the process of building the end-to-end pipeline, they gain immediate exposure to the practical constraints and real-world problems of the field. When a researcher witnesses their code transitioning from a standalone script to a physical device, solving a client's problem, and shipping to the market, their perspective undergoes a profound shift:
 
-> **"It is great to solve a theoretical question no one ever answered before. It is even greater to see how it can improve the life of people."**
+> **"Solving a theoretical question that has never been answered before is deeply rewarding. But it is even more fulfilling to see that solution directly improve people's lives."**
 
 Experiencing that impact first-hand is enlightening. It transforms R&D culture from one of theoretical isolation to one of shared, commercial engineering pride—proving that the highest form of innovation is the one that actually ships.

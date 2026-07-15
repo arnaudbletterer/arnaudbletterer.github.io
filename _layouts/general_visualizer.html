@@ -255,62 +255,91 @@
       setStep(currentStep + 1);
     }
 
-    // Mathematical Hover Tooltips Implementation
     const mathTermsDb = {
       "math-term-g": {
         title: "Input Value",
-        term: "f(\\mathbf{y})",
-        desc: "The intensity/color value of the neighboring pixel $\\mathbf{y}$ before filtering."
+        term: "I(q)",
+        desc: "The intensity/color value of the neighboring pixel $q$ before filtering."
       },
-      "math-term-gs": {
-        title: "Spatial Weight",
-        term: "w_s(\\mathbf{y}, \\mathbf{x})",
-        desc: "Evaluates the geometric proximity between the neighbor pixel $\\mathbf{y}$ and the center pixel $\\mathbf{x}$ using a Gaussian curve. Decreases as spatial distance increases."
+      "math-term-step1-ks": {
+        title: "Space Kernel",
+        term: "k_s(\\|q - p\\|)",
+        desc: "Evaluates the geometric proximity between the neighbor pixel $q$ and the center pixel $p$ using a Gaussian curve. Decreases as spatial distance increases."
       },
-      "math-term-gr": {
-        title: "Range Weight",
-        term: "w_r(\\mathbf{y}, \\mathbf{x})",
-        desc: "Evaluates the intensity/color similarity between the neighbor value $f(\\mathbf{y})$ and center value $f(\\mathbf{x})$ using a Gaussian curve. Drops to zero if values are very different."
-      },
-      "math-term-bf": {
-        title: "Bilateral Output",
-        term: "BF(f)(\\mathbf{x})",
-        desc: "The new edge-preserving filtered color/intensity computed for the target pixel $\\mathbf{x}$."
-      },
-      "math-term-x": {
-        title: "Target Pixel",
-        term: "\\mathbf{x}",
-        desc: "The spatial coordinate vector $(x,y)$ of the center pixel currently being processed."
-      },
-      "math-term-y": {
+      "math-term-step1-q": {
         title: "Neighbor Pixel",
-        term: "\\mathbf{y}",
-        desc: "A spatial coordinate vector $(x', y')$ of a neighboring pixel inside the filter window."
+        term: "q",
+        desc: "A spatial coordinate of a neighboring pixel inside the filter window."
       },
-      "math-term-sigmas": {
+      "math-term-step1-p": {
+        title: "Target Pixel",
+        term: "p",
+        desc: "The spatial coordinate of the center pixel currently being processed."
+      },
+      "math-term-step1-sigmas": {
         title: "Spatial Sigma",
         term: "\\sigma_s",
-        desc: "The spatial standard deviation. Controls the radius and weight distribution of the geometric neighborhood."
+        desc: "The spatial standard deviation. Controls the radius and weight distribution of the space kernel."
       },
-      "math-term-sigmar": {
+      "math-term-step2-kr": {
+        title: "Range Kernel",
+        term: "k_r(\\|I(q) - I(p)\\|)",
+        desc: "Evaluates the intensity/color similarity between the neighbor value $I(q)$ and center value $I(p)$ using a Gaussian curve. Drops to zero if values are very different."
+      },
+      "math-term-step2-iq": {
+        title: "Neighbor Value",
+        term: "I(q)",
+        desc: "The intensity/color value of the neighbor pixel $q$."
+      },
+      "math-term-step2-ip": {
+        title: "Center Value",
+        term: "I(p)",
+        desc: "The intensity/color value of the center target pixel $p$."
+      },
+      "math-term-step2-sigmar": {
         title: "Range Sigma",
         term: "\\sigma_r",
-        desc: "The range standard deviation. Controls how sensitive the filter is to intensity differences (edge sensitivity)."
+        desc: "The range standard deviation. Controls how sensitive the filter is to color differences (edge sensitivity)."
       },
-      "math-term-fx": {
-        title: "Center Value",
-        term: "f(\\mathbf{x})",
-        desc: "The intensity/color value of the center target pixel $\\mathbf{x}$."
+      "math-term-step3-out": {
+        title: "Bilateral Output",
+        term: "I'(p)",
+        desc: "The new edge-preserving filtered color/intensity computed for the target pixel $p$."
       },
-      "math-term-fy": {
-        title: "Neighbor Value",
-        term: "f(\\mathbf{y})",
-        desc: "The intensity/color value of the neighbor pixel $\\mathbf{y}$."
-      },
-      "math-term-wx": {
+      "math-term-step3-wp": {
         title: "Normalization Factor",
-        term: "W(\\mathbf{x})",
+        term: "W_p",
         desc: "The sum of all combined weights over the neighborhood. Normalizes the output so the filtered intensity remains valid."
+      },
+      "math-term-step3-iq": {
+        title: "Neighbor Value",
+        term: "I(q)",
+        desc: "The intensity/color value of the neighbor pixel $q$."
+      },
+      "math-term-step3-kr": {
+        title: "Range Kernel",
+        term: "k_r(\\|I(q) - I(p)\\|)",
+        desc: "Evaluates the intensity/color similarity between the neighbor value $I(q)$ and center value $I(p)$ using a Gaussian curve. Drops to zero if values are very different."
+      },
+      "math-term-step3-ip": {
+        title: "Center Value",
+        term: "I(p)",
+        desc: "The intensity/color value of the center target pixel $p$."
+      },
+      "math-term-step3-ks": {
+        title: "Space Kernel",
+        term: "k_s(\\|q - p\\|)",
+        desc: "Evaluates the geometric proximity between the neighbor pixel $q$ and the center pixel $p$ using a Gaussian curve. Decreases as spatial distance increases."
+      },
+      "math-term-step3-q": {
+        title: "Neighbor Pixel",
+        term: "q",
+        desc: "A spatial coordinate of a neighboring pixel inside the filter window."
+      },
+      "math-term-step3-p": {
+        title: "Target Pixel",
+        term: "p",
+        desc: "The spatial coordinate of the center pixel currently being processed."
       }
     };
 

@@ -19,78 +19,117 @@ const ctxKernel = canvasKernel.getContext('2d');
 const ctxOutput = canvasOutput.getContext('2d');
 const ctxProfile = canvasProfile.getContext('2d');
 
-// Image data storage (using clean & noisy backing buffers)
-let cleanPixels = new Uint8ClampedArray(width * height);
-let noisyPixels = new Uint8ClampedArray(width * height);
-let filteredPixels = new Uint8ClampedArray(width * height);
+// Image data storage (using clean & noisy backing buffers, now RGBA)
+let cleanPixels = new Uint8ClampedArray(width * height * 4);
+let noisyPixels = new Uint8ClampedArray(width * height * 4);
+let filteredPixels = new Uint8ClampedArray(width * height * 4);
 
 // Mouse probe position
 let mouseX = width / 2;
 let mouseY = height / 2;
 let isHovering = false;
 
-// Generate images based on active preset
+// Generate images based on active preset (now in full color RGB)
 function generatePresetImage() {
   if (currentPreset === 'edge') {
-    // 1. Synthetic Step-Edge: Light region on the left, dark on the right
+    // 1. Synthetic Step-Edge: Orange/Coral on left, Teal/Cyan on right
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        const idx = y * width + x;
+        const idx = (y * width + x) * 4;
         const boundaryX = width / 2 + Math.sin(y / 15) * 12; // Wavy boundary
-        const val = (x < boundaryX) ? 190 : 60;
         
-        cleanPixels[idx] = val;
-        const noise = (Math.random() + Math.random() + Math.random() - 1.5) * 22;
-        noisyPixels[idx] = Math.max(0, Math.min(255, val + noise));
+        let r = 224, g = 242, b = 254; // Light sky blue
+        if (x >= boundaryX) {
+          r = 30; g = 27; b = 75; // Dark indigo
+        }
+        
+        cleanPixels[idx]     = r;
+        cleanPixels[idx + 1] = g;
+        cleanPixels[idx + 2] = b;
+        cleanPixels[idx + 3] = 255;
+        
+        const noiseR = (Math.random() + Math.random() + Math.random() - 1.5) * 22;
+        const noiseG = (Math.random() + Math.random() + Math.random() - 1.5) * 22;
+        const noiseB = (Math.random() + Math.random() + Math.random() - 1.5) * 22;
+        
+        noisyPixels[idx]     = Math.max(0, Math.min(255, r + noiseR));
+        noisyPixels[idx + 1] = Math.max(0, Math.min(255, g + noiseG));
+        noisyPixels[idx + 2] = Math.max(0, Math.min(255, b + noiseB));
+        noisyPixels[idx + 3] = 255;
       }
     }
   } else if (currentPreset === 'face') {
-    // 2. 3D-Shaded Geometric Sphere (Lambertian Shading)
+    // 2. 3D-Shaded Geometric Sphere (Lambertian Shading, violet sphere, dark slate background)
     const cx = width / 2;
     const cy = height / 2;
-    const r = Math.min(width, height) * 0.38;
-    const Lx = 0.577, Ly = -0.577, Lz = 0.577; // Light source direction vector (normalized)
+    const rSphere = Math.min(width, height) * 0.38;
+    const Lx = 0.577, Ly = -0.577, Lz = 0.577; // Light direction
     
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        const idx = y * width + x;
-        let val = 45; // Deep background
+        const idx = (y * width + x) * 4;
+        
+        let r = 23, g = 28, b = 41; // Slate background
         
         const dx = x - cx;
         const dy = y - cy;
         const dist2 = dx*dx + dy*dy;
         
-        if (dist2 < r*r) {
-          const z = Math.sqrt(r*r - dist2);
-          const nx = dx / r;
-          const ny = dy / r;
-          const nz = z / r;
+        if (dist2 < rSphere * rSphere) {
+          const z = Math.sqrt(rSphere*rSphere - dist2);
+          const nx = dx / rSphere;
+          const ny = dy / rSphere;
+          const nz = z / rSphere;
           const dot = nx*Lx + ny*Ly + nz*Lz;
           const diffuse = Math.max(0, dot);
           
-          // Render a beautifully shaded sphere with a light highlight
-          val = 50 + Math.floor(190 * diffuse);
+          const factor = 0.15 + 0.85 * diffuse;
+          r = Math.floor(124 * factor); // Violet sphere
+          g = Math.floor(58 * factor);
+          b = Math.floor(237 * factor);
         }
         
-        cleanPixels[idx] = val;
-        const noise = (Math.random() + Math.random() + Math.random() - 1.5) * 24;
-        noisyPixels[idx] = Math.max(0, Math.min(255, val + noise));
+        cleanPixels[idx]     = r;
+        cleanPixels[idx + 1] = g;
+        cleanPixels[idx + 2] = b;
+        cleanPixels[idx + 3] = 255;
+        
+        const noiseR = (Math.random() + Math.random() + Math.random() - 1.5) * 24;
+        const noiseG = (Math.random() + Math.random() + Math.random() - 1.5) * 24;
+        const noiseB = (Math.random() + Math.random() + Math.random() - 1.5) * 24;
+        
+        noisyPixels[idx]     = Math.max(0, Math.min(255, r + noiseR));
+        noisyPixels[idx + 1] = Math.max(0, Math.min(255, g + noiseG));
+        noisyPixels[idx + 2] = Math.max(0, Math.min(255, b + noiseB));
+        noisyPixels[idx + 3] = 255;
       }
     }
   } else if (currentPreset === 'circles') {
-    // 3. Mathematical Sinusoidal Ripple Grid
+    // 3. Mathematical Sinusoidal Ripple Grid (Color spectrum ripples)
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        const idx = y * width + x;
+        const idx = (y * width + x) * 4;
         
-        // 2D Ripple field formula
-        const angle = Math.sqrt((x - width/2)*(x - width/2) + (y - height/2)*(y - height/2)) / 5.5;
-        const factor = Math.sin(angle);
-        const val = 127 + Math.floor(95 * factor);
+        const dist = Math.sqrt((x - width/2)*(x - width/2) + (y - height/2)*(y - height/2));
+        const angle = dist / 5.5;
         
-        cleanPixels[idx] = val;
-        const noise = (Math.random() + Math.random() + Math.random() - 1.5) * 24;
-        noisyPixels[idx] = Math.max(0, Math.min(255, val + noise));
+        const r = 127 + Math.floor(95 * Math.sin(angle));
+        const g = 127 + Math.floor(95 * Math.sin(angle + 2*Math.PI/3));
+        const b = 127 + Math.floor(95 * Math.sin(angle + 4*Math.PI/3));
+        
+        cleanPixels[idx]     = r;
+        cleanPixels[idx + 1] = g;
+        cleanPixels[idx + 2] = b;
+        cleanPixels[idx + 3] = 255;
+        
+        const noiseR = (Math.random() + Math.random() + Math.random() - 1.5) * 24;
+        const noiseG = (Math.random() + Math.random() + Math.random() - 1.5) * 24;
+        const noiseB = (Math.random() + Math.random() + Math.random() - 1.5) * 24;
+        
+        noisyPixels[idx]     = Math.max(0, Math.min(255, r + noiseR));
+        noisyPixels[idx + 1] = Math.max(0, Math.min(255, g + noiseG));
+        noisyPixels[idx + 2] = Math.max(0, Math.min(255, b + noiseB));
+        noisyPixels[idx + 3] = 255;
       }
     }
   }
@@ -99,7 +138,7 @@ function generatePresetImage() {
   applyBilateralFilter();
 }
 
-// Compute the entire filter result instantly using pre-computed math lookup tables
+// Compute the entire filter result instantly using pre-computed math lookup tables (Color Bilateral)
 function applyBilateralFilter() {
   const source = hasNoise ? noisyPixels : cleanPixels;
   
@@ -128,13 +167,15 @@ function applyBilateralFilter() {
     rangeWeights[i] = Math.exp(-(i * i) / rCoeff);
   }
 
-  // 3. Main fast filtering loop
+  // 3. Main fast color filtering loop
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
-      const idx = y * width + x;
-      const centerVal = source[idx];
+      const idx = (y * width + x) * 4;
+      const centerR = source[idx];
+      const centerG = source[idx + 1];
+      const centerB = source[idx + 2];
       
-      let sumVal = 0;
+      let sumR = 0, sumG = 0, sumB = 0;
       let sumW = 0;
       
       for (let i = 0; i < sLen; i++) {
@@ -143,29 +184,45 @@ function applyBilateralFilter() {
         const ny = y + item.dy;
         
         if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-          const nidx = ny * width + nx;
-          const neighborVal = source[nidx];
+          const nidx = (ny * width + nx) * 4;
+          const neighborR = source[nidx];
+          const neighborG = source[nidx + 1];
+          const neighborB = source[nidx + 2];
           
           let w = 1.0;
           if (activeFilterStep === 1) {
-            // Gaussian: only spatial weights
             w = item.w_s;
-          } else if (activeFilterStep === 2) {
-            // Range Similarity only: ignore spatial distance, use entire image radius
-            const dI = Math.abs(neighborVal - centerVal);
-            w = rangeWeights[dI];
           } else {
-            // Bilateral: spatial weight * range weight
-            const dI = Math.abs(neighborVal - centerVal);
-            w = item.w_s * rangeWeights[dI];
+            // Normalized Euclidean distance in RGB color space
+            const dR = neighborR - centerR;
+            const dG = neighborG - centerG;
+            const dB = neighborB - centerB;
+            const dI = Math.round(Math.sqrt((dR*dR + dG*dG + dB*dB) / 3));
+            
+            if (activeFilterStep === 2) {
+              w = rangeWeights[dI];
+            } else {
+              w = item.w_s * rangeWeights[dI];
+            }
           }
           
-          sumVal += neighborVal * w;
+          sumR += neighborR * w;
+          sumG += neighborG * w;
+          sumB += neighborB * w;
           sumW += w;
         }
       }
       
-      filteredPixels[idx] = sumW > 0 ? sumVal / sumW : centerVal;
+      if (sumW > 0) {
+        filteredPixels[idx]     = sumR / sumW;
+        filteredPixels[idx + 1] = sumG / sumW;
+        filteredPixels[idx + 2] = sumB / sumW;
+      } else {
+        filteredPixels[idx]     = centerR;
+        filteredPixels[idx + 1] = centerG;
+        filteredPixels[idx + 2] = centerB;
+      }
+      filteredPixels[idx + 3] = 255;
     }
   }
   
@@ -182,28 +239,12 @@ function drawInputCanvas() {
   // 1. Draw source (noisy or clean input) on Left Canvas (Input)
   const source = hasNoise ? noisyPixels : cleanPixels;
   const imgDataSrc = ctxInput.createImageData(width, height);
-  const dataSrc = imgDataSrc.data;
-  for (let i = 0; i < width * height; i++) {
-    const val = source[i];
-    const idx = i * 4;
-    dataSrc[idx]     = val;
-    dataSrc[idx + 1] = val;
-    dataSrc[idx + 2] = val;
-    dataSrc[idx + 3] = 255;
-  }
+  imgDataSrc.data.set(source);
   ctxInput.putImageData(imgDataSrc, 0, 0);
 
   // 2. Draw filtered pixels on Right Canvas (Output)
   const imgDataOut = ctxOutput.createImageData(width, height);
-  const dataOut = imgDataOut.data;
-  for (let i = 0; i < width * height; i++) {
-    const val = filteredPixels[i];
-    const idx = i * 4;
-    dataOut[idx]     = val;
-    dataOut[idx + 1] = val;
-    dataOut[idx + 2] = val;
-    dataOut[idx + 3] = 255;
-  }
+  imgDataOut.data.set(filteredPixels);
   ctxOutput.putImageData(imgDataOut, 0, 0);
 }
 
@@ -224,8 +265,10 @@ function updateKernelCanvas() {
   
   // Always render weights for (mouseX, mouseY)
   const source = hasNoise ? noisyPixels : cleanPixels;
-  const centerIdx = Math.floor(mouseY) * width + Math.floor(mouseX);
-  const centerVal = source[centerIdx];
+  const centerIdx = (Math.floor(mouseY) * width + Math.floor(mouseX)) * 4;
+  const centerR = source[centerIdx];
+  const centerG = source[centerIdx + 1];
+  const centerB = source[centerIdx + 2];
   
   let rCoeff = 124, gCoeff = 58, bCoeff = 237;
   if (activeFilterStep === 1) {
@@ -243,6 +286,8 @@ function updateKernelCanvas() {
   const startY = Math.max(0, Math.floor(mouseY - radius));
   const endY = Math.min(height - 1, Math.floor(mouseY + radius));
   
+  const rCoeffSq = 2 * sigmaR * sigmaR;
+  
   for (let ny = startY; ny <= endY; ny++) {
     for (let nx = startX; nx <= endX; nx++) {
       const dx = nx - mouseX;
@@ -252,16 +297,23 @@ function updateKernelCanvas() {
       let w = 0;
       if (activeFilterStep === 1) {
         w = Math.exp(-d2 / (2 * sigmaS * sigmaS));
-      } else if (activeFilterStep === 2) {
-        const neighborVal = source[ny * width + nx];
-        const dI = neighborVal - centerVal;
-        w = Math.exp(-(dI*dI) / (2 * sigmaR * sigmaR));
       } else {
-        const neighborVal = source[ny * width + nx];
-        const dI = neighborVal - centerVal;
-        const w_s = Math.exp(-d2 / (2 * sigmaS * sigmaS));
-        const w_r = Math.exp(-(dI*dI) / (2 * sigmaR * sigmaR));
-        w = w_s * w_r;
+        const nidx = (ny * width + nx) * 4;
+        const neighborR = source[nidx];
+        const neighborG = source[nidx + 1];
+        const neighborB = source[nidx + 2];
+        const dR = neighborR - centerR;
+        const dG = neighborG - centerG;
+        const dB = neighborB - centerB;
+        const dI = Math.sqrt((dR*dR + dG*dG + dB*dB) / 3);
+        const w_r = Math.exp(-(dI*dI) / rCoeffSq);
+        
+        if (activeFilterStep === 2) {
+          w = w_r;
+        } else {
+          const w_s = Math.exp(-d2 / (2 * sigmaS * sigmaS));
+          w = w_s * w_r;
+        }
       }
       
       if (w > 0.005) {
@@ -395,7 +447,11 @@ function drawIntensityProfile() {
   ctxProfile.lineWidth = 1.2;
   ctxProfile.beginPath();
   for (let x = 0; x < width; x++) {
-    const val = source[hRow * width + x];
+    const idx = (hRow * width + x) * 4;
+    const r = source[idx];
+    const g = source[idx + 1];
+    const b = source[idx + 2];
+    const val = 0.299 * r + 0.587 * g + 0.114 * b; // luminance
     const cx = x * scaleX;
     const cy = getY(val);
     if (x === 0) ctxProfile.moveTo(cx, cy);
@@ -410,7 +466,11 @@ function drawIntensityProfile() {
   ctxProfile.lineWidth = 2.5;
   ctxProfile.beginPath();
   for (let x = 0; x < width; x++) {
-    const val = filteredPixels[hRow * width + x];
+    const idx = (hRow * width + x) * 4;
+    const r = filteredPixels[idx];
+    const g = filteredPixels[idx + 1];
+    const b = filteredPixels[idx + 2];
+    const val = 0.299 * r + 0.587 * g + 0.114 * b; // luminance
     const cx = x * scaleX;
     const cy = getY(val);
     if (x === 0) ctxProfile.moveTo(cx, cy);
@@ -461,62 +521,66 @@ function resetAll() {
   applyBilateralFilter();
 }
 
-function handleImageUpload(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const img = new Image();
-    img.onload = function() {
-      // Calculate letterboxed drawing parameters to fit image inside width (150) and height (125)
-      const canvasAspect = width / height;
-      const imgAspect = img.width / img.height;
-      let drawW = width;
-      let drawH = height;
-      let drawX = 0;
-      let drawY = 0;
+function loadImageToCanvas(src, isCustom) {
+  const img = new Image();
+  img.onload = function() {
+    // Calculate letterboxed drawing parameters to fit image inside width (150) and height (125)
+    const canvasAspect = width / height;
+    const imgAspect = img.width / img.height;
+    let drawW = width;
+    let drawH = height;
+    let drawX = 0;
+    let drawY = 0;
+    
+    if (imgAspect > canvasAspect) {
+      drawW = width;
+      drawH = width / imgAspect;
+      drawY = (height - drawH) / 2;
+    } else {
+      drawH = height;
+      drawW = height * imgAspect;
+      drawX = (width - drawW) / 2;
+    }
+    
+    // Create offscreen canvas to scale and render the image
+    const offscreen = document.createElement('canvas');
+    offscreen.width = width;
+    offscreen.height = height;
+    const oCtx = offscreen.getContext('2d');
+    
+    // Fill background with solid white
+    oCtx.fillStyle = '#ffffff';
+    oCtx.fillRect(0, 0, width, height);
+    
+    // Draw image centered and scaled
+    oCtx.drawImage(img, drawX, drawY, drawW, drawH);
+    
+    // Read back pixels in color!
+    const imgData = oCtx.getImageData(0, 0, width, height);
+    const data = imgData.data;
+    
+    for (let i = 0; i < width * height; i++) {
+      const idx = i * 4;
+      const r = data[idx];
+      const g = data[idx + 1];
+      const b = data[idx + 2];
       
-      if (imgAspect > canvasAspect) {
-        drawW = width;
-        drawH = width / imgAspect;
-        drawY = (height - drawH) / 2;
-      } else {
-        drawH = height;
-        drawW = height * imgAspect;
-        drawX = (width - drawW) / 2;
-      }
+      cleanPixels[idx]     = r;
+      cleanPixels[idx + 1] = g;
+      cleanPixels[idx + 2] = b;
+      cleanPixels[idx + 3] = 255;
       
-      // Create offscreen canvas to scale and render the image
-      const offscreen = document.createElement('canvas');
-      offscreen.width = width;
-      offscreen.height = height;
-      const oCtx = offscreen.getContext('2d');
+      const noiseR = (Math.random() + Math.random() + Math.random() - 1.5) * 22;
+      const noiseG = (Math.random() + Math.random() + Math.random() - 1.5) * 22;
+      const noiseB = (Math.random() + Math.random() + Math.random() - 1.5) * 22;
       
-      // Fill background with solid white
-      oCtx.fillStyle = '#ffffff';
-      oCtx.fillRect(0, 0, width, height);
-      
-      // Draw image centered and scaled
-      oCtx.drawImage(img, drawX, drawY, drawW, drawH);
-      
-      // Read back pixels and convert to grayscale
-      const imgData = oCtx.getImageData(0, 0, width, height);
-      const data = imgData.data;
-      
-      for (let i = 0; i < width * height; i++) {
-        const idx = i * 4;
-        const r = data[idx];
-        const g = data[idx + 1];
-        const b = data[idx + 2];
-        const gray = Math.floor(0.299 * r + 0.587 * g + 0.114 * b);
-        
-        cleanPixels[i] = gray;
-        const noise = (Math.random() + Math.random() + Math.random() - 1.5) * 22;
-        noisyPixels[i] = Math.max(0, Math.min(255, gray + noise));
-      }
-      
-      // Set preset select to custom option
+      noisyPixels[idx]     = Math.max(0, Math.min(255, r + noiseR));
+      noisyPixels[idx + 1] = Math.max(0, Math.min(255, g + noiseG));
+      noisyPixels[idx + 2] = Math.max(0, Math.min(255, b + noiseB));
+      noisyPixels[idx + 3] = 255;
+    }
+    
+    if (isCustom) {
       currentPreset = 'custom';
       const presetSelect = document.getElementById('preset-select');
       const customOption = document.getElementById('custom-option-label');
@@ -524,11 +588,21 @@ function handleImageUpload(event) {
         customOption.style.display = 'block';
         presetSelect.value = 'custom';
       }
-      
-      // Apply filter and redraw
-      applyBilateralFilter();
-    };
-    img.src = e.target.result;
+    }
+    
+    // Apply filter and redraw
+    applyBilateralFilter();
+  };
+  img.src = src;
+}
+
+function handleImageUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    loadImageToCanvas(e.target.result, true);
   };
   reader.readAsDataURL(file);
 }
@@ -595,9 +669,9 @@ function onStepChange(step) {
   applyBilateralFilter();
   
   const labels = [
-    "2. Spatial Weight ($w_s$)",
-    "2. Range Weight ($w_r$)",
-    "2. Bilateral Weight ($w_s \\times w_r$)"
+    "2. Space Kernel ($k_s$)",
+    "2. Range Kernel ($k_r$)",
+    "2. Bilateral Kernel ($k_s \\times k_r$)"
   ];
   
   const labelEl = document.getElementById('kernel-type-label');

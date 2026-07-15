@@ -8,9 +8,9 @@ custom_scripts:
 steps:
   - title: "1. Spatial Kernel"
     description: >
-      A standard Gaussian blur averages neighboring pixels based entirely on their spatial distance from the center pixel $\mathbf{x}$. The closer a neighbor $\mathbf{y}$ is, the higher its spatial weight:
+      A standard Gaussian blur averages neighboring pixels based entirely on their spatial distance from the center pixel $p$. The closer a neighbor $q$ is, the higher its spatial weight:
 
-      $$ w_s(\htmlClass{math-term-y}{\mathbf{y}}, \htmlClass{math-term-x}{\mathbf{x}}) = \exp\left(-\frac{\|\htmlClass{math-term-y}{\mathbf{y}} - \htmlClass{math-term-x}{\mathbf{x}}\|^2}{2\htmlClass{math-term-sigmas}{\sigma_s}^2}\right) $$
+      $$ \htmlClass{math-term-step1-ks}{k_s(\|q - p\|)} = \exp\left(-\frac{\|\htmlClass{math-term-step1-q}{q} - \htmlClass{math-term-step1-p}{p}\|^2}{2\htmlClass{math-term-step1-sigmas}{\sigma_s}^2}\right) $$
 
       Since color values are ignored, this blur completely destroys sharp edges.
     instruction: "🎮 **Play:** Move your cursor over the noisy step-edge image in the canvas. Observe the circular shape of the spatial kernel weight on the right."
@@ -18,9 +18,9 @@ steps:
 
   - title: "2. Range Kernel"
     description: >
-      To preserve edges, we must also weight pixels by their photometric/intensity similarity. If a neighbor $\mathbf{y}$ has a color value $f(\mathbf{y})$ very different from the center pixel $f(\mathbf{x})$, its weight drops to zero:
+      To preserve edges, we must also weight pixels by their photometric/intensity similarity. If a neighbor $q$ has a color value $I(q)$ very different from the center pixel $I(p)$, its range weight drops to zero:
 
-      $$ w_r(\htmlClass{math-term-y}{\mathbf{y}}, \htmlClass{math-term-x}{\mathbf{x}}) = \exp\left(-\frac{\|\htmlClass{math-term-fy}{f(\mathbf{y})} - \htmlClass{math-term-fx}{f(\mathbf{x})}\|^2}{2\htmlClass{math-term-sigmar}{\sigma_r}^2}\right) $$
+      $$ \htmlClass{math-term-step2-kr}{k_r(\|I(q) - I(p)\|)} = \exp\left(-\frac{\|\htmlClass{math-term-step2-iq}{I(q)} - \htmlClass{math-term-step2-ip}{I(p)}\|^2}{2\htmlClass{math-term-step2-sigmar}{\sigma_r}^2}\right) $$
 
       This ensures pixels on the opposite side of a sharp boundary are ignored.
     instruction: "🎮 **Play:** Hover your cursor across the boundary line. Notice how the range kernel weight dynamically splits, excluding pixels on the opposite color side."
@@ -28,10 +28,10 @@ steps:
 
   - title: "3. Bilateral Filtering"
     description: >
-      The Bilateral Filter combines both spatial and range weights. The filtered output at pixel $\mathbf{x}$ is the normalized product of both kernels:
-      $$ \htmlClass{math-term-bf}{BF(f)(\mathbf{x})} = \frac{1}{\htmlClass{math-term-wx}{W(\mathbf{x})}} \sum_{\mathbf{y} \in \Omega} \htmlClass{math-term-gs}{w_s(\mathbf{y}, \mathbf{x})} \htmlClass{math-term-gr}{w_r(\mathbf{y}, \mathbf{x})} \htmlClass{math-term-fy}{f(\mathbf{y})} $$
+      The Bilateral Filter combines both spatial and range weights. The filtered output at pixel $p$ is the normalized product of both kernels:
+      $$ \htmlClass{math-term-step3-out}{I'(p)} = \frac{1}{\htmlClass{math-term-step3-wp}{W_p}} \sum_{q \in \Omega} \htmlClass{math-term-step3-iq}{I(q)} \htmlClass{math-term-step3-kr}{k_r(\|I(q) - I(p)\|)} \htmlClass{math-term-step3-ks}{k_s(\|q - p\|)} $$
       where the normalization term is:
-      $$ \htmlClass{math-term-wx}{W(\mathbf{x})} = \sum_{\mathbf{y} \in \Omega} \htmlClass{math-term-gs}{w_s(\mathbf{y}, \mathbf{x})} \htmlClass{math-term-gr}{w_r(\mathbf{y}, \mathbf{x})} $$
+      $$ \htmlClass{math-term-step3-wp}{W_p} = \sum_{q \in \Omega} \htmlClass{math-term-step3-kr}{k_r(\|I(q) - I(p)\|)} \htmlClass{math-term-step3-ks}{k_s(\|q - p\|)} $$
     instruction: "🎮 **Play:** Adjust the sliders below the canvas to control spatial reach ($\\sigma_s$) and edge sensitivity ($\\sigma_r$). Watch the noisy image become smooth while the boundary stays razor-sharp."
     takeaway: "💡 **Key Insight:** By decoupling spatial proximity and color similarity, the bilateral filter achieves edge-preserving smoothing, making it ideal for denoising medical scans or skin tones."
 ---
@@ -58,7 +58,7 @@ steps:
     
     <!-- Middle Column: Weight Visualizer -->
     <div>
-      <div style="font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;" id="kernel-type-label">2. Spatial Weight ($w_s$)</div>
+      <div style="font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;" id="kernel-type-label">2. Space Kernel ($k_s$)</div>
       <div class="canvas-container" style="position: relative;">
         <canvas id="canvas-kernel" width="150" height="125"></canvas>
         <svg id="svg-overlay-kernel" viewBox="0 0 150 125" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2;">
