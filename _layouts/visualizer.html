@@ -1247,10 +1247,7 @@
     // KaTeX vlist containers and cannot be reliably detected via DOM bubbling.
     let currentHoveredTerm = null;
 
-    document.addEventListener("mousemove", (e) => {
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-
+    function handleTooltipTrigger(clientX, clientY) {
       // Query all math-term elements in the step container
       const mathTermEls = stepContainer.querySelectorAll('[class*="math-term-"]');
       let found = null;
@@ -1259,10 +1256,10 @@
         const rect = el.getBoundingClientRect();
         // Add a small padding (4px) around each rect to make small targets easier to hit
         if (
-          mouseX >= rect.left - 4 &&
-          mouseX <= rect.right + 4 &&
-          mouseY >= rect.top - 4 &&
-          mouseY <= rect.bottom + 4
+          clientX >= rect.left - 4 &&
+          clientX <= rect.right + 4 &&
+          clientY >= rect.top - 4 &&
+          clientY <= rect.bottom + 4
         ) {
           found = el;
           break;
@@ -1358,7 +1355,18 @@
       tooltipEl.style.transform = transformStr;
       tooltipEl.dataset.termClass = termClass;
       tooltipEl.classList.add("visible");
+    }
+
+    document.addEventListener("mousemove", (e) => {
+      handleTooltipTrigger(e.clientX, e.clientY);
     });
+
+    document.addEventListener("touchstart", (e) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        handleTooltipTrigger(touch.clientX, touch.clientY);
+      }
+    }, { passive: true });
 
     // Hide tooltip when mouse leaves the step container entirely
     stepContainer.addEventListener("mouseleave", () => {

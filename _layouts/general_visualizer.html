@@ -351,19 +351,17 @@
 
     const stepContainer = document.getElementById("step-container");
 
-    document.addEventListener("mousemove", (e) => {
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
+    function handleTooltipTrigger(clientX, clientY) {
       const mathTermEls = stepContainer.querySelectorAll('[class*="math-term-"]');
       let found = null;
 
       for (const el of mathTermEls) {
         const rect = el.getBoundingClientRect();
         if (
-          mouseX >= rect.left - 4 &&
-          mouseX <= rect.right + 4 &&
-          mouseY >= rect.top - 4 &&
-          mouseY <= rect.bottom + 4
+          clientX >= rect.left - 4 &&
+          clientX <= rect.right + 4 &&
+          clientY >= rect.top - 4 &&
+          clientY <= rect.bottom + 4
         ) {
           found = el;
           break;
@@ -450,7 +448,18 @@
       tooltipEl.style.transform = transformStr;
       tooltipEl.dataset.termClass = termClass;
       tooltipEl.classList.add("visible");
+    }
+
+    document.addEventListener("mousemove", (e) => {
+      handleTooltipTrigger(e.clientX, e.clientY);
     });
+
+    document.addEventListener("touchstart", (e) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        handleTooltipTrigger(touch.clientX, touch.clientY);
+      }
+    }, { passive: true });
 
     stepContainer.addEventListener("mouseleave", () => {
       currentHoveredTerm = null;

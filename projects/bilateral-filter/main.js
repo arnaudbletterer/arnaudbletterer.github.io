@@ -459,8 +459,9 @@ function drawIntensityProfile() {
   }
   ctxProfile.stroke();
   
-  // 2. Draw Filtered slice profile (Primary Theme color)
-  const activeColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#0041aa';
+  // 2. Draw Filtered slice profile (Theme-aware to ensure high contrast)
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const activeColor = isDark ? '#60a5fa' : '#1d4ed8';
   
   ctxProfile.strokeStyle = activeColor;
   ctxProfile.lineWidth = 2.5;
@@ -512,13 +513,20 @@ function resetAll() {
   const sliderR = document.getElementById('slider-sigma-r');
   const valS = document.getElementById('val-sigma-s');
   const valR = document.getElementById('val-sigma-r');
+  const presetSelect = document.getElementById('preset-select');
   
   if (sliderS) sliderS.value = 6;
   if (sliderR) sliderR.value = 30;
   if (valS) valS.innerText = 6;
   if (valR) valR.innerText = 30;
   
-  applyBilateralFilter();
+  if (presetSelect) {
+    presetSelect.value = 'edge';
+    currentPreset = 'edge';
+    generatePresetImage();
+  } else {
+    applyBilateralFilter();
+  }
 }
 
 function loadImageToCanvas(src, isCustom) {
@@ -632,6 +640,30 @@ function handleMouseMove(e) {
   updateProfileExplanation();
 }
 
+function handleTouchMove(e) {
+  if (e.touches.length > 0) {
+    e.preventDefault(); // Prevent scrolling
+    const touch = e.touches[0];
+    const rect = canvasInput.getBoundingClientRect();
+    const scaleX = width / rect.width;
+    const scaleY = height / rect.height;
+    
+    mouseX = (touch.clientX - rect.left) * scaleX;
+    mouseY = (touch.clientY - rect.top) * scaleY;
+    
+    mouseX = Math.max(0, Math.min(width - 1, mouseX));
+    mouseY = Math.max(0, Math.min(height - 1, mouseY));
+    
+    isHovering = true;
+    
+    drawInputCanvas();
+    updateKernelCanvas();
+    drawIntensityProfile();
+    updateSVGOverlay();
+    updateProfileExplanation();
+  }
+}
+
 function handleMouseLeave() {
   isHovering = false;
   drawInputCanvas();
@@ -721,9 +753,12 @@ function onThemeChange(theme) {
 window.addEventListener('DOMContentLoaded', () => {
   generatePresetImage();
   
-  // Attach hover events
+  // Attach hover and touch events
   canvasInput.addEventListener('mousemove', handleMouseMove);
   canvasInput.addEventListener('mouseleave', handleMouseLeave);
+  canvasInput.addEventListener('touchstart', handleTouchMove, { passive: false });
+  canvasInput.addEventListener('touchmove', handleTouchMove, { passive: false });
+  canvasInput.addEventListener('touchend', handleMouseLeave);
   
   // Attach sliders
   const sliderS = document.getElementById('slider-sigma-s');
