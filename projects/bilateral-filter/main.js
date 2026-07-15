@@ -390,8 +390,8 @@ function drawIntensityProfile() {
   // Helper to map pixel value to canvas y-coordinate
   const getY = (val) => rect.height - 6 - (val * scaleY);
   
-  // 1. Draw Noisy Input slice profile (red line)
-  ctxProfile.strokeStyle = 'rgba(239, 68, 68, 0.55)'; // Orange-Red
+  // 1. Draw Noisy Input slice profile (Solid Red matching legend and input guide line)
+  ctxProfile.strokeStyle = '#ef4444';
   ctxProfile.lineWidth = 1.2;
   ctxProfile.beginPath();
   for (let x = 0; x < width; x++) {
@@ -418,10 +418,15 @@ function drawIntensityProfile() {
   }
   ctxProfile.stroke();
   
-  // 3. Draw vertical hover line indicator
+  // 3. Draw vertical hover line indicator (matching active step's theme color)
   if (isHovering) {
     const hx = mouseX * scaleX;
-    ctxProfile.strokeStyle = 'rgba(200, 200, 200, 0.5)';
+    let themeVar = 'rgb(124, 58, 237)';
+    if (activeFilterStep === 1) themeVar = 'rgb(124, 58, 237)';
+    else if (activeFilterStep === 2) themeVar = 'rgb(5, 150, 105)';
+    else themeVar = 'rgb(219, 39, 119)';
+    
+    ctxProfile.strokeStyle = themeVar;
     ctxProfile.setLineDash([2, 2]);
     ctxProfile.lineWidth = 1.2;
     ctxProfile.beginPath();
