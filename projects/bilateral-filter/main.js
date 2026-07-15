@@ -437,6 +437,22 @@ function drawIntensityProfile() {
 function resetAll() {
   mouseX = width / 2;
   mouseY = height / 2;
+  
+  // Reset slider state parameters
+  sigmaS = 6;
+  sigmaR = 30;
+  
+  // Update DOM slider elements
+  const sliderS = document.getElementById('slider-sigma-s');
+  const sliderR = document.getElementById('slider-sigma-r');
+  const valS = document.getElementById('val-sigma-s');
+  const valR = document.getElementById('val-sigma-r');
+  
+  if (sliderS) sliderS.value = 6;
+  if (sliderR) sliderR.value = 30;
+  if (valS) valS.innerText = 6;
+  if (valR) valR.innerText = 30;
+  
   applyBilateralFilter();
 }
 
