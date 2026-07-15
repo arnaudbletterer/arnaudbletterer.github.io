@@ -432,6 +432,16 @@
     // Initialize
     window.addEventListener('DOMContentLoaded', () => {
       renderStep();
+      if (typeof renderMathInElement !== 'undefined') {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+          ],
+          trust: true,
+          strict: false
+        });
+      }
     });
   </script>
 </body>

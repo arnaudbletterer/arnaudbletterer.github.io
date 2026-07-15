@@ -39,20 +39,46 @@ steps:
 <div class="viewport-card" style="max-width: 800px; width: 100%;">
   <h3 id="main-canvas-title">Bilateral Filter Sandbox</h3>
   
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.25rem;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
     <!-- Left Column: Input Image -->
     <div>
-      <div style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem;">Filtered Result (Live Update)</div>
-      <div class="canvas-container">
+      <div style="font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;">1. Noisy Input (Probe)</div>
+      <div class="canvas-container" style="position: relative;">
         <canvas id="canvas-input" width="150" height="125"></canvas>
+        <svg id="svg-overlay-input" viewBox="0 0 150 125" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2;">
+          <!-- Horizontal probe guide line -->
+          <line id="guide-line-input" x1="0" y1="62.5" x2="150" y2="62.5" stroke="rgba(239, 68, 68, 0.45)" stroke-width="0.75" />
+          <!-- Spatial sigma reach circle -->
+          <circle id="sigma-circle-input" cx="75" cy="62.5" r="12" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2,2" />
+          <!-- Probe target point -->
+          <circle id="probe-dot-input" cx="75" cy="62.5" r="3.2" fill="#ffffff" stroke="currentColor" stroke-width="1.2" />
+        </svg>
       </div>
     </div>
     
-    <!-- Right Column: Weight Visualizer -->
+    <!-- Middle Column: Weight Visualizer -->
     <div>
-      <div style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem;" id="kernel-type-label">Current Kernel Weight ($w_s$)</div>
-      <div class="canvas-container">
+      <div style="font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;" id="kernel-type-label">2. Spatial Weight ($w_s$)</div>
+      <div class="canvas-container" style="position: relative;">
         <canvas id="canvas-kernel" width="150" height="125"></canvas>
+        <svg id="svg-overlay-kernel" viewBox="0 0 150 125" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2;">
+          <!-- Probe target point -->
+          <circle id="probe-dot-kernel" cx="75" cy="62.5" r="3.2" fill="#ffffff" stroke="currentColor" stroke-width="1.2" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Right Column: Filtered Result -->
+    <div>
+      <div style="font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;">3. Filtered Output</div>
+      <div class="canvas-container" style="position: relative;">
+        <canvas id="canvas-output" width="150" height="125"></canvas>
+        <svg id="svg-overlay-output" viewBox="0 0 150 125" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2;">
+          <!-- Horizontal probe guide line -->
+          <line id="guide-line-output" x1="0" y1="62.5" x2="150" y2="62.5" stroke="currentColor" stroke-width="0.75" />
+          <!-- Probe target point -->
+          <circle id="probe-dot-output" cx="75" cy="62.5" r="3.2" fill="#ffffff" stroke="currentColor" stroke-width="1.2" />
+        </svg>
       </div>
     </div>
   </div>
@@ -69,6 +95,9 @@ steps:
     <div style="width: 100%; height: 90px; position: relative;">
       <canvas id="canvas-profile" style="width: 100%; height: 100%; display: block;"></canvas>
     </div>
+    <p id="profile-explanation" style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin-top: 0.6rem; font-style: italic; text-align: center;">
+      Loading slice explanation...
+    </p>
   </div>
 
   <!-- Sliders and Controls -->
@@ -100,8 +129,8 @@ steps:
         <label for="preset-select" style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">IMAGE PRESET</label>
         <select id="preset-select" class="btn" style="width: 100%; text-align: left; padding: 0.4rem 0.75rem; font-weight: 500;" onchange="onPresetChange(this.value)">
           <option value="edge">Synthetic Step-Edge</option>
-          <option value="face">Facial Skin Scan Detail</option>
-          <option value="circles">Concentric Circles Grid</option>
+          <option value="face">3D-Shaded Sphere</option>
+          <option value="circles">Mathematical Ripple Grid</option>
           <option value="custom" disabled id="custom-option-label" style="display: none;">Uploaded Custom Image</option>
         </select>
       </div>
@@ -112,9 +141,8 @@ steps:
           <input type="file" id="image-upload" accept="image/*" onchange="handleImageUpload(event)" style="position: absolute; top: 0; left: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
         </button>
       </div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.25rem;">
-        <button class="btn" onclick="toggleNoise()">Toggle Noise</button>
-        <button class="btn" onclick="resetAll()">Reset View</button>
+      <div style="margin-top: 0.5rem; width: 100%;">
+        <button class="btn btn-secondary" style="width: 100%; margin-top: 0;" onclick="resetAll()">Reset Sandbox View</button>
       </div>
     </div>
   </div>

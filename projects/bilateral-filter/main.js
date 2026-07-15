@@ -11,10 +11,12 @@ const height = 125;
 // Canvas elements
 const canvasInput = document.getElementById('canvas-input');
 const canvasKernel = document.getElementById('canvas-kernel');
+const canvasOutput = document.getElementById('canvas-output');
 const canvasProfile = document.getElementById('canvas-profile');
 
 const ctxInput = canvasInput.getContext('2d');
 const ctxKernel = canvasKernel.getContext('2d');
+const ctxOutput = canvasOutput.getContext('2d');
 const ctxProfile = canvasProfile.getContext('2d');
 
 // Image data storage (using clean & noisy backing buffers)
@@ -43,62 +45,51 @@ function generatePresetImage() {
       }
     }
   } else if (currentPreset === 'face') {
-    // 2. Stylized facial scan mask (skin region, nose bridge, eyes, mouth)
+    // 2. 3D-Shaded Geometric Sphere (Lambertian Shading)
+    const cx = width / 2;
+    const cy = height / 2;
+    const r = Math.min(width, height) * 0.38;
+    const Lx = 0.577, Ly = -0.577, Lz = 0.577; // Light source direction vector (normalized)
+    
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const idx = y * width + x;
         let val = 45; // Deep background
         
-        // Oval face shape
-        const dx = (x - width / 2) / (width * 0.38);
-        const dy = (y - height / 2) / (height * 0.42);
-        if (dx*dx + dy*dy < 1.0) {
-          val = 185; // Base skin intensity
+        const dx = x - cx;
+        const dy = y - cy;
+        const dist2 = dx*dx + dy*dy;
+        
+        if (dist2 < r*r) {
+          const z = Math.sqrt(r*r - dist2);
+          const nx = dx / r;
+          const ny = dy / r;
+          const nz = z / r;
+          const dot = nx*Lx + ny*Ly + nz*Lz;
+          const diffuse = Math.max(0, dot);
           
-          // Eyes (dark regions)
-          const eyeY = height * 0.38;
-          const eyeX1 = width * 0.36;
-          const eyeX2 = width * 0.64;
-          const edy = y - eyeY;
-          if ((x - eyeX1)*(x - eyeX1) + edy*edy < 36 || (x - eyeX2)*(x - eyeX2) + edy*edy < 36) {
-            val = 30; 
-          }
-          
-          // Nose bridge (lighter highlight)
-          if (Math.abs(x - width/2) < 4 && y > height*0.42 && y < height*0.64) {
-            val = 235;
-          }
-          
-          // Mouth
-          if (Math.abs(y - height*0.74) < 3.5 && Math.abs(x - width/2) < 22) {
-            val = 80;
-          }
+          // Render a beautifully shaded sphere with a light highlight
+          val = 50 + Math.floor(190 * diffuse);
         }
         
         cleanPixels[idx] = val;
-        const noise = (Math.random() + Math.random() + Math.random() - 1.5) * 25;
+        const noise = (Math.random() + Math.random() + Math.random() - 1.5) * 24;
         noisyPixels[idx] = Math.max(0, Math.min(255, val + noise));
       }
     }
   } else if (currentPreset === 'circles') {
-    // 3. Concentric grid of high-contrast circles
+    // 3. Mathematical Sinusoidal Ripple Grid
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const idx = y * width + x;
         
-        // Compute distance to nearest center point
-        const cellW = width / 3;
-        const cellH = height / 2;
-        const cx = Math.floor(x / cellW) * cellW + cellW / 2;
-        const cy = Math.floor(y / cellH) * cellH + cellH / 2;
-        
-        const dx = x - cx;
-        const dy = y - cy;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        const val = (Math.floor(dist / 12) % 2 === 0) ? 210 : 70;
+        // 2D Ripple field formula
+        const angle = Math.sqrt((x - width/2)*(x - width/2) + (y - height/2)*(y - height/2)) / 5.5;
+        const factor = Math.sin(angle);
+        const val = 127 + Math.floor(95 * factor);
         
         cleanPixels[idx] = val;
-        const noise = (Math.random() + Math.random() + Math.random() - 1.5) * 26;
+        const noise = (Math.random() + Math.random() + Math.random() - 1.5) * 24;
         noisyPixels[idx] = Math.max(0, Math.min(255, val + noise));
       }
     }
@@ -182,57 +173,38 @@ function applyBilateralFilter() {
   drawInputCanvas();
   updateKernelCanvas();
   drawIntensityProfile();
+  updateSVGOverlay();
+  updateProfileExplanation();
 }
 
-// Draw filtered image on the main canvas with probe cursor
+// Draw the source (noisy/clean) and filtered result images
 function drawInputCanvas() {
-  const imgData = ctxInput.createImageData(width, height);
-  const data = imgData.data;
-  
-  // Populate pixels from filtered array
+  // 1. Draw source (noisy or clean input) on Left Canvas (Input)
+  const source = hasNoise ? noisyPixels : cleanPixels;
+  const imgDataSrc = ctxInput.createImageData(width, height);
+  const dataSrc = imgDataSrc.data;
+  for (let i = 0; i < width * height; i++) {
+    const val = source[i];
+    const idx = i * 4;
+    dataSrc[idx]     = val;
+    dataSrc[idx + 1] = val;
+    dataSrc[idx + 2] = val;
+    dataSrc[idx + 3] = 255;
+  }
+  ctxInput.putImageData(imgDataSrc, 0, 0);
+
+  // 2. Draw filtered pixels on Right Canvas (Output)
+  const imgDataOut = ctxOutput.createImageData(width, height);
+  const dataOut = imgDataOut.data;
   for (let i = 0; i < width * height; i++) {
     const val = filteredPixels[i];
     const idx = i * 4;
-    data[idx]     = val;
-    data[idx + 1] = val;
-    data[idx + 2] = val;
-    data[idx + 3] = 255; // Alpha
+    dataOut[idx]     = val;
+    dataOut[idx + 1] = val;
+    dataOut[idx + 2] = val;
+    dataOut[idx + 3] = 255;
   }
-  ctxInput.putImageData(imgData, 0, 0);
-  
-  // Draw probe indicator ring
-  if (isHovering) {
-    let themeVar = 'rgb(124, 58, 237)';
-    if (activeFilterStep === 1) themeVar = 'rgb(124, 58, 237)';
-    else if (activeFilterStep === 2) themeVar = 'rgb(5, 150, 105)';
-    else themeVar = 'rgb(219, 39, 119)';
-
-    ctxInput.strokeStyle = themeVar;
-    ctxInput.lineWidth = 1.5;
-    ctxInput.beginPath();
-    ctxInput.arc(mouseX, mouseY, 3.5, 0, 2 * Math.PI);
-    ctxInput.fillStyle = '#ffffff';
-    ctxInput.fill();
-    ctxInput.stroke();
-    
-    // Draw spatial neighborhood border circle in step 1 and 3
-    if (activeFilterStep === 1 || activeFilterStep === 3) {
-      ctxInput.setLineDash([3, 3]);
-      ctxInput.strokeStyle = themeVar;
-      ctxInput.beginPath();
-      ctxInput.arc(mouseX, mouseY, sigmaS * 2, 0, 2 * Math.PI);
-      ctxInput.stroke();
-      ctxInput.setLineDash([]);
-    }
-    
-    // Draw horizontal row probe line guide
-    ctxInput.strokeStyle = 'rgba(239, 68, 68, 0.4)'; // Light red guide line
-    ctxInput.lineWidth = 0.8;
-    ctxInput.beginPath();
-    ctxInput.moveTo(0, mouseY);
-    ctxInput.lineTo(width, mouseY);
-    ctxInput.stroke();
-  }
+  ctxOutput.putImageData(imgDataOut, 0, 0);
 }
 
 // Draw the spatial/similarity filter kernel weight on the right canvas
@@ -250,59 +222,135 @@ function updateKernelCanvas() {
     data[idx + 3] = 255;
   }
   
-  if (isHovering) {
-    const source = hasNoise ? noisyPixels : cleanPixels;
-    const centerIdx = Math.floor(mouseY) * width + Math.floor(mouseX);
-    const centerVal = source[centerIdx];
-    
-    let rCoeff = 124, gCoeff = 58, bCoeff = 237;
-    if (activeFilterStep === 1) {
-      rCoeff = 124; gCoeff = 58; bCoeff = 237; // Violet
-    } else if (activeFilterStep === 2) {
-      rCoeff = 5; gCoeff = 150; bCoeff = 105; // Green
-    } else {
-      rCoeff = 219; gCoeff = 39; bCoeff = 119; // Magenta
-    }
-    
-    // Evaluate spatial radius
-    const radius = (activeFilterStep === 2) ? Math.max(width, height) : Math.ceil(sigmaS * 3);
-    const startX = Math.max(0, Math.floor(mouseX - radius));
-    const endX = Math.min(width - 1, Math.floor(mouseX + radius));
-    const startY = Math.max(0, Math.floor(mouseY - radius));
-    const endY = Math.min(height - 1, Math.floor(mouseY + radius));
-    
-    for (let ny = startY; ny <= endY; ny++) {
-      for (let nx = startX; nx <= endX; nx++) {
-        const dx = nx - mouseX;
-        const dy = ny - mouseY;
-        const d2 = dx*dx + dy*dy;
-        
-        let w = 0;
-        if (activeFilterStep === 1) {
-          w = Math.exp(-d2 / (2 * sigmaS * sigmaS));
-        } else if (activeFilterStep === 2) {
-          const neighborVal = source[ny * width + nx];
-          const dI = neighborVal - centerVal;
-          w = Math.exp(-(dI*dI) / (2 * sigmaR * sigmaR));
-        } else {
-          const neighborVal = source[ny * width + nx];
-          const dI = neighborVal - centerVal;
-          const w_s = Math.exp(-d2 / (2 * sigmaS * sigmaS));
-          const w_r = Math.exp(-(dI*dI) / (2 * sigmaR * sigmaR));
-          w = w_s * w_r;
-        }
-        
-        if (w > 0.005) {
-          const idx = (ny * width + nx) * 4;
-          data[idx]     = Math.floor(bgR * (1 - w) + rCoeff * w);
-          data[idx + 1] = Math.floor(bgG * (1 - w) + gCoeff * w);
-          data[idx + 2] = Math.floor(bgB * (1 - w) + bCoeff * w);
-        }
+  // Always render weights for (mouseX, mouseY)
+  const source = hasNoise ? noisyPixels : cleanPixels;
+  const centerIdx = Math.floor(mouseY) * width + Math.floor(mouseX);
+  const centerVal = source[centerIdx];
+  
+  let rCoeff = 124, gCoeff = 58, bCoeff = 237;
+  if (activeFilterStep === 1) {
+    rCoeff = 124; gCoeff = 58; bCoeff = 237; // Violet
+  } else if (activeFilterStep === 2) {
+    rCoeff = 5; gCoeff = 150; bCoeff = 105; // Green
+  } else {
+    rCoeff = 219; gCoeff = 39; bCoeff = 119; // Magenta
+  }
+  
+  // Evaluate spatial radius
+  const radius = (activeFilterStep === 2) ? Math.max(width, height) : Math.ceil(sigmaS * 3);
+  const startX = Math.max(0, Math.floor(mouseX - radius));
+  const endX = Math.min(width - 1, Math.floor(mouseX + radius));
+  const startY = Math.max(0, Math.floor(mouseY - radius));
+  const endY = Math.min(height - 1, Math.floor(mouseY + radius));
+  
+  for (let ny = startY; ny <= endY; ny++) {
+    for (let nx = startX; nx <= endX; nx++) {
+      const dx = nx - mouseX;
+      const dy = ny - mouseY;
+      const d2 = dx*dx + dy*dy;
+      
+      let w = 0;
+      if (activeFilterStep === 1) {
+        w = Math.exp(-d2 / (2 * sigmaS * sigmaS));
+      } else if (activeFilterStep === 2) {
+        const neighborVal = source[ny * width + nx];
+        const dI = neighborVal - centerVal;
+        w = Math.exp(-(dI*dI) / (2 * sigmaR * sigmaR));
+      } else {
+        const neighborVal = source[ny * width + nx];
+        const dI = neighborVal - centerVal;
+        const w_s = Math.exp(-d2 / (2 * sigmaS * sigmaS));
+        const w_r = Math.exp(-(dI*dI) / (2 * sigmaR * sigmaR));
+        w = w_s * w_r;
+      }
+      
+      if (w > 0.005) {
+        const idx = (ny * width + nx) * 4;
+        data[idx]     = Math.floor(bgR * (1 - w) + rCoeff * w);
+        data[idx + 1] = Math.floor(bgG * (1 - w) + gCoeff * w);
+        data[idx + 2] = Math.floor(bgB * (1 - w) + bCoeff * w);
       }
     }
   }
   
   ctxKernel.putImageData(imgData, 0, 0);
+}
+
+// Update high-resolution SVG overlay vector target indicators
+function updateSVGOverlay() {
+  const svgInput = document.getElementById('svg-overlay-input');
+  const svgKernel = document.getElementById('svg-overlay-kernel');
+  const svgOutput = document.getElementById('svg-overlay-output');
+  
+  const guideLineInput = document.getElementById('guide-line-input');
+  const guideLineOutput = document.getElementById('guide-line-output');
+  const sigmaCircle = document.getElementById('sigma-circle-input');
+  const probeDotInput = document.getElementById('probe-dot-input');
+  const probeDotKernel = document.getElementById('probe-dot-kernel');
+  const probeDotOutput = document.getElementById('probe-dot-output');
+  
+  if (!svgInput || !svgKernel) return;
+  
+  // Theme color dynamically matching active step
+  let themeVar = 'rgb(124, 58, 237)';
+  if (activeFilterStep === 1) themeVar = 'rgb(124, 58, 237)';
+  else if (activeFilterStep === 2) themeVar = 'rgb(5, 150, 105)';
+  else themeVar = 'rgb(219, 39, 119)';
+  
+  svgInput.style.color = themeVar;
+  svgKernel.style.color = themeVar;
+  if (svgOutput) svgOutput.style.color = themeVar;
+  
+  // Update targets position
+  if (probeDotInput) {
+    probeDotInput.setAttribute('cx', mouseX);
+    probeDotInput.setAttribute('cy', mouseY);
+    probeDotInput.setAttribute('stroke-width', isHovering ? '1.5' : '1.0');
+    probeDotInput.setAttribute('stroke-dasharray', isHovering ? 'none' : '1.5,1.5');
+  }
+  if (probeDotKernel) {
+    probeDotKernel.setAttribute('cx', mouseX);
+    probeDotKernel.setAttribute('cy', mouseY);
+    probeDotKernel.setAttribute('stroke-width', isHovering ? '1.5' : '1.0');
+    probeDotKernel.setAttribute('stroke-dasharray', isHovering ? 'none' : '1.5,1.5');
+  }
+  if (probeDotOutput) {
+    probeDotOutput.setAttribute('cx', mouseX);
+    probeDotOutput.setAttribute('cy', mouseY);
+    probeDotOutput.setAttribute('stroke-width', isHovering ? '1.5' : '1.0');
+    probeDotOutput.setAttribute('stroke-dasharray', isHovering ? 'none' : '1.5,1.5');
+  }
+  
+  // Update horizontal guide lines position
+  if (guideLineInput) {
+    guideLineInput.setAttribute('y1', mouseY);
+    guideLineInput.setAttribute('y2', mouseY);
+    guideLineInput.setAttribute('stroke-dasharray', isHovering ? 'none' : '3,3');
+    guideLineInput.setAttribute('stroke', isHovering ? 'rgba(239, 68, 68, 0.65)' : 'rgba(239, 68, 68, 0.35)');
+  }
+  if (guideLineOutput) {
+    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#0041aa';
+    let primaryStroke = primaryColor;
+    if (primaryColor.startsWith('rgb')) {
+      primaryStroke = primaryColor.replace('rgb', 'rgba').replace(')', isHovering ? ', 0.65)' : ', 0.35)');
+    }
+    guideLineOutput.setAttribute('y1', mouseY);
+    guideLineOutput.setAttribute('y2', mouseY);
+    guideLineOutput.setAttribute('stroke-dasharray', isHovering ? 'none' : '3,3');
+    guideLineOutput.setAttribute('stroke', primaryStroke);
+  }
+  
+  // Update spatial sigma reach circle radius
+  if (sigmaCircle) {
+    if (activeFilterStep === 1 || activeFilterStep === 3) {
+      sigmaCircle.style.display = 'block';
+      sigmaCircle.setAttribute('cx', mouseX);
+      sigmaCircle.setAttribute('cy', mouseY);
+      sigmaCircle.setAttribute('r', sigmaS * 2);
+    } else {
+      sigmaCircle.style.display = 'none';
+    }
+  }
 }
 
 // Draw 1D horizontal profile slices comparing noisy vs filtered row intensities
@@ -385,10 +433,6 @@ function drawIntensityProfile() {
 }
 
 // Operation triggers
-function toggleNoise() {
-  hasNoise = !hasNoise;
-  applyBilateralFilter();
-}
 
 function resetAll() {
   mouseX = width / 2;
@@ -473,7 +517,6 @@ function onPresetChange(preset) {
   generatePresetImage();
 }
 
-// Mouse events on input canvas
 function handleMouseMove(e) {
   const rect = canvasInput.getBoundingClientRect();
   const scaleX = width / rect.width;
@@ -490,6 +533,8 @@ function handleMouseMove(e) {
   drawInputCanvas();
   updateKernelCanvas();
   drawIntensityProfile();
+  updateSVGOverlay();
+  updateProfileExplanation();
 }
 
 function handleMouseLeave() {
@@ -497,6 +542,28 @@ function handleMouseLeave() {
   drawInputCanvas();
   updateKernelCanvas();
   drawIntensityProfile();
+  updateSVGOverlay();
+  updateProfileExplanation();
+}
+
+function updateProfileExplanation() {
+  const explanationEl = document.getElementById('profile-explanation');
+  if (!explanationEl) return;
+  
+  let text = "";
+  if (activeFilterStep === 1) {
+    text = "📊 <b>Step 1 (Gaussian Blur):</b> The blue line averages pixel intensities purely based on spatial distance. Notice how it rounds off the sharp vertical step-edge, turning the clean boundary into a lazy, blurred slope.";
+  } else if (activeFilterStep === 2) {
+    text = "📊 <b>Step 2 (Similarity Tolerance):</b> The green similarity weights ignore spatial distance. Probing near the edge shows high weights only for pixels on the <i>same</i> side of the boundary, while completely ignoring the other side.";
+  } else {
+    text = "📊 <b>Step 3 (Bilateral Filter):</b> The blue line combines proximity and color similarity. Probing the edge shows a cropped weight circle that smooths noise on both sides but respects the boundary, keeping the vertical step razor-sharp.";
+  }
+  
+  if (!isHovering) {
+    text += " <i>(Defaulting to center coordinate; hover over the image to probe different areas).</i>";
+  }
+  
+  explanationEl.innerHTML = text;
 }
 
 // Hook called by general_visualizer layout when the step changes
@@ -507,9 +574,9 @@ function onStepChange(step) {
   applyBilateralFilter();
   
   const labels = [
-    "Spatial Kernel Weight ($w_s$)",
-    "Range Kernel Weight ($w_r$)",
-    "Bilateral Kernel Weight ($w_s \\times w_r$)"
+    "2. Spatial Weight ($w_s$)",
+    "2. Range Weight ($w_r$)",
+    "2. Bilateral Weight ($w_s \\times w_r$)"
   ];
   
   const labelEl = document.getElementById('kernel-type-label');
@@ -545,6 +612,9 @@ function onStepChange(step) {
       sliderGroupR.style.pointerEvents = 'auto';
     }
   }
+  
+  updateSVGOverlay();
+  updateProfileExplanation();
 }
 
 // Hook for layout theme changes
