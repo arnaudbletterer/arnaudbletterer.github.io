@@ -23,6 +23,10 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="{{ site.url }}/profile.jpg" />
 
+  {% if site.umami_id %}
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="{{ site.umami_id }}"></script>
+  {% endif %}
+
   <!-- Theme Initialization blocking script to prevent Flash of Unstyled Content -->
   <script>
     (function() {

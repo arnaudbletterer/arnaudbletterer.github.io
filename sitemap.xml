@@ -16,6 +16,16 @@
 <priority>0.8</priority>
 </url>
 <url>
+<loc>https://arnaudbletterer.github.io/projects/bilateral-filter/</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://arnaudbletterer.github.io/projects/normal-estimation/</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
 <loc>https://arnaudbletterer.github.io/philosophy.html</loc>
 <changefreq>monthly</changefreq>
 <priority>0.8</priority>
