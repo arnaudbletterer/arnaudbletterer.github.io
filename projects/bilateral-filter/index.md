@@ -5,12 +5,81 @@ subtitle: "An interactive guide to edge-preserving smoothing"
 teaser_image: "media/bilateral_teaser.jpg"
 custom_scripts:
   - "main.js"
+math_terms:
+  math-term-g:
+    title: "Input Value"
+    term: "I(q)"
+    desc: "The intensity/color value of the neighboring pixel $q$ before filtering."
+  math-term-step1-ks:
+    title: "Space Kernel"
+    term: "k_s(\\|q - p\\|)"
+    desc: "Evaluates the geometric proximity between the neighbor pixel $q$ and the center pixel $p$ using a Gaussian curve. Decreases as spatial distance increases."
+  math-term-step1-q:
+    title: "Neighbor Pixel"
+    term: "q"
+    desc: "A spatial coordinate of a neighboring pixel inside the filter window."
+  math-term-step1-p:
+    title: "Target Pixel"
+    term: "p"
+    desc: "The spatial coordinate of the center pixel currently being processed."
+  math-term-step1-sigmas:
+    title: "Spatial Sigma"
+    term: '\sigma_s'
+    desc: "The spatial standard deviation. Controls the radius and weight distribution of the space kernel."
+  math-term-step2-kr:
+    title: "Range Kernel"
+    term: "k_r(\\|I(q) - I(p)\\|)"
+    desc: "Evaluates the intensity/color similarity between the neighbor value $I(q)$ and center value $I(p)$ using a Gaussian curve. Drops to zero if values are very different."
+  math-term-step2-iq:
+    title: "Neighbor Value"
+    term: "I(q)"
+    desc: "The intensity/color value of the neighbor pixel $q$."
+  math-term-step2-ip:
+    title: "Center Value"
+    term: "I(p)"
+    desc: "The intensity/color value of the center target pixel $p$."
+  math-term-step2-sigmar:
+    title: "Range Sigma"
+    term: '\sigma_r'
+    desc: "The range standard deviation. Controls how sensitive the filter is to color differences (edge sensitivity)."
+  math-term-step3-out:
+    title: "Bilateral Output"
+    term: "I'(p)"
+    desc: "The new edge-preserving filtered color/intensity computed for the target pixel $p$."
+  math-term-step3-wp:
+    title: "Normalization Factor"
+    term: "W_p"
+    desc: "The sum of all combined weights over the neighborhood. Normalizes the output so the filtered intensity remains valid."
+  math-term-step3-iq:
+    title: "Neighbor Value"
+    term: "I(q)"
+    desc: "The intensity/color value of the neighbor pixel $q$."
+  math-term-step3-kr:
+    title: "Range Kernel"
+    term: "k_r(\\|I(q) - I(p)\\|)"
+    desc: "Evaluates the intensity/color similarity between the neighbor value $I(q)$ and center value $I(p)$ using a Gaussian curve. Drops to zero if values are very different."
+  math-term-step3-ip:
+    title: "Center Value"
+    term: "I(p)"
+    desc: "The intensity/color value of the center target pixel $p$."
+  math-term-step3-ks:
+    title: "Space Kernel"
+    term: "k_s(\\|q - p\\|)"
+    desc: "Evaluates the geometric proximity between the neighbor pixel $q$ and the center pixel $p$ using a Gaussian curve. Decreases as spatial distance increases."
+  math-term-step3-q:
+    title: "Neighbor Pixel"
+    term: "q"
+    desc: "A spatial coordinate of a neighboring pixel inside the filter window."
+  math-term-step3-p:
+    title: "Target Pixel"
+    term: "p"
+    desc: "The spatial coordinate of the center pixel currently being processed."
 steps:
   - title: "1. Spatial Kernel"
     description: >
       A standard Gaussian blur averages neighboring pixels based entirely on their spatial distance from the center pixel $p$. The closer a neighbor $q$ is, the higher its spatial weight:
 
-      $$ \htmlClass{math-term-step1-ks}{k_s(\|q - p\|)} = \exp\left(-\frac{\|\htmlClass{math-term-step1-q}{q} - \htmlClass{math-term-step1-p}{p}\|^2}{2\htmlClass{math-term-step1-sigmas}{\sigma_s}^2}\right) $$
+      $$ \htmlClass{math-term-step1-ks math-color-1}{k_s(\|q - p\|)} = \exp\left(-\frac{\|\htmlClass{math-term-step1-q math-color-2}{q} - \htmlClass{math-term-step1-p math-color-3}{p}\|^2}{2\htmlClass{math-term-step1-sigmas math-color-4}{\sigma_s}^2}\right) $$
 
       Since color values are ignored, this blur completely destroys sharp edges.
     instruction: "🎮 **Play:** Move your cursor over the noisy step-edge image in the canvas. Observe the circular shape of the spatial kernel weight on the right."
@@ -20,7 +89,7 @@ steps:
     description: >
       To preserve edges, we must also weight pixels by their photometric/intensity similarity. If a neighbor $q$ has a color value $I(q)$ very different from the center pixel $I(p)$, its range weight drops to zero:
 
-      $$ \htmlClass{math-term-step2-kr}{k_r(\|I(q) - I(p)\|)} = \exp\left(-\frac{\|\htmlClass{math-term-step2-iq}{I(q)} - \htmlClass{math-term-step2-ip}{I(p)}\|^2}{2\htmlClass{math-term-step2-sigmar}{\sigma_r}^2}\right) $$
+      $$ \htmlClass{math-term-step2-kr math-color-1}{k_r(\|I(q) - I(p)\|)} = \exp\left(-\frac{\|\htmlClass{math-term-step2-iq math-color-2}{I(q)} - \htmlClass{math-term-step2-ip math-color-3}{I(p)}\|^2}{2\htmlClass{math-term-step2-sigmar math-color-4}{\sigma_r}^2}\right) $$
 
       This ensures pixels on the opposite side of a sharp boundary are ignored.
     instruction: "🎮 **Play:** Hover your cursor across the boundary line. Notice how the range kernel weight dynamically splits, excluding pixels on the opposite color side."
@@ -29,9 +98,9 @@ steps:
   - title: "3. Bilateral Filtering"
     description: >
       The Bilateral Filter combines both spatial and range weights. The filtered output at pixel $p$ is the normalized product of both kernels:
-      $$ \htmlClass{math-term-step3-out}{I'(p)} = \frac{1}{\htmlClass{math-term-step3-wp}{W_p}} \sum_{q \in \Omega} \htmlClass{math-term-step3-iq}{I(q)} \htmlClass{math-term-step3-kr}{k_r(\|I(q) - I(p)\|)} \htmlClass{math-term-step3-ks}{k_s(\|q - p\|)} $$
+      $$ \htmlClass{math-term-step3-out math-color-1}{I'(p)} = \frac{1}{\htmlClass{math-term-step3-wp math-color-2}{W_p}} \sum_{q \in \Omega} \htmlClass{math-term-step3-iq math-color-3}{I(q)} \htmlClass{math-term-step3-kr math-color-4}{k_r(\|I(q) - I(p)\|)} \htmlClass{math-term-step3-ks math-color-6}{k_s(\|q - p\|)} $$
       where the normalization term is:
-      $$ \htmlClass{math-term-step3-wp}{W_p} = \sum_{q \in \Omega} \htmlClass{math-term-step3-kr}{k_r(\|I(q) - I(p)\|)} \htmlClass{math-term-step3-ks}{k_s(\|q - p\|)} $$
+      $$ \htmlClass{math-term-step3-wp math-color-2}{W_p} = \sum_{q \in \Omega} \htmlClass{math-term-step3-kr math-color-4}{k_r(\|I(q) - I(p)\|)} \htmlClass{math-term-step3-ks math-color-6}{k_s(\|q - p\|)} $$
     instruction: "🎮 **Play:** Adjust the sliders below the canvas to control spatial reach ($\\sigma_s$) and edge sensitivity ($\\sigma_r$). Watch the noisy image become smooth while the boundary stays razor-sharp."
     takeaway: "💡 **Key Insight:** By decoupling spatial proximity and color similarity, the bilateral filter achieves edge-preserving smoothing, making it ideal for denoising medical scans or skin tones."
 ---

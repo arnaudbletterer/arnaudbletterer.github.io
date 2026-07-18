@@ -1159,78 +1159,7 @@
     // --- Interactive Mathematical Tooltips Handler ---
     
     // Dictionary of mathematical terms explanation for didactic tooltips
-    const mathTermsDb = {
-      "math-term-vi": {
-        title: "Voronoi Cell",
-        term: "V_i",
-        desc: "The region of space associated with site $\\mathbf{s}_i$. It contains all points that are closer to $\\mathbf{s}_i$ than to any other site."
-      },
-      "math-term-x": {
-        title: "Point in Space",
-        term: "\\mathbf{x}",
-        desc: "An arbitrary coordinate vector within the domain space."
-      },
-      "math-term-omega": {
-        title: "Domain Space",
-        term: "\\Omega",
-        desc: "The entire bounded area in which the sites and cells are defined."
-      },
-      "math-term-dxs": {
-        title: "Distance to Site",
-        term: "d(\\mathbf{x}, \\mathbf{s}_i)",
-        desc: "The Euclidean distance between point $\\mathbf{x}$ and the current site $\\mathbf{s}_i$."
-      },
-      "math-term-dxs2": {
-        title: "Distance to other Site",
-        term: "d(\\mathbf{x}, \\mathbf{s}_j)",
-        desc: "The Euclidean distance between point $\\mathbf{x}$ and any other generator site $\\mathbf{s}_j$."
-      },
-      "math-term-forall": {
-        title: "Universal Condition",
-        term: "\\forall j \\neq i",
-        desc: "Requires the distance inequality to hold true for every other site $j$ in the diagram."
-      },
-      "math-term-sik": {
-        title: "Next Position",
-        term: "\\mathbf{s}_i^{(k+1)}",
-        desc: "The updated position coordinates vector of site $i$ for the next iteration $(k+1)$."
-      },
-      "math-term-centroid": {
-        title: "Cell Centroid",
-        term: "\\text{Centroid}(V_i)",
-        desc: "The geometric center of mass of the Voronoi cell. Moving the site here minimizes the dispersion of the cell."
-      },
-      "math-term-integral-top": {
-        title: "First Moment of Area",
-        term: "\\int_{V_i} \\mathbf{x} d\\mathbf{x}",
-        desc: "The area-weighted coordinate integral over the cell, representing the numerator in centroid computation."
-      },
-      "math-term-integral-bottom": {
-        title: "Cell Area",
-        term: "\\int_{V_i} d\\mathbf{x}",
-        desc: "The total geometric area of the Voronoi cell (integrating the area element $d\\mathbf{x}$), acting as the normalising denominator."
-      },
-      "math-term-bsi": {
-        title: "Voronoi Basin",
-        term: "B(\\mathbf{s}_i)",
-        desc: "The safety envelope of site $\\mathbf{s}_i$. It is the union of circles centered at cell vertices."
-      },
-      "math-term-union": {
-        title: "Union Operator",
-        term: "\\bigcup",
-        desc: "The combined area covered by all individual vertex disks taken together."
-      },
-      "math-term-vertices": {
-        title: "Cell Vertices",
-        term: "v \\in \\text{vertices}(V_i)",
-        desc: "The corner points where the edges of cell $V_i$ intersect."
-      },
-      "math-term-disk": {
-        title: "Disks (Circles)",
-        term: "D(v, d(v, \\mathbf{s}_i))",
-        desc: "A closed disk centered at vertex $v$ with a radius equal to the distance from $v$ to the site $\\mathbf{s}_i$."
-      }
-    };
+    const mathTermsDb = {{ page.math_terms | jsonify }};
 
     // Create the tooltip element
     const tooltipEl = document.createElement("div");
@@ -1271,19 +1200,23 @@
 
       if (!found) {
         tooltipEl.classList.remove("visible");
+        tooltipEl.removeAttribute("data-color-class");
         return;
       }
 
-      // Extract the math-term class
+      // Extract the math-term and math-color classes
       let termClass = null;
+      let colorClass = null;
       for (const cls of found.classList) {
         if (cls.startsWith("math-term-")) {
           termClass = cls;
-          break;
+        } else if (cls.startsWith("math-color-")) {
+          colorClass = cls;
         }
       }
-      if (!termClass || !mathTermsDb[termClass]) {
+      if (!termClass || !mathTermsDb || !mathTermsDb[termClass]) {
         tooltipEl.classList.remove("visible");
+        tooltipEl.removeAttribute("data-color-class");
         return;
       }
 
@@ -1354,6 +1287,11 @@
       tooltipEl.style.top       = finalTop + "px";
       tooltipEl.style.transform = transformStr;
       tooltipEl.dataset.termClass = termClass;
+      if (colorClass) {
+        tooltipEl.setAttribute("data-color-class", colorClass);
+      } else {
+        tooltipEl.removeAttribute("data-color-class");
+      }
       tooltipEl.classList.add("visible");
     }
 
@@ -1372,6 +1310,7 @@
     stepContainer.addEventListener("mouseleave", () => {
       currentHoveredTerm = null;
       tooltipEl.classList.remove("visible");
+      tooltipEl.removeAttribute("data-color-class");
     });
   </script>
 </body>

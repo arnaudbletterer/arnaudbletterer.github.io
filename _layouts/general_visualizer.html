@@ -261,143 +261,7 @@
       setStep(currentStep + 1);
     }
 
-    const mathTermsDb = {
-      "math-term-g": {
-        title: "Input Value",
-        term: "I(q)",
-        desc: "The intensity/color value of the neighboring pixel $q$ before filtering."
-      },
-      "math-term-step1-ks": {
-        title: "Space Kernel",
-        term: "k_s(\\|q - p\\|)",
-        desc: "Evaluates the geometric proximity between the neighbor pixel $q$ and the center pixel $p$ using a Gaussian curve. Decreases as spatial distance increases."
-      },
-      "math-term-step1-q": {
-        title: "Neighbor Pixel",
-        term: "q",
-        desc: "A spatial coordinate of a neighboring pixel inside the filter window."
-      },
-      "math-term-step1-p": {
-        title: "Target Pixel",
-        term: "p",
-        desc: "The spatial coordinate of the center pixel currently being processed."
-      },
-      "math-term-step1-sigmas": {
-        title: "Spatial Sigma",
-        term: "\\sigma_s",
-        desc: "The spatial standard deviation. Controls the radius and weight distribution of the space kernel."
-      },
-      "math-term-step2-kr": {
-        title: "Range Kernel",
-        term: "k_r(\\|I(q) - I(p)\\|)",
-        desc: "Evaluates the intensity/color similarity between the neighbor value $I(q)$ and center value $I(p)$ using a Gaussian curve. Drops to zero if values are very different."
-      },
-      "math-term-step2-iq": {
-        title: "Neighbor Value",
-        term: "I(q)",
-        desc: "The intensity/color value of the neighbor pixel $q$."
-      },
-      "math-term-step2-ip": {
-        title: "Center Value",
-        term: "I(p)",
-        desc: "The intensity/color value of the center target pixel $p$."
-      },
-      "math-term-step2-sigmar": {
-        title: "Range Sigma",
-        term: "\\sigma_r",
-        desc: "The range standard deviation. Controls how sensitive the filter is to color differences (edge sensitivity)."
-      },
-      "math-term-step3-out": {
-        title: "Bilateral Output",
-        term: "I'(p)",
-        desc: "The new edge-preserving filtered color/intensity computed for the target pixel $p$."
-      },
-      "math-term-step3-wp": {
-        title: "Normalization Factor",
-        term: "W_p",
-        desc: "The sum of all combined weights over the neighborhood. Normalizes the output so the filtered intensity remains valid."
-      },
-      "math-term-step3-iq": {
-        title: "Neighbor Value",
-        term: "I(q)",
-        desc: "The intensity/color value of the neighbor pixel $q$."
-      },
-      "math-term-step3-kr": {
-        title: "Range Kernel",
-        term: "k_r(\\|I(q) - I(p)\\|)",
-        desc: "Evaluates the intensity/color similarity between the neighbor value $I(q)$ and center value $I(p)$ using a Gaussian curve. Drops to zero if values are very different."
-      },
-      "math-term-step3-ip": {
-        title: "Center Value",
-        term: "I(p)",
-        desc: "The intensity/color value of the center target pixel $p$."
-      },
-      "math-term-step3-ks": {
-        title: "Space Kernel",
-        term: "k_s(\\|q - p\\|)",
-        desc: "Evaluates the geometric proximity between the neighbor pixel $q$ and the center pixel $p$ using a Gaussian curve. Decreases as spatial distance increases."
-      },
-      "math-term-step3-q": {
-        title: "Neighbor Pixel",
-        term: "q",
-        desc: "A spatial coordinate of a neighboring pixel inside the filter window."
-      },
-      "math-term-step3-p": {
-        title: "Target Pixel",
-        term: "p",
-        desc: "The spatial coordinate of the center pixel currently being processed."
-      },
-      "math-term-ni": {
-        title: "Neighborhood",
-        term: "\\mathcal{N}(\\mathbf{p}_i)",
-        desc: "The set of neighboring points surrounding the target point $\\mathbf{p}_i$, used to estimate local surface properties."
-      },
-      "math-term-epsilon": {
-        title: "Radius Epsilon",
-        term: "\\epsilon",
-        desc: "The spatial radius defining the size of the neighborhood. Points closer than $\\epsilon$ are included."
-      },
-      "math-term-ci": {
-        title: "Covariance Matrix",
-        term: "\\mathbf{C}_i",
-        desc: "A $2 \\times 2$ symmetric matrix describing the spatial spread of neighbors around their local centroid."
-      },
-      "math-term-wij": {
-        title: "Propagation Weight",
-        term: "w_{ij}",
-        desc: "Edge weight between point $i$ and $j$, equal to $1 - |\\mathbf{n}_i \\cdot \\mathbf{n}_j|$. Near 0 for parallel normals, near 1 for perpendicular normals."
-      },
-      "math-term-dot": {
-        title: "Normal Dot Product",
-        term: "\\mathbf{n}_i \\cdot \\mathbf{n}_j",
-        desc: "The dot product of adjacent normals. If negative, they point in opposite directions and one must be flipped."
-      },
-      "math-term-pi-point": {
-        title: "Target Point",
-        term: "\\mathbf{p}_i",
-        desc: "The spatial coordinate of the target point currently being processed."
-      },
-      "math-term-pj-point": {
-        title: "Neighbor Point",
-        term: "\\mathbf{p}_j",
-        desc: "A neighboring point coordinate belonging to the point's local search neighborhood."
-      },
-      "math-term-centroid": {
-        title: "Neighborhood Centroid",
-        term: "\\bar{\\mathbf{p}}_i",
-        desc: "The geometric center of all neighborhood points: $\\bar{\\mathbf{p}}_i = \\frac{1}{K} \\sum \\mathbf{p}_j$."
-      },
-      "math-term-ni-vec": {
-        title: "Normal Vector",
-        term: "\\mathbf{n}_i",
-        desc: "The unit normal vector perpendicular to the local tangent plane estimated at point $i$."
-      },
-      "math-term-lambda": {
-        title: "Smallest Eigenvalue",
-        term: "\\lambda_0",
-        desc: "Eigenvalue representing variance in the normal direction. Near 0 for thin clean surfaces, increases with noise."
-      }
-    };
+    const mathTermsDb = {{ page.math_terms | jsonify }};
 
     let currentHoveredTerm = null;
     const tooltipEl = document.createElement("div");
@@ -429,18 +293,22 @@
 
       if (!found) {
         tooltipEl.classList.remove("visible");
+        tooltipEl.removeAttribute("data-color-class");
         return;
       }
 
       let termClass = null;
+      let colorClass = null;
       for (const cls of found.classList) {
         if (cls.startsWith("math-term-")) {
           termClass = cls;
-          break;
+        } else if (cls.startsWith("math-color-")) {
+          colorClass = cls;
         }
       }
-      if (!termClass || !mathTermsDb[termClass]) {
+      if (!termClass || !mathTermsDb || !mathTermsDb[termClass]) {
         tooltipEl.classList.remove("visible");
+        tooltipEl.removeAttribute("data-color-class");
         return;
       }
 
@@ -503,6 +371,11 @@
       tooltipEl.style.top       = finalTop + "px";
       tooltipEl.style.transform = transformStr;
       tooltipEl.dataset.termClass = termClass;
+      if (colorClass) {
+        tooltipEl.setAttribute("data-color-class", colorClass);
+      } else {
+        tooltipEl.removeAttribute("data-color-class");
+      }
       tooltipEl.classList.add("visible");
     }
 
@@ -520,6 +393,7 @@
     stepContainer.addEventListener("mouseleave", () => {
       currentHoveredTerm = null;
       tooltipEl.classList.remove("visible");
+      tooltipEl.removeAttribute("data-color-class");
     });
 
 
