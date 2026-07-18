@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>Arnaud Bletterer</title>
   <meta name="description" content="Arnaud Bletterer — Research Scientist, Research Team Leader. Computer Graphics, Image/Geometry Processing, Machine Learning." />
-  <meta name="keywords" content="Arnaud Bletterer, Research Scientist, Computer Graphics, Machine Learning, Portfolio" />
+  <meta name="keywords" content="Arnaud Bletterer, Research Scientist, Computer Graphics, Image Processing, Geometry Processing, Machine Learning, Portfolio" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Canonical -->
@@ -14,14 +14,14 @@
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:title" content="Arnaud Bletterer" />
-  <meta property="og:description" content="Research Scientist & Team Leader — Computer Graphics, Geometry Processing, Machine Learning." />
+  <meta property="og:description" content="Research Scientist & Team Leader — Computer Graphics, Image/Geometry Processing, Machine Learning." />
   <meta property="og:url" content="{{ site.url }}/" />
   <meta property="og:image" content="{{ site.url }}/profile.jpg" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Arnaud Bletterer" />
-  <meta name="twitter:description" content="Research Scientist & Team Leader — Computer Graphics, Geometry Processing, Machine Learning." />
+  <meta name="twitter:description" content="Research Scientist & Team Leader — Computer Graphics, Image/Geometry Processing, Machine Learning." />
   <meta name="twitter:image" content="{{ site.url }}/profile.jpg" />
 
   <!-- Favicon -->
@@ -437,7 +437,7 @@
         <p class="hero-title">Research Scientist &amp; Team Leader</p>
       </div>
       <p class="hero-tagline">
-        Computer Graphics &middot; Geometry Processing &middot; Machine Learning<br>
+        Computer Graphics &middot; Image/Geometry Processing &middot; Machine Learning<br>
         Bridging the gap between exploration and industrialization.
       </p>
       <nav class="hero-links" aria-label="Contact links">
@@ -490,7 +490,7 @@
               <span>Expert Research Engineer</span>
             </div>
             <h3 style="font-size: 1.05rem; font-weight: 700; margin: 0 0 0.25rem 0;">Quartier Latin</h3>
-            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; margin: 0;">Leading core technical research, algorithm design, and high-performance pipelines for advanced computer vision and geometry processing systems.</p>
+            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; margin: 0;">Leading core technical research, algorithm design, and high-performance pipelines for advanced computer vision systems.</p>
           </div>
           
           <div>
@@ -508,7 +508,7 @@
               <span>Research Engineer</span>
             </div>
             <h3 style="font-size: 1.05rem; font-weight: 700; margin: 0 0 0.25rem 0;">QuantifiCare</h3>
-            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; margin: 0;">Validated and industrialized robust 3D reconstruction and autonomous face-stitching algorithms for daily clinical software products.</p>
+            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; margin: 0;">Validated and industrialized robust and autonomous multi-view 3D reconstruction algorithms for daily clinical software products.</p>
           </div>
         </div>
       </div>
@@ -555,9 +555,9 @@
       <a href="projects/partial-voronoi/" class="section-card" role="listitem" id="card-voronoi">
         <img class="card-thumb" src="media/voronoi_teaser.png" alt="Partial Voronoi diagram visualization" />
         <div class="card-body">
-          <span class="card-tag">Computational Geometry</span>
+          <span class="card-tag">Geometry Processing</span>
           <h2 class="card-title">Partial Voronoi Diagrams</h2>
-          <p class="card-desc">An interactive didactic guide to Voronoi diagrams on partial surfaces — step-by-step visualization with color-coded math equations and live D3 canvas.</p>
+          <p class="card-desc">An interactive guide to Voronoi partitioning on partially known domains. Visualize Voronoi diagrams, Lloyd's relaxation (CVT) and local safety envelope basins for local Voronoi diagrams computations.</p>
           <span class="card-cta">
             Open demo
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -567,11 +567,25 @@
 
       <!-- Bilateral Filter Card -->
       <a href="projects/bilateral-filter/" class="section-card" role="listitem" id="card-bilateral">
-        <img class="card-thumb" src="media/bilateral_teaser.jpg" alt="Bilateral filter visual explanation" />
+        <img class="card-thumb" src="media/bilateral_teaser.jpg" alt="Bilateral filter explanation" />
         <div class="card-body">
           <span class="card-tag">Image Processing</span>
           <h2 class="card-title">The Bilateral Filter</h2>
           <p class="card-desc">An interactive guide to edge-preserving smoothing. Visualize how spatial closeness and color similarity combine to filter noise while keeping boundaries sharp.</p>
+          <span class="card-cta">
+            Open demo
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Normal Estimation Card -->
+      <a href="projects/normal-estimation/" class="section-card" role="listitem" id="card-normals">
+        <img class="card-thumb" src="media/normals_teaser.jpg" alt="Point cloud normal estimation explanation" />
+        <div class="card-body">
+          <span class="card-tag">Geometry Processing</span>
+          <h2 class="card-title">Point Cloud Normal Estimation</h2>
+          <p class="card-desc">An interactive guide to normal estimation on point clouds. Visualize neighborhood graph computation, covariance PCA ellipse mapping, and orientation propagation via Minimum Spanning Trees.</p>
           <span class="card-cta">
             Open demo
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
