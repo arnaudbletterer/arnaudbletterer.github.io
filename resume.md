@@ -83,8 +83,8 @@ __Bachelor in Computer Science__, Université de Strasbourg
 
 <div class="languages-table" markdown="1">
 
-| French 🇫🇷 : native speaker | German 🇩🇪 : school level |
-| English 🇬🇧/🇺🇸 : professional use | Russian 🇷🇺 : beginner |
+| French <img class="emoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f1eb-1f1f7.svg" style="width: 1.2em; height: 1.2em; vertical-align: -0.2em; margin: 0 0.15em;" alt="FR"/> : native speaker | English <img class="emoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f1ec-1f1e7.svg" style="width: 1.2em; height: 1.2em; vertical-align: -0.2em; margin: 0 0.15em;" alt="GB"/>/<img class="emoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f1fa-1f1f8.svg" style="width: 1.2em; height: 1.2em; vertical-align: -0.2em; margin: 0 0.15em;" alt="US"/> : professional use |
+| German <img class="emoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f1e9-1f1ea.svg" style="width: 1.2em; height: 1.2em; vertical-align: -0.2em; margin: 0 0.15em;" alt="DE"/> : school level | Russian <img class="emoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f1f7-1f1fa.svg" style="width: 1.2em; height: 1.2em; vertical-align: -0.2em; margin: 0 0.15em;" alt="RU"/> : beginner |
 
 </div>
 

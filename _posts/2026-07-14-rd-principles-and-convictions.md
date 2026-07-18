@@ -1,8 +1,13 @@
 ---
 layout: page
-title: R&D Philosophy & Principles
+title: R&D Principles & Convictions
 subtitle: Bridging the gap between exploration and industrialization.
-description: "Arnaud Bletterer's core engineering principles for industrial research: end-to-end integration, tool maturity, and de-risking."
+description: "My core engineering principles for industrial research: end-to-end integration, tool maturity, and de-risking."
+date: 2026-07-14
+highlights:
+  - "🎯 End-to-End Integration"
+  - "🛡️ Structured De-Risking"
+  - "⚖️ Tool Maturity Over Hype"
 ---
 
 In industrial settings, research and development (R&D) must operate under a different set of rules than in academia. While academic research is measured by publications and novelty, industrial R&D is measured by **shipped, usable product value**. 
@@ -25,7 +30,7 @@ By running this end-to-end flow from day one, we achieve two critical goals:
 * **Interface & Data Contracts:** We immediately define the necessary inputs and outputs required for each step. When considered as a whole, the data flow and boundary interfaces of a system are often very different than if you designed each component in isolation.
 * **Process Justification:** It forces us to prove if a proposed algorithmic step is actually needed and why, saving weeks of unnecessary development.
 
-Once the complete pipeline is connected up to the final deliverable, we profile the system, identify the true bottlenecks, and iterate on optimizing them. This **tracer-bullet architecture** gives Product and Business teams early visibility into real-world performance and market readiness, while preventing engineers from solving problems that do not actually exist.
+Once the complete pipeline is connected up to the final deliverable, we profile the system, identify the true bottlenecks, and iterate on optimizing them. This **tracer-bullet architecture** gives Product and Business teams early visibility into real-world performance and market readiness, while preventing engineers from solving problems that do not exist.
 
 ---
 
