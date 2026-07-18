@@ -123,6 +123,13 @@ table {
 	--primary-blue: rgb(0, 65, 170);
 	--primary-hover: #0056b3;
 	
+	--primary: rgb(0, 65, 170);
+	--primary-soft: rgba(0, 65, 170, 0.08);
+	--border-light: #e2e8f0;
+	--bg-card: #ffffff;
+	--shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+	--shadow-hover-btn: 0 6px 16px rgba(0, 65, 170, 0.2);
+	
 	--badge-bg: rgba(0, 65, 170, 0.04);
 	--badge-border: rgba(0, 65, 170, 0.12);
 	--badge-hover-bg: rgba(0, 65, 170, 0.08);
@@ -143,6 +150,13 @@ table {
 	--text-muted: #94a3b8;
 	--primary-blue: rgb(96, 165, 250);
 	--primary-hover: #93c5fd;
+	
+	--primary: rgb(96, 165, 250);
+	--primary-soft: rgba(96, 165, 250, 0.1);
+	--border-light: #334155;
+	--bg-card: #181c2a;
+	--shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+	--shadow-hover-btn: 0 6px 16px rgba(96, 165, 250, 0.25);
 	
 	--badge-bg: rgba(96, 165, 250, 0.08);
 	--badge-border: rgba(96, 165, 250, 0.2);
@@ -165,23 +179,22 @@ table {
 	width: 2.5rem;
 	height: 2.5rem;
 	border-radius: 50%;
-	border: 1px solid var(--badge-border);
-	background-color: var(--bg-color);
-	color: var(--primary-blue);
+	border: 1px solid var(--border-light);
+	background-color: var(--bg-card);
+	color: var(--primary);
 	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	box-shadow: 0 4px 12px var(--shadow-color);
-	transition: background-color 0.3s, border-color 0.3s, transform 0.2s, box-shadow 0.3s;
+	box-shadow: var(--shadow);
+	transition: transform 0.2s, box-shadow 0.3s, background-color 0.3s;
 	z-index: 1000;
 	padding: 0;
 }
 
 #theme-toggle:hover {
-	transform: scale(1.05);
-	background-color: var(--badge-bg);
-	box-shadow: 0 6px 16px var(--shadow-hover);
+	transform: scale(1.08);
+	box-shadow: var(--shadow-hover-btn);
 }
 
 #theme-toggle svg {
@@ -299,21 +312,20 @@ h1 + p {
 	font-size: 0.82rem;
 	font-weight: 500;
 	line-height: 1;
-	border: 1px solid var(--badge-border);
-	background: var(--badge-bg);
-	color: var(--primary-blue) !important;
+	border: 1px solid var(--border-light);
+	background: var(--primary-soft);
+	color: var(--primary) !important;
 	text-decoration: none;
-	transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+	transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
 	vertical-align: middle;
-	box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 #webaddress a:hover {
-	background-color: var(--primary-blue);
+	background-color: var(--primary) !important;
 	color: #ffffff !important;
-	border-color: var(--primary-blue);
+	border-color: var(--primary) !important;
 	transform: translateY(-2px);
-	box-shadow: 0 6px 18px var(--shadow-hover);
+	box-shadow: var(--shadow-hover-btn);
 }
 
 #webaddress a:active {

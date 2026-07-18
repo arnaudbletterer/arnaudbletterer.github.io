@@ -53,22 +53,23 @@
       gap: 0.4rem;
       padding: 0.45rem 0.9rem;
       border-radius: 999px;
-      border: 1px solid var(--badge-border);
-      background: var(--bg-color);
-      color: var(--primary-blue);
+      border: 1px solid var(--border-light);
+      background: var(--bg-card);
+      color: var(--primary);
       font-family: inherit;
       font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      box-shadow: 0 4px 12px var(--shadow-color);
-      transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: var(--shadow);
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
     }
     #home-btn:hover {
-      background: var(--badge-hover-bg);
-      border-color: var(--badge-hover-border);
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
       transform: translateY(-2px);
-      box-shadow: 0 6px 18px var(--shadow-hover);
+      box-shadow: var(--shadow-hover-btn);
     }
     #home-btn svg { width: 0.85rem; height: 0.85rem; flex-shrink: 0; }
     
