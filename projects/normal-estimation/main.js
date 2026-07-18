@@ -221,6 +221,8 @@ function computeNeighborhoodsAndPCA() {
       p.lambda1 = 40;
       p.nx = 0;
       p.ny = -1;
+      p.rawNx = 0;
+      p.rawNy = -1;
       p.tx = 1;
       p.ty = 0;
       return;
@@ -279,12 +281,14 @@ function computeNeighborhoodsAndPCA() {
     // Normalize to unit length with a safe epsilon fallback
     const len = Math.sqrt(nx*nx + ny*ny);
     if (len > 1e-8) {
-      p.nx = nx / len;
-      p.ny = ny / len;
+      p.rawNx = nx / len;
+      p.rawNy = ny / len;
     } else {
-      p.nx = 0;
-      p.ny = -1;
+      p.rawNx = 0;
+      p.rawNy = -1;
     }
+    p.nx = p.rawNx;
+    p.ny = p.rawNy;
     
     // Tangent ( eigenvector of max eigenvalue )
     p.tx = -p.ny;
@@ -304,8 +308,10 @@ function scrambleNormalDirections() {
     // Generate pseudo-random sign flip based on coordinate
     const seedVal = Math.sin(p.baseX * 12.9898 + p.baseY * 78.233);
     const sign = seedVal > 0 ? 1 : -1;
-    p.nx = p.nx * sign;
-    p.ny = p.ny * sign;
+    const baseNx = p.rawNx !== undefined ? p.rawNx : p.nx;
+    const baseNy = p.rawNy !== undefined ? p.rawNy : p.ny;
+    p.nx = baseNx * sign;
+    p.ny = baseNy * sign;
     p.oriented = false;
   });
 }
