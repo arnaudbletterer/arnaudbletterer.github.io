@@ -147,13 +147,10 @@ body {
 }
 
 #content {
-	display: grid;
-	grid-template-columns: 20% 77%;
-	column-gap: 3%;
-	row-gap: 0.4em;
+	display: block;
 	width: 100%;
-	align-items: baseline; /* Align headers and text perfectly on typographic baseline */
 	padding-right: 5pt;
+	box-sizing: border-box;
 }
 
 /* Hide the PDF download link, theme toggle, nav, home button, lightbox, and interactive demo links when printing */
@@ -167,12 +164,10 @@ body {
 }
 
 .profile-container {
-	grid-column: 1;
-	grid-row: 1 / 5;
-	justify-self: right;
-	align-self: start;
-	width: 100%;
-	max-width: 110px;
+	float: right;
+	width: 85pt;
+	margin-left: 15pt;
+	margin-bottom: 10pt;
 }
 
 .profile {
@@ -187,37 +182,31 @@ body {
 }
 
 h1 {
-	grid-column: 2;
-	grid-row: 1;
 	font-size: 2.2em;
 	font-weight: bold;
 	line-height: 1.1em;
-	align-self: start;
+	margin-top: 0;
+	margin-bottom: 3pt;
 }
 
 h1 + p {
-	grid-column: 2;
-	grid-row: 2;
 	font-size: 1.1em;
 	color: #333;
-	align-self: start;
+	margin-top: 0;
+	margin-bottom: 3pt;
 }
 
 #content > p:nth-of-type(2) {
-	grid-column: 2;
-	grid-row: 3;
 	font-style: italic;
 	color: #444;
-	align-self: start;
+	margin-top: 0;
+	margin-bottom: 6pt;
 }
 
 #webaddress {
-	grid-column: 2;
-	grid-row: 4;
 	color: rgb(0, 65, 170);
 	font-size: 95%;
-	margin-bottom: 1em;
-	align-self: start;
+	margin-bottom: 1.2em;
 }
 
 #webaddress .sep {
@@ -254,31 +243,33 @@ h1 + p {
 
 
 h2 {
-	grid-column: 1;
 	color: rgb(0, 65, 170);
 	font-weight: bold;
-	font-size: 10pt;
-	text-align: right;
-	margin-top: 1.2em;
-	margin-bottom: 0;
+	font-size: 11pt;
+	text-align: left;
+	margin-top: 1.5em;
+	margin-bottom: 8pt;
+	border-bottom: 1px solid rgba(0, 65, 170, 0.15);
+	padding-bottom: 3pt;
+	clear: both;
+	width: 100%;
+	display: block;
 }
 
 /* Match vertical spacing of the first element in each section with its corresponding H2 header */
 h2 + * {
-	margin-top: 1.2em !important;
+	margin-top: 0 !important;
 }
 
 h3 {
-	grid-column: 1;
 	font-weight: bold;
 	font-size: 9pt;
 	line-height: 1.6em;
-	text-align: right;
+	text-align: left;
 	margin-top: 0.4em;
 }
 
 p, ul, table, div, blockquote {
-	grid-column: 2;
 	position: relative;
 	width: 100%;
 }
@@ -376,13 +367,12 @@ div[style*="page-break-after"] {
 }
 
 .cv-item-card {
-	border: 1px solid rgba(0, 65, 170, 0.08);
-	background-color: rgba(0, 65, 170, 0.01);
-	border-radius: 6px;
-	padding: 8pt 10pt;
+	border: none;
+	background: none;
+	padding: 0;
 	page-break-inside: avoid;
 	box-sizing: border-box;
-	margin-bottom: 8pt;
+	margin-bottom: 12pt;
 	width: 100%;
 }
 
