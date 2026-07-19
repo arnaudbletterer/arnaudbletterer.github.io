@@ -375,6 +375,29 @@ div[style*="page-break-after"] {
 	grid-column: 1 / -1; /* Stretch page break to avoid grid issues */
 }
 
+.cv-item-card {
+	border: 1px solid rgba(0, 65, 170, 0.08);
+	background-color: rgba(0, 65, 170, 0.01);
+	border-radius: 6px;
+	padding: 8pt 10pt;
+	page-break-inside: avoid;
+	box-sizing: border-box;
+	margin-bottom: 8pt;
+	width: 100%;
+}
+
+.cv-item-card > *:first-child {
+	margin-top: 0 !important;
+}
+
+.cv-item-card > *:last-child {
+	margin-bottom: 0 !important;
+}
+
+.education-card p:has(code) {
+	padding-right: 5.5em;
+}
+
 .publications-list {
 	grid-column: 2;
 	width: 100%;

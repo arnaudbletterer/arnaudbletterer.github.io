@@ -563,6 +563,29 @@ table td {
 	margin-top: -2px;
 }
 
+.cv-item-card {
+	background-color: var(--card-bg);
+	border: 1px solid var(--card-border);
+	border-radius: 8px;
+	padding: 1.2em 1.5em;
+	box-shadow: 0 1px 3px var(--shadow-color);
+	box-sizing: border-box;
+	margin-bottom: 1.2em;
+	width: 100%;
+}
+
+.cv-item-card > *:first-child {
+	margin-top: 0 !important;
+}
+
+.cv-item-card > *:last-child {
+	margin-bottom: 0 !important;
+}
+
+.education-card p:has(code) {
+	padding-right: 5.5em;
+}
+
 .publications-list {
 	grid-column: 2;
 	width: 100%;

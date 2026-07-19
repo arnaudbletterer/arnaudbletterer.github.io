@@ -27,11 +27,17 @@ My core philosophy is that **research and development** must remain directly ali
 
 <h2 id="employment">Employment</h2>
 
+<div class="cv-item-card" markdown="1">
+
 `Since July 2026`
 **Expert Research Engineer** at [Quartier Latin](https://qlatin.com){:target="_blank"}
 
 * **Leading core technical research** and algorithm design for advanced computer vision and geometry processing systems.
 * **Architecting high-performance pipelines** to deploy research prototypes into production-ready software modules.
+
+</div>
+
+<div class="cv-item-card" markdown="1">
 
 `March 2023 - June 2026`
 **Research Team Leader** & **Research Engineer** at [Quartier Latin](https://qlatin.com){:target="_blank"} *(Since Jan 2026, spin-off)* & [QuantifiCare](https://quantificare.com){:target="_blank"} *(Mar 2023 - Dec 2025)*
@@ -40,6 +46,10 @@ My core philosophy is that **research and development** must remain directly ali
 * **Professionalized workflows** by introducing automated validation pipelines for image processing and AI.
 * **Supervised clinical research**, co-authoring publications on acne grading (2024) and vitiligo assessment (2025).
 
+</div>
+
+<div class="cv-item-card" markdown="1">
+
 `December 2018 - March 2023`
 **Research Engineer** at [QuantifiCare](https://quantificare.com){:target="_blank"}
 
@@ -47,21 +57,39 @@ My core philosophy is that **research and development** must remain directly ali
 * **Developed a fully autonomous face-stitching method** that tolerated acquisition errors, reducing user constraints and securing consistent model delivery.
 * **Exchanged regularly with development teams** to integrate innovative methods and ensure seamless coherence with final software deliverables.
 
+</div>
+
+<div class="cv-item-card" markdown="1">
+
 `October 2014 - December 2018`
 **Ph.D Student** at [I3S Laboratory](https://www.i3s.unice.fr/en/){:target="_blank"} / [Cintoo](https://www.cintoo.com){:target="_blank"}
 * **Researched and developed** novel algorithms for the compression and out-of-core resampling of massive terrestrial LiDAR point clouds.
 * Author of the thesis: *[A graph-based approach for modeling and processing gigantic point clouds from terrestrial LiDAR acquisitions](https://theses.hal.science/tel-02099777){:target="_blank"}*.
 
+</div>
+
 <h2 id="education">Education</h2>
+
+<div class="cv-item-card education-card" markdown="1">
 
 `2018`
 __Ph.D in Automatic, Signal and Image Processing__, Université Côte d'Azur
 
+</div>
+
+<div class="cv-item-card education-card" markdown="1">
+
 `2014`
 __Master in Computer Science__, Université de Strasbourg
 
+</div>
+
+<div class="cv-item-card education-card" markdown="1">
+
 `2012`
 __Bachelor in Computer Science__, Université de Strasbourg
+
+</div>
 
 <h2 id="skills">Skills</h2>
 
