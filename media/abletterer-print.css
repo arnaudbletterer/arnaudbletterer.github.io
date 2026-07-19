@@ -254,6 +254,8 @@ h2 {
 	clear: both;
 	width: 100%;
 	display: block;
+	break-after: avoid;
+	page-break-after: avoid;
 }
 
 /* Match vertical spacing of the first element in each section with its corresponding H2 header */
@@ -267,6 +269,8 @@ h3 {
 	line-height: 1.6em;
 	text-align: left;
 	margin-top: 0.4em;
+	break-after: avoid;
+	page-break-after: avoid;
 }
 
 p, ul, table, div, blockquote {
