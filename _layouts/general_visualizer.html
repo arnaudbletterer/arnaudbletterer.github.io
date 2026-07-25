@@ -117,7 +117,7 @@
 
   <!-- Custom Scripts specified in frontmatter -->
   {% for script in page.custom_scripts %}
-  <script src="{{ script }}"></script>
+  <script src="{{ script }}{% unless script contains '://' %}?v={{ site.time | date: '%Y%m%d%H%M%S' }}{% endunless %}"></script>
   {% endfor %}
 
   <script>
