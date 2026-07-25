@@ -5,9 +5,7 @@ subtitle: Bridging the gap between exploration and industrialization.
 description: "My core engineering principles for industrial research: end-to-end integration, tool maturity, and de-risking."
 date: 2026-07-14
 highlights:
-  - "🎯 End-to-End Integration"
-  - "🛡️ Structured De-Risking"
-  - "⚖️ Tool Maturity Over Hype"
+  - "📋 Methodology"
 ---
 
 In industrial settings, research and development (R&D) must operate under a different set of rules than in academia. While academic research is measured by publications and novelty, industrial R&D is measured by **shipped, usable product value**. 

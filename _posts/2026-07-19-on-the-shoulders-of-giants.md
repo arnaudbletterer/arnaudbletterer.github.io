@@ -5,9 +5,7 @@ subtitle: Collaboration, Reuse, and Recognition in R&D.
 description: "Why standing on existing foundations—both open-source work and our colleagues' achievements—is the ultimate engineering superpower."
 date: 2026-07-19
 highlights:
-  - "🧬 Code Reuse as a Superpower"
-  - "🤝 Cross-Team Integration"
-  - "⚖️ Humility & Recognition"
+  - "🧠 Philosophy"
 ---
 
 On my resume sits a quote recorded by John of Salisbury in the 12th century: 
