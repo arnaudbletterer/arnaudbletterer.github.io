@@ -26,6 +26,30 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="{{ site.url }}/profile.jpg" />
 
+  {% if page.date %}
+  <!-- JSON-LD Structured Data for Blog Posting -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": {{ page.title | jsonify }},
+    "description": {{ page.description | jsonify }},
+    "datePublished": "{{ page.date | date: "%Y-%m-%d" }}",
+    "author": {
+      "@type": "Person",
+      "name": "Arnaud Bletterer",
+      "url": "{{ site.url }}"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ site.url }}{{ page.url }}"
+    },
+    "url": "{{ site.url }}{{ page.url }}"
+  }
+  </script>
+  {% endif %}
+
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
