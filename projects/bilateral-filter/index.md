@@ -2,6 +2,7 @@
 layout: general_visualizer
 title: "Didactic Guide: The Bilateral Filter"
 subtitle: "An interactive guide to edge-preserving smoothing"
+description: "An interactive didactic guide to edge-preserving bilateral filtering in computer graphics and image processing by Arnaud Bletterer."
 teaser_image: "media/bilateral_teaser.jpg"
 custom_scripts:
   - "main.js"

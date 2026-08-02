@@ -2,6 +2,7 @@
 layout: general_visualizer
 title: "Didactic Guide: Point Cloud Normal Estimation"
 subtitle: "An interactive guide to normal estimation & graph propagation"
+description: "An interactive didactic guide to point cloud normal estimation, PCA, and minimum spanning tree graph propagation by Arnaud Bletterer."
 custom_scripts:
   - "https://d3js.org/d3.v4.min.js"
   - "main.js"

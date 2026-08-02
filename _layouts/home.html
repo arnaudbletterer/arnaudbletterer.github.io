@@ -2,10 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Arnaud Bletterer</title>
-  <meta name="description" content="Arnaud Bletterer — Research Scientist, Research Team Leader. Computer Graphics, Image/Geometry Processing, Machine Learning." />
+  <title>Arnaud Bletterer | Research Scientist & Team Leader</title>
+  <meta name="description" content="Arnaud Bletterer — Research Scientist, Research Team Leader. Specializing in Computer Graphics, Image/Geometry Processing, and Machine Learning." />
   <meta name="keywords" content="Arnaud Bletterer, Research Scientist, Computer Graphics, Image Processing, Geometry Processing, Machine Learning, Portfolio" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- JSON-LD Structured Data for Homepage & Identity -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "{{ site.url }}/#website",
+        "url": "{{ site.url }}",
+        "name": "Arnaud Bletterer",
+        "description": "Research Scientist & Team Leader — Computer Graphics, Image/Geometry Processing, Machine Learning."
+      },
+      {
+        "@type": "Person",
+        "@id": "{{ site.url }}/#person",
+        "name": "Arnaud Bletterer",
+        "jobTitle": "Expert Research Engineer & Research Team Leader",
+        "url": "{{ site.url }}",
+        "image": "{{ site.url }}/profile.jpg",
+        "sameAs": [
+          "https://github.com/arnaudbletterer",
+          "https://www.linkedin.com/in/arnaud-bletterer-5635b671/",
+          "https://scholar.google.com/citations?user=fEbApYQAAAAJ",
+          "https://twitter.com/abletterer"
+        ]
+      }
+    ]
+  }
+  </script>
 
   <!-- Canonical -->
   <link rel="canonical" href="{{ site.url }}/" />
