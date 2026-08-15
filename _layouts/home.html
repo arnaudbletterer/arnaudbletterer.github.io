@@ -533,7 +533,7 @@
     <p class="section-label" id="articles-section">Articles</p>
     
     <div class="articles-grid">
-      {% for post in site.posts limit: 5 %}
+      {% for post in site.posts limit: 6 %}
       <a href="{{ post.url | relative_url }}" class="section-card">
         <div class="card-body">
           <span class="card-tag">Article</span>
@@ -567,7 +567,7 @@
       {% endfor %}
     </div>
 
-    {% if site.posts.size > 5 %}
+    {% if site.posts.size > 6 %}
     <a href="articles.html" class="hero-link" style="align-self: center; margin-top: 2rem; padding: 0.5rem 1.25rem;">
       See all articles ({{ site.posts.size }}) →
     </a>
