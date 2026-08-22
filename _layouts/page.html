@@ -54,6 +54,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
 
+  <!-- KaTeX CSS & JS for LaTeX Math Formulas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'], throwOnError: false});"></script>
+
   {% if site.umami_id %}
   <script defer src="https://cloud.umami.is/script.js" data-website-id="{{ site.umami_id }}"></script>
   {% endif %}
@@ -220,6 +225,25 @@
     .article-content {
       font-size: 1.05rem;
       color: var(--text);
+    }
+
+    .article-content a:not(.section-card) {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-color: var(--border);
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1.5px;
+      font-weight: 500;
+      transition: color 0.15s ease, text-decoration-color 0.15s ease, background-color 0.15s ease;
+      border-radius: 3px;
+      padding: 0.05em 0.2em;
+      margin: -0.05em -0.2em;
+    }
+
+    .article-content a:not(.section-card):hover {
+      color: var(--primary);
+      text-decoration-color: var(--primary);
+      background-color: var(--primary-soft);
     }
 
     .article-content > img {
