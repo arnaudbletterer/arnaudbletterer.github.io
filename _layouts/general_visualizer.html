@@ -146,6 +146,13 @@
       });
     }
 
+    // Reset body transition/opacity on page show (handles bfcache / browser Back and Forward navigation)
+    window.addEventListener('pageshow', () => {
+      document.body.style.opacity = '1';
+      document.body.style.transform = 'none';
+      document.body.style.transition = '';
+    });
+
     // Markdown compiler with basic support for LaTeX math formulas ($...$ and $$...$$)
     function parseMarkdownWithMath(mdString) {
       if (!mdString) return '';
