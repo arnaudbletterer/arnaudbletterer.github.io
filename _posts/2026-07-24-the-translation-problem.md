@@ -20,7 +20,7 @@ Here is the operational blueprint I follow to solve this translation challenge w
 
 When porting a complex pipeline, the temptation is to translate one small helper function at a time and verify them individually. While logical, this approach can blind you to system-level errors. 
 
-I prioritize **end-to-end integration tests** first. The complete pipeline should run on a standard set of reference datasets in both the prototyping environment and the new production target, comparing the final exported outputs. Only once this overall equivalence is established is it safe to drill down into individual components of the pipeline to profile and review them for optimization.
+I prioritize **end-to-end integration tests** first (reflecting the principle of [end-to-end integration over local optimization](/2026/07/14/rd-principles-and-convictions.html#1-end-to-end-integration-over-local-optimization)). The complete pipeline should run on a standard set of reference datasets in both the prototyping environment and the new production target, comparing the final exported outputs. Only once this overall equivalence is established is it safe to drill down into individual components of the pipeline to profile and review them for optimization.
 
 This integration-first safety net is vital for catching silent regressions. For instance, when deploying new AI models, teams often experience massive performance drops during validation with no obvious explanation. Because preprocessing steps (like image resizing, color space conversion, or data normalization) are simple, they are rarely the first suspect. 
 

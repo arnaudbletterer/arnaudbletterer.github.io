@@ -22,14 +22,12 @@ When managing a team, you no longer have the bandwidth to pick up daily feature 
 
 Instead, structure your technical contribution around two core pillars:
 
-* **High-Impact Leverage:** Direct your hands-on technical work toward critical architectural boundaries, initial Proofs of Concept (POCs), tracer-bullet pipelines, and complex system profiling. Focusing on the foundational interfaces and risk points allows you to de-risk projects early and lay down clean contracts for the team to build upon.
+* **High-Impact Leverage:** Direct your hands-on technical work toward critical architectural boundaries, initial Proofs of Concept (POCs), [tracer-bullet pipelines](/2026/07/14/rd-principles-and-convictions.html#1-end-to-end-integration-over-local-optimization), and complex system profiling. Focusing on the foundational interfaces and risk points allows you to de-risk projects early and lay down clean contracts for the team to build upon.
 * **Dedicated Technical Time Blocks:** Context switching is the ultimate enemy of deep research. Reserve dedicated, uninterrupted time windows—or full half-days—strictly for technical investigation, code reading, and profiling. Treat these blocks as non-negotiable commitments free from management meetings.
 
 ---
 
 ## 2. Guardrails, Benchmarks, and Ownership
-
-Staying technically active carries its own risk: micromanagement. If a leader uses their technical expertise to dictate every implementation detail, they stifle researcher initiative and undermine team autonomy.
 
 To guide technical direction while empowering your team:
 
@@ -45,7 +43,7 @@ One of the vital responsibilities of an R&D leader is bridging the gap between p
 
 Without a technical bridge, this communication gap leads to deep frustration on both sides. 
 
-A technically grounded leader excels at **translation**. Instead of passing raw, abstract business requests to researchers, translate them into concrete technical constraints:
+A technically grounded leader excels at **translation** (solving the organizational side of [the translation problem](/2026/07/24/the-translation-problem.html)). Instead of passing raw, abstract business requests to researchers, translate them into concrete technical constraints:
 * Convert *"The app feels slow when opening a 3D model"* into a **strict memory budget and a sub-100ms initialization target**.
 * Convert *"We need better quality scans"* into **quantifiable geometric tolerance thresholds and data normalization contracts**.
 

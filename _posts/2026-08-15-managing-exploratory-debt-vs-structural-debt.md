@@ -60,7 +60,7 @@ Does this mean a prototype should *never* touch production early? Not necessaril
 
 If market timing demands rapid deployment once a prototype demonstrates product-market fit, you can ship an early version quickly—**under one strict organizational condition**:
 
-> **The Fast-Mover Rule:** If you choose to ship an early prototype to capture market traction, you must simultaneously budget, staff, and schedule the foundational hardening work starting on Day 1 of that release.
+> **The Fast-Mover Rule:** If you choose to ship an early prototype to capture [market traction](/2026/08/06/leveraging-traction-in-rd.html#1-defining-traction-in-industrial-rd), you must simultaneously budget, staff, and schedule the foundational hardening work starting on Day 1 of that release.
 
 Treat the initial release as an active field test with a defined expiration date. While the early version satisfies early adopters and collects real-world telemetry, the R&D team immediately builds the industrial-grade, native foundation underneath it. Three to six months later, you swap the temporary prototype engine for the robust production core before the maintenance tax overwhelms the team.
 
@@ -71,7 +71,7 @@ Treat the initial release as an active field test with a defined expiration date
 To harness the speed of exploratory debt without letting structural debt infect your codebase, I rely on two practical engineering strategies:
 
 ### 1. Tracer-Bullet Architecture with Naive Bricks
-From the very first day of a project, define the **end-to-end data flow, API contracts, and boundary interfaces** cleanly. However, underneath those pristine interfaces, plug in **"naive bricks"**—simple heuristics, standard library placeholders, or rapid Python scripts.
+From the very first day of a project, define the **end-to-end data flow, API contracts, and boundary interfaces** cleanly. However, underneath those pristine interfaces, plug in **"naive bricks"** (a core tenet of [end-to-end integration](/2026/07/14/rd-principles-and-convictions.html#1-end-to-end-integration-over-local-optimization))—simple heuristics, standard library placeholders, or rapid Python scripts.
 
 This approach keeps your structural architecture spotless while giving researchers total freedom to iterate on the algorithmic internals without breaking the rest of the application. Crucially, it provides dual-track strategic agility: you are instantly prepared whether the business says *"we need to ship a viable build tomorrow to seize a market window"* or the engineering team says *"we need three more weeks to refine step 3."*
 
@@ -80,14 +80,14 @@ When an exploratory prototype passes all its validation gates, do not attempt to
 
 Instead:
 1. **Treat the Prototype as a Specification:** The Python/MATLAB prototype is a mathematical proof of concept and a golden reference—nothing more.
-2. **Build the Native Engine from a Clean Slate:** Rewrite the core mathematical pipeline in the target production language (e.g., modern C++ or Rust), adhering to strict memory layout rules (contiguous buffers, cache locality) and clean architecture.
+2. **Build the Native Engine from a Clean Slate:** Rewrite the core mathematical pipeline in the target production language (e.g., modern C++ or Rust), adhering to strict [memory layout rules and cache locality](/2026/07/24/the-translation-problem.html#2-memory-layout-and-cache-locality-the-real-bottleneck) and clean architecture.
 3. **Automate Equivalence Testing:** Use the original prototype to generate reference input/output datasets, and build automated test benches that verify the new native engine produces identical numerical results within an acceptable epsilon tolerance.
 
 ---
 
 ## 5. The Prototype-to-Production Gate
 
-To prevent debt from slipping through the cracks, enforce a strict gatekeeping workflow across the R&D lifecycle:
+To prevent debt from slipping through the cracks, enforce a strict gatekeeping workflow across the [three-phase R&D lifecycle](/2026/07/14/rd-principles-and-convictions.html#2-structured-de-risking-poc-prototype-and-production):
 
 * **Phase 1: Proof of Concept (High Exploratory Debt / Zero Structural Debt):** Standalone scripts and rapid heuristics. Code quality and tests do not matter; only mathematical and technical feasibility matters.
 * **Phase 2: The Prototype (Moderate Exploratory Debt / Zero Structural Debt):** Integrated into an end-to-end tracer bullet with clean boundary interfaces. User feedback and edge-case telemetry are collected, while keeping the internal algorithmic implementation decoupled.
