@@ -213,13 +213,14 @@
       max-width: 760px;
       display: flex;
       flex-direction: column;
-      gap: 2.5rem;
+      gap: 1.25rem;
       animation: page-fade-in 0.4s ease both;
     }
 
     header.article-header {
       border-bottom: 1px solid var(--border);
-      padding-bottom: 2rem;
+      padding-bottom: 1.75rem;
+      margin-bottom: 0.5rem;
     }
 
     .article-title {
@@ -381,6 +382,10 @@
       line-height: 1.6;
     }
 
+    .article-content > *:last-child {
+      margin-bottom: 0 !important;
+    }
+
     /* ── Article Share Bar ────────────────────────────────────────────── */
     .article-share-section {
       display: flex;
@@ -388,16 +393,31 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 1rem;
-      padding: 1.25rem 0;
-      margin-top: 3rem;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      padding: 1.1rem 1.5rem;
+      margin-top: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .share-label-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .share-label-icon {
+      width: 1.1rem;
+      height: 1.1rem;
+      color: var(--primary);
+      flex-shrink: 0;
     }
 
     .share-label {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      color: var(--text-muted);
+      color: var(--text);
     }
 
     .share-buttons {
@@ -417,7 +437,7 @@
       font-size: 0.82rem;
       font-weight: 500;
       border: 1px solid var(--border);
-      background: var(--bg-card);
+      background: var(--primary-soft);
       color: var(--text);
       text-decoration: none;
       box-shadow: var(--shadow);
@@ -437,6 +457,87 @@
 
     .share-btn:active {
       transform: translateY(0);
+    }
+
+    /* ── Author Card (Coherent with Homepage Cards) ────────────────────── */
+    .author-card {
+      display: flex;
+      gap: 1.75rem;
+      align-items: flex-start;
+      padding: 2.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-top: 0;
+    }
+
+    .author-card-avatar-wrap {
+      flex-shrink: 0;
+    }
+
+    .author-avatar-ring {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      padding: 2.5px;
+      background: linear-gradient(135deg, var(--primary) 0%, rgba(96, 165, 250, 0.5) 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .author-card-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      background: var(--bg-card);
+    }
+
+    .author-card-body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .author-card-name {
+      font-family: var(--font-title);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+
+    .author-card-role {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      background: var(--primary-soft);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      margin-top: 0.35rem;
+      margin-bottom: 0.85rem;
+      border: 1px solid var(--border);
+      width: fit-content;
+    }
+
+    .author-card-bio {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .author-card-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
     /* ── Author Card Links (Matching Homepage Pill Style) ───────────────── */
@@ -475,73 +576,11 @@
       transform: translateY(0);
     }
 
-    /* ── Author Card ───────────────────────────────────────────────────── */
-    .author-card {
-      display: flex;
-      gap: 1.5rem;
-      align-items: flex-start;
-      padding: 2rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      margin-top: 2rem;
-    }
-
-    .author-card-avatar-wrap {
-      flex-shrink: 0;
-    }
-
-    .author-card-avatar {
-      width: 76px;
-      height: 76px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--border);
-      box-shadow: var(--shadow);
-      display: block;
-    }
-
-    .author-card-body {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .author-card-name {
-      font-family: var(--font-title);
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--text);
-      margin: 0 0 0.15rem 0;
-    }
-
-    .author-card-role {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--primary);
-      display: block;
-      margin-bottom: 0.75rem;
-    }
-
-    .author-card-bio {
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: var(--text-muted);
-      margin-bottom: 1.25rem;
-    }
-
-    .author-card-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
     /* ── Footer ─────────────────────────────────────────────────────────── */
     .site-footer {
       border-top: 1px solid var(--border);
       padding-top: 2rem;
-      margin-top: 3rem;
+      margin-top: 3.5rem;
       font-size: 0.85rem;
       color: var(--text-muted);
       text-align: center;
@@ -557,19 +596,26 @@
     @media (max-width: 768px) {
       body { padding-top: 5rem; padding-left: 1.25rem; padding-right: 1.25rem; }
     }
-    @media (max-width: 600px) {
+    @media (max-width: 620px) {
       .author-card {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding: 1.5rem;
+        padding: 1.75rem 1.25rem;
+        gap: 1.25rem;
+      }
+      .author-card-role {
+        margin-left: auto;
+        margin-right: auto;
       }
       .author-card-links {
         justify-content: center;
       }
       .article-share-section {
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
+        text-align: center;
+        padding: 1.25rem 1rem;
       }
       .share-buttons {
         justify-content: center;
@@ -628,15 +674,27 @@
     </article>
 
     {% if page.date %}
+    {% capture shared_essay_text %}{{ page.title }}
+
+{{ page.subtitle }}
+
+Read the full essay by Arnaud Bletterer:
+{{ site.url }}{{ page.url }}{% endcapture %}
     <!-- ── Article Share Bar ────────────────────────────────────────────── -->
     <div class="article-share-section">
-      <span class="share-label">Share this essay:</span>
+      <div class="share-label-wrap">
+        <svg class="share-label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        <div style="display: flex; flex-direction: column; line-height: 1.3;">
+          <span style="font-size: 0.95rem; font-weight: 700; color: var(--text);">Found this insightful?</span>
+          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">Share with your network</span>
+        </div>
+      </div>
       <div class="share-buttons">
-        <a class="share-btn linkedin-btn" href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url | append: page.url | url_encode }}" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn">
+        <a class="share-btn linkedin-btn" href="https://www.linkedin.com/feed/?shareActive=true&text={{ shared_essay_text | url_encode }}" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.85rem;height:0.85rem;"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           LinkedIn
         </a>
-        <a class="share-btn twitter-btn" href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ site.url | append: page.url | url_encode }}&via=abletterer" target="_blank" rel="noopener noreferrer" title="Share on X (Twitter)">
+        <a class="share-btn twitter-btn" href="https://twitter.com/intent/tweet?text={{ shared_essay_text | url_encode }}" target="_blank" rel="noopener noreferrer" title="Share on X (Twitter)">
           <svg viewBox="0 0 24 24" fill="currentColor" style="width:0.85rem;height:0.85rem;"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           X (Twitter)
         </a>
@@ -652,7 +710,9 @@
     <!-- ── Author Card ─────────────────────────────────────────────────── -->
     <div class="author-card">
       <div class="author-card-avatar-wrap">
-        <img class="author-card-avatar" src="{{ site.url }}/profile.jpg" alt="Arnaud Bletterer" />
+        <div class="author-avatar-ring">
+          <img class="author-card-avatar" src="{{ site.url }}/profile.jpg" alt="Arnaud Bletterer" />
+        </div>
       </div>
       <div class="author-card-body">
         <h3 class="author-card-name">Arnaud Bletterer</h3>
