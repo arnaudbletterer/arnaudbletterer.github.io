@@ -8,7 +8,7 @@ highlights:
   - "🛠️ Engineering"
 ---
 
-In industrial R&D, a validated research model is only the beginning. A prototype built in a high-level scripting language like Python or MATLAB is a mathematical proof of concept, not a finished product. To deliver real-world value, these image processing and machine learning pipelines must be ported to production environments—which often means engineering highly optimized native software libraries that can be integrated into host applications.
+In industrial R&D, a validated research model is only the beginning. A prototype built in a high-level scripting language like Python or MATLAB is a mathematical proof of concept, not a finished product. To deliver real-world value, these image processing and machine learning pipelines must be ported to production environments, which often means engineering highly optimized native software libraries that can be integrated into host applications.
 
 This transition introduces the "Translation Problem": the challenge of rewriting dynamically typed, high-level research code into low-level native implementations while maintaining strict performance, consistency, and mathematical correctness.
 
@@ -32,7 +32,7 @@ Yet, minor library discrepancies or numerical differences in how these basic ste
 
 When developers transition from Python to native code, they often assume that simply translating the syntax will automatically yield massive speedups. However, native performance is rarely about compiler micro-optimizations; it is about how the hardware interacts with memory.
 
-High-level prototyping tools hide memory layout under the hood, but native programming forces you to design it explicitly. Naive native ports often construct traditional object-oriented structures—like arrays of complex objects, linked lists, or node graphs with nested pointers. This leads to **pointer chasing**, where the CPU wastes vast amounts of cycles jumping randomly across memory addresses, stalling as it waits for data to load from the main memory.
+High-level prototyping tools hide memory layout under the hood, but native programming forces you to design it explicitly. Naive native ports often construct traditional object-oriented structures (like arrays of complex objects, linked lists, or node graphs with nested pointers). This leads to **pointer chasing**, where the CPU wastes vast amounts of cycles jumping randomly across memory addresses, stalling as it waits for data to load from the main memory.
 
 To achieve maximum performance:
 * **Contiguous Data Structures:** Store memory sequentially (e.g., in flat, contiguous arrays) rather than in pointer-chasing structures. This ensures that when the CPU fetches a data point, it also loads subsequent data points into its L1/L2 cache lines automatically.

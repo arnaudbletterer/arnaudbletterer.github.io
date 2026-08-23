@@ -77,4 +77,4 @@ By embedding researchers directly in the process of building the end-to-end pipe
 
 > **"Solving a theoretical question that has never been answered before is deeply rewarding. But it is even more fulfilling to see that solution directly improve people's lives."**
 
-Experiencing that impact first-hand is enlightening. It transforms R&D culture from one of theoretical isolation to one of shared, commercial engineering pride—proving that the highest form of innovation is the one that actually ships.
+Experiencing that impact first-hand is enlightening. It transforms R&D culture from one of theoretical isolation to one of shared, commercial engineering pride, proving that the highest form of innovation is the one that actually ships.

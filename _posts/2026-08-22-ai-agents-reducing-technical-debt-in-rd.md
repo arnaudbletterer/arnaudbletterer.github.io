@@ -8,13 +8,13 @@ highlights:
   - "🤖 AI & Engineering"
 ---
 
-Throughout my previous articles, I have deliberately focused on foundational engineering principles, organizational frameworks, and human craftsmanship—from [tracer-bullet architectures](/2026/07/14/rd-principles-and-convictions.html) and [FFI single-sources-of-truth](/2026/07/24/the-translation-problem.html) to [managing exploratory versus structural debt](/2026/08/15/managing-exploratory-debt-vs-structural-debt.html). I intentionally avoided discussing AI coding assistants during the initial wave of hype, adhering to a core conviction: [**tool maturity must always precede adoption**](/2026/07/14/rd-principles-and-convictions.html#3-prioritizing-tool-maturity-over-hype). 
+Throughout my previous articles, I have deliberately focused on foundational engineering principles, organizational frameworks, and human craftsmanship, ranging from [tracer-bullet architectures](/2026/07/14/rd-principles-and-convictions.html) and [FFI single-sources-of-truth](/2026/07/24/the-translation-problem.html) to [managing exploratory versus structural debt](/2026/08/15/managing-exploratory-debt-vs-structural-debt.html). I intentionally avoided discussing AI coding assistants during the initial wave of hype, adhering to a core conviction: [**tool maturity must always precede adoption**](/2026/07/14/rd-principles-and-convictions.html#3-prioritizing-tool-maturity-over-hype). 
 
 Early generative tools were largely autocomplete toys that often generated unverified, bloated code. Furthermore, tools can never replace first principles. If an engineering team lacks architectural discipline, AI agents will merely accelerate the generation of opaque "AI slop" and structural debt at record speed.
 
-However, AI coding agents have now crossed a critical threshold of maturity. When constrained by strict human-defined architectural guardrails, test-driven validation benches, and explicit memory contracts, agents are no longer just productivity toys—they are the missing catalyst that solves the central economic dilemma of industrial R&D.
+However, AI coding agents have now crossed a critical threshold of maturity. When constrained by strict human-defined architectural guardrails, test-driven validation benches, and explicit memory contracts, agents are no longer just productivity toys; they are the missing catalyst that solves the central economic dilemma of industrial R&D.
 
-In industrial R&D, teams constantly struggle with the tension between **exploration velocity and architectural discipline**. When validating a novel computer vision or geometric algorithm, researchers need total freedom to write rapid, hacky code—throwaway Python scripts, unoptimized matrices, and hardcoded heuristics. But when an algorithm proves viable, the right engineering decision is to pay down that exploratory debt: rewrite the algorithm into an optimized, cache-friendly native engine, build exhaustive differential test suites, and package it behind strict foreign function interface (FFI) contracts.
+In industrial R&D, teams constantly struggle with the tension between **exploration velocity and architectural discipline**. When validating a novel computer vision or geometric algorithm, researchers need total freedom to write rapid, hacky code (throwaway Python scripts, unoptimized matrices, and hardcoded heuristics). But when an algorithm proves viable, the right engineering decision is to pay down that exploratory debt: rewrite the algorithm into an optimized, cache-friendly native engine, build exhaustive differential test suites, and package it behind strict foreign function interface (FFI) contracts.
 
 Historically, this payoff carried an immense friction tax. Manually rewriting a prototype into modern C++, setting up multi-platform bindings, and crafting hundreds of numerical regression tests is tedious, time-consuming, and intellectually unglamorous. Under commercial pressure, teams inevitably succumbed to the temptation to *"just ship the Python script with a quick wrapper."*
 
@@ -29,7 +29,7 @@ AI coding agents fundamentally alter this equation. They do not replace the rese
 When applied strategically, AI agents act as a high-leverage force multiplier across three critical areas of industrial R&D:
 
 ### 1. Lowering the Cost of the "Clean-Slate Rewrite"
-The greatest source of structural debt in R&D is the incremental patching of exploratory scripts (as discussed in [*Exploratory Debt vs. Structural Debt*](/2026/08/15/managing-exploratory-debt-vs-structural-debt.html)). With modern AI agents, the cost of executing a complete, clean-slate rewrite drops by an order of magnitude. An agent can take a verified Python/PyTorch prototype, treat it purely as a functional specification, and architect a robust native implementation in C++ or Rust from scratch—complete with contiguous memory layouts and zero-allocation runtime loops—in a fraction of the time it would take manually.
+The greatest source of structural debt in R&D is the incremental patching of exploratory scripts (as discussed in [*Exploratory Debt vs. Structural Debt*](/2026/08/15/managing-exploratory-debt-vs-structural-debt.html)). With modern AI agents, the cost of executing a complete, clean-slate rewrite drops by an order of magnitude. An agent can take a verified Python/PyTorch prototype, treat it purely as a functional specification, and architect a robust native implementation in C++ or Rust from scratch (complete with contiguous memory layouts and zero-allocation runtime loops) in a fraction of the time it would take manually.
 
 ### 2. Automating High-Friction Debt Work
 Engineers naturally gravitate toward building exciting new features, often procrastinating on the unglamorous plumbing: writing FFI wrappers (Dart FFI, PyBind, N-API), defining strict serialization channels, crafting golden dataset harnesses, and documenting boundary contracts. Agents excel at precisely these well-scoped, boilerplate-heavy tasks, ensuring the plumbing is completed without draining valuable engineering bandwidth.
@@ -41,7 +41,7 @@ When paired with human engineers during daily development, agents act as tireles
 
 ## 2. The Translation Pipeline: From Research Script to Native Core
 
-In [*The Translation Problem*](/2026/07/24/the-translation-problem.html), I explored why porting high-level research code to production targets requires rethinking memory layout and cache locality rather than doing line-by-line syntax translations. A research prototype should never be incrementally refactored into production code—it must serve as a functional specification for a clean-slate native engine. 
+In [*The Translation Problem*](/2026/07/24/the-translation-problem.html), I explored why porting high-level research code to production targets requires rethinking memory layout and cache locality rather than doing line-by-line syntax translations. A research prototype should never be incrementally refactored into production code; it must serve as a functional specification for a clean-slate native engine. 
 
 Here is how to orchestrate AI agents to execute this translation pipeline reliably across three distinct steps:
 
@@ -57,13 +57,13 @@ Instead, prompt the agent with explicit architectural constraints:
 * Mandate a zero-dynamic-allocation policy inside core execution loops, requiring all workspace memory to be pre-allocated during pipeline initialization.
 
 ### Step 3: Scaffold Cross-Platform FFI Boundaries
-Once the native core is compiled, use the agent to scaffold the bridge layer for every target consumer—whether generating Dart FFI bindings for mobile applications, Node-API addons for backend services, or pybind11 modules for future offline research. Because agents can parse C header files and generate target-language bindings effortlessly, you maintain a [single native source of truth via FFI](/2026/07/24/the-translation-problem.html#4-one-source-of-truth-the-ffi-integration-strategy) across your entire ecosystem with zero synchronization overhead.
+Once the native core is compiled, use the agent to scaffold the bridge layer for every target consumer, whether generating Dart FFI bindings for mobile applications, Node-API addons for backend services, or pybind11 modules for future offline research. Because agents can parse C header files and generate target-language bindings effortlessly, you maintain a [single native source of truth via FFI](/2026/07/24/the-translation-problem.html#4-one-source-of-truth-the-ffi-integration-strategy) across your entire ecosystem with zero synchronization overhead.
 
 ---
 
 ## 3. Building the Verification Safety Net: Differential & Invariant Testing
 
-The biggest anxiety when rewriting scientific and geometric algorithms is **silent numerical regression**—subtle floating-point drift, altered edge-case behavior, or coordinate frame flips that escape casual inspection.
+The biggest anxiety when rewriting scientific and geometric algorithms is **silent numerical regression**: subtle floating-point drift, altered edge-case behavior, or coordinate frame flips that escape casual inspection.
 
 AI agents provide unprecedented leverage in building exhaustive verification harnesses:
 
@@ -88,7 +88,7 @@ While AI agents provide massive leverage, using them carelessly can easily gener
 To maintain uncompromising software quality, enforce three critical operational guardrails:
 
 ### Avoid the "Unguarded Slop" Trap: Human Architects, Agent Executors
-Never let an agent make unconstrained, multi-file architectural decisions. Human engineers must remain the system architects—defining data flows, API boundaries, and memory budgets. The agent should be deployed as a tireless implementer working within rigidly defined interfaces. Review every PR with the same rigor you would apply to code written by a talented but junior engineer.
+Never let an agent make unconstrained, multi-file architectural decisions. Human engineers must remain the system architects, defining data flows, API boundaries, and memory budgets. The agent should be deployed as a tireless implementer working within rigidly defined interfaces. Review every PR with the same rigor you would apply to code written by a talented but junior engineer.
 
 ### Avoid the "Local Patching" Trap: Demand Clean Abstractions
 When an edge-case bug occurs, the temptation is to ask an agent to "fix this bug quickly." Left unchecked, the agent will add messy `if-else` patches on top of existing workarounds, increasing cyclomatic complexity. Instead, force the agent to identify the root mathematical invariant that was violated and fix the underlying algorithmic primitive.

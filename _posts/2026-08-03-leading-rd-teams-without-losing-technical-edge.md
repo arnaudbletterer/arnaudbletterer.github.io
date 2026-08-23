@@ -12,7 +12,7 @@ As a research engineer transitions into team leadership, an insidious trap often
 
 However, in industrial R&D, completely disconnecting from the codebase is dangerous. When a leader steps back entirely, they lose touch with real technical friction. Over time, this loss of architectural foresight results in unrealistic deadlines, unfeasible roadmap promises, and a growing disconnect between managerial expectations and engineering reality.
 
-Leading an R&D team does not mean abandoning technical work—it means changing **how and where** your technical judgment is applied. Here is the operational framework I use to balance team leadership with hands-on technical grounding.
+Leading an R&D team does not mean abandoning technical work; it means changing **how and where** your technical judgment is applied. Here is the operational framework I use to balance team leadership with hands-on technical grounding.
 
 ---
 
@@ -23,7 +23,7 @@ When managing a team, you no longer have the bandwidth to pick up daily feature 
 Instead, structure your technical contribution around two core pillars:
 
 * **High-Impact Leverage:** Direct your hands-on technical work toward critical architectural boundaries, initial Proofs of Concept (POCs), [tracer-bullet pipelines](/2026/07/14/rd-principles-and-convictions.html#1-end-to-end-integration-over-local-optimization), and complex system profiling. Focusing on the foundational interfaces and risk points allows you to de-risk projects early and lay down clean contracts for the team to build upon.
-* **Dedicated Technical Time Blocks:** Context switching is the ultimate enemy of deep research. Reserve dedicated, uninterrupted time windows—or full half-days—strictly for technical investigation, code reading, and profiling. Treat these blocks as non-negotiable commitments free from management meetings.
+* **Dedicated Technical Time Blocks:** Context switching is the ultimate enemy of deep research. Reserve dedicated, uninterrupted time windows (or full half-days) strictly for technical investigation, code reading, and profiling. Treat these blocks as non-negotiable commitments free from management meetings.
 
 ---
 
@@ -31,7 +31,7 @@ Instead, structure your technical contribution around two core pillars:
 
 To guide technical direction while empowering your team:
 
-* **Set Guardrails, Not Paths:** Define clear boundary conditions—such as data contracts, latency budgets, memory limits, and exit criteria—but give researchers complete autonomy on algorithmic discovery and implementation details.
+* **Set Guardrails, Not Paths:** Define clear boundary conditions (such as data contracts, latency budgets, memory limits, and exit criteria) but give researchers complete autonomy on algorithmic discovery and implementation details.
 * **Lead Through Questioning and Benchmarking:** Rather than imposing top-down technical answers, guide decisions by asking for empirical proof. Ask for profiling data, comparative baselines, and stress tests. When a team operates on empirical evidence, decisions are driven by data rather than rank.
 * **Distribute Module Ownership:** Assign end-to-end ownership of major subsystems to individual researchers or small pairs. Position yourself as an architectural advisor and safety net, not a bottleneck for approval.
 
@@ -53,7 +53,7 @@ By translating product needs into precise technical boundaries, you protect rese
 
 ## 4. Conclusion: Elevating Judgment and Protecting Curiosity
 
-Leadership is not about stepping away from code—it is about elevating where your technical judgment is applied. 
+Leadership is not about stepping away from code; it is about elevating where your technical judgment is applied. 
 
 Staying connected to the codebase builds genuine **technical empathy**. You cannot accurately evaluate complexity, anticipate technical debt, or support developer wellbeing if you no longer understand the daily friction your team faces.
 
@@ -62,4 +62,4 @@ Ultimately, great technical leadership rests on three principles:
 2. **Understand the Friction:** Stay close enough to the code to empathize with developer pain and make realistic commitments.
 3. **Protect Your Curiosity:** Never stop learning, profiling, and experimenting alongside your team.
 
-By maintaining your technical edge, you build a culture of scientific rigor, mutual respect, and engineering pride—ensuring your team delivers innovative technology that actually ships.
+By maintaining your technical edge, you build a culture of scientific rigor, mutual respect, and engineering pride, ensuring your team delivers innovative technology that actually ships.

@@ -8,13 +8,13 @@ highlights:
   - "🏗️ Architecture"
 ---
 
-In software engineering, technical debt is often described as an unmitigated evil—a consequence of sloppy engineering, rushed deadlines, or lazy shortcuts. In conventional software development, this framing makes sense. But in industrial research and development (R&D), viewing all debt as bad is a recipe for paralysis.
+In software engineering, technical debt is often described as an unmitigated evil: a consequence of sloppy engineering, rushed deadlines, or lazy shortcuts. In conventional software development, this framing makes sense. But in industrial research and development (R&D), viewing all debt as bad is a recipe for paralysis.
 
 Research is inherently an exercise in navigating uncertainty. When you are exploring a novel 3D reconstruction algorithm, testing a geometric heuristic, or evaluating a computer vision pipeline, you do not know in advance whether the mathematical hypothesis will even work. Demanding production-grade code, pristine abstractions, and comprehensive test suites during early exploration is a waste of intellectual capital.
 
 To move fast without setting your codebase on fire, you must distinguish between two fundamentally different types of technical debt: **Exploratory Debt** and **Structural Debt**.
 
-Understanding the difference—and knowing exactly when and how to pay the debt down—is what separates high-velocity R&D teams from those trapped in permanent maintenance nightmares.
+Understanding the difference, and knowing exactly when and how to pay the debt down, is what separates high-velocity R&D teams from those trapped in permanent maintenance nightmares.
 
 ---
 
@@ -58,7 +58,7 @@ At first, everyone celebrates. But six months later, the hidden maintenance cost
 
 Does this mean a prototype should *never* touch production early? Not necessarily. A pragmatic compromise exists, provided the team is honest about what they are doing.
 
-If market timing demands rapid deployment once a prototype demonstrates product-market fit, you can ship an early version quickly—**under one strict organizational condition**:
+If market timing demands rapid deployment once a prototype demonstrates product-market fit, you can ship an early version quickly, **under one strict organizational condition**:
 
 > **The Fast-Mover Rule:** If you choose to ship an early prototype to capture [market traction](/2026/08/06/leveraging-traction-in-rd.html#1-defining-traction-in-industrial-rd), you must simultaneously budget, staff, and schedule the foundational hardening work starting on Day 1 of that release.
 
@@ -71,7 +71,7 @@ Treat the initial release as an active field test with a defined expiration date
 To harness the speed of exploratory debt without letting structural debt infect your codebase, I rely on two practical engineering strategies:
 
 ### 1. Tracer-Bullet Architecture with Naive Bricks
-From the very first day of a project, define the **end-to-end data flow, API contracts, and boundary interfaces** cleanly. However, underneath those pristine interfaces, plug in **"naive bricks"** (a core tenet of [end-to-end integration](/2026/07/14/rd-principles-and-convictions.html#1-end-to-end-integration-over-local-optimization))—simple heuristics, standard library placeholders, or rapid Python scripts.
+From the very first day of a project, define the **end-to-end data flow, API contracts, and boundary interfaces** cleanly. However, underneath those pristine interfaces, plug in **"naive bricks"** (a core tenet of [end-to-end integration](/2026/07/14/rd-principles-and-convictions.html#1-end-to-end-integration-over-local-optimization)), such as simple heuristics, standard library placeholders, or rapid Python scripts.
 
 This approach keeps your structural architecture spotless while giving researchers total freedom to iterate on the algorithmic internals without breaking the rest of the application. Crucially, it provides dual-track strategic agility: you are instantly prepared whether the business says *"we need to ship a viable build tomorrow to seize a market window"* or the engineering team says *"we need three more weeks to refine step 3."*
 
@@ -79,7 +79,7 @@ This approach keeps your structural architecture spotless while giving researche
 When an exploratory prototype passes all its validation gates, do not attempt to incrementally refactor the exploratory script into production code. Patching exploratory code line-by-line is an illusion of progress; you inherit all the hidden assumptions, memory leaks, and architectural hacks of the prototype.
 
 Instead:
-1. **Treat the Prototype as a Specification:** The Python/MATLAB prototype is a mathematical proof of concept and a golden reference—nothing more.
+1. **Treat the Prototype as a Specification:** The Python/MATLAB prototype is a mathematical proof of concept and a golden reference, nothing more.
 2. **Build the Native Engine from a Clean Slate:** Rewrite the core mathematical pipeline in the target production language (e.g., modern C++ or Rust), adhering to strict [memory layout rules and cache locality](/2026/07/24/the-translation-problem.html#2-memory-layout-and-cache-locality-the-real-bottleneck) and clean architecture.
 3. **Automate Equivalence Testing:** Use the original prototype to generate reference input/output datasets, and build automated test benches that verify the new native engine produces identical numerical results within an acceptable epsilon tolerance.
 
