@@ -6,22 +6,43 @@
   <meta name="description" content="{{ page.description | default: 'R&D Philosophy & Principles — Bridging the gap between exploration and industrialization.' }}" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Canonical -->
+  <!-- Canonical & RSS -->
   <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+  <link rel="alternate" type="application/rss+xml" title="Arnaud Bletterer" href="{{ site.url }}/feed.xml" />
 
   <!-- Open Graph -->
-  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Arnaud Bletterer" />
   <meta property="og:locale" content="en_US" />
+  {% if page.date %}
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}" />
+  <meta property="article:author" content="Arnaud Bletterer" />
+  {% for highlight in page.highlights %}
+  <meta property="article:tag" content="{{ highlight | strip_html | escape }}" />
+  {% endfor %}
+  {% else %}
+  <meta property="og:type" content="website" />
+  {% endif %}
   <meta property="og:title" content="{{ page.title }} | Arnaud Bletterer" />
   <meta property="og:description" content="{{ page.description | default: 'R&D Philosophy & Principles — Bridging the gap between exploration and industrialization.' }}" />
   <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  {% if page.image %}
+  <meta property="og:image" content="{{ page.image | absolute_url }}" />
+  {% else %}
   <meta property="og:image" content="{{ site.url }}/profile.jpg" />
+  {% endif %}
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@abletterer" />
+  <meta name="twitter:creator" content="@abletterer" />
   <meta name="twitter:title" content="{{ page.title }} | Arnaud Bletterer" />
   <meta name="twitter:description" content="{{ page.description | default: 'R&D Philosophy & Principles — Bridging the gap between exploration and industrialization.' }}" />
+  {% if page.image %}
+  <meta name="twitter:image" content="{{ page.image | absolute_url }}" />
+  {% else %}
   <meta name="twitter:image" content="{{ site.url }}/profile.jpg" />
+  {% endif %}
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="{{ site.url }}/profile.jpg" />
@@ -35,7 +56,13 @@
     "headline": {{ page.title | jsonify }},
     "description": {{ page.description | jsonify }},
     "datePublished": "{{ page.date | date: "%Y-%m-%d" }}",
+    "image": {% if page.image %}{{ page.image | absolute_url | jsonify }}{% else %}"{{ site.url }}/profile.jpg"{% endif %},
     "author": {
+      "@type": "Person",
+      "name": "Arnaud Bletterer",
+      "url": "{{ site.url }}"
+    },
+    "publisher": {
       "@type": "Person",
       "name": "Arnaud Bletterer",
       "url": "{{ site.url }}"
@@ -227,7 +254,7 @@
       color: var(--text);
     }
 
-    .article-content a:not(.section-card) {
+    .article-content a:not(.section-card):not(.rss-btn) {
       color: var(--primary);
       text-decoration: underline;
       text-decoration-color: var(--border);
@@ -240,7 +267,7 @@
       margin: -0.05em -0.2em;
     }
 
-    .article-content a:not(.section-card):hover {
+    .article-content a:not(.section-card):not(.rss-btn):hover {
       color: var(--primary);
       text-decoration-color: var(--primary);
       background-color: var(--primary-soft);

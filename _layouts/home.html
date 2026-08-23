@@ -37,10 +37,12 @@
   }
   </script>
 
-  <!-- Canonical -->
+  <!-- Canonical & RSS -->
   <link rel="canonical" href="{{ site.url }}/" />
+  <link rel="alternate" type="application/rss+xml" title="Arnaud Bletterer" href="{{ site.url }}/feed.xml" />
 
   <!-- Open Graph -->
+  <meta property="og:site_name" content="Arnaud Bletterer" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:title" content="Arnaud Bletterer" />
@@ -50,6 +52,8 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@abletterer" />
+  <meta name="twitter:creator" content="@abletterer" />
   <meta name="twitter:title" content="Arnaud Bletterer" />
   <meta name="twitter:description" content="Research Scientist & Team Leader — Computer Graphics, Image/Geometry Processing, Machine Learning." />
   <meta name="twitter:image" content="{{ site.url }}/profile.jpg" />
@@ -526,7 +530,6 @@
           </span>
         </div>
       </a>
-
     </div>
 
     <!-- ── Articles ── -->
