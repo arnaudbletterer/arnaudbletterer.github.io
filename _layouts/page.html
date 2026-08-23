@@ -381,11 +381,167 @@
       line-height: 1.6;
     }
 
+    /* ── Article Share Bar ────────────────────────────────────────────── */
+    .article-share-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1.25rem 0;
+      margin-top: 3rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .share-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .share-buttons {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── Share Buttons (Neutral / Text-Colored Pill Style) ─────────────── */
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text);
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      font-family: inherit;
+      line-height: 1.4;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+
+    .share-btn:hover {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .share-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ── Author Card Links (Matching Homepage Pill Style) ───────────────── */
+    .author-link-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--primary-soft);
+      color: var(--primary);
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      font-family: inherit;
+      line-height: 1.4;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+
+    .author-link-pill:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 65, 170, 0.2);
+    }
+
+    [data-theme="dark"] .author-link-pill:hover {
+      box-shadow: 0 6px 16px rgba(96, 165, 250, 0.25);
+    }
+
+    .author-link-pill:active {
+      transform: translateY(0);
+    }
+
+    /* ── Author Card ───────────────────────────────────────────────────── */
+    .author-card {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-top: 2rem;
+    }
+
+    .author-card-avatar-wrap {
+      flex-shrink: 0;
+    }
+
+    .author-card-avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow);
+      display: block;
+    }
+
+    .author-card-body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .author-card-name {
+      font-family: var(--font-title);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 0.15rem 0;
+    }
+
+    .author-card-role {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .author-card-bio {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .author-card-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
     /* ── Footer ─────────────────────────────────────────────────────────── */
     .site-footer {
       border-top: 1px solid var(--border);
       padding-top: 2rem;
-      margin-top: 4rem;
+      margin-top: 3rem;
       font-size: 0.85rem;
       color: var(--text-muted);
       text-align: center;
@@ -400,6 +556,24 @@
     /* ── Responsive ─────────────────────────────────────────────────────── */
     @media (max-width: 768px) {
       body { padding-top: 5rem; padding-left: 1.25rem; padding-right: 1.25rem; }
+    }
+    @media (max-width: 600px) {
+      .author-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1.5rem;
+      }
+      .author-card-links {
+        justify-content: center;
+      }
+      .article-share-section {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .share-buttons {
+        justify-content: center;
+      }
     }
     @media (max-width: 480px) {
       body { padding-top: 4.5rem; padding-left: 1rem; padding-right: 1rem; }
@@ -453,10 +627,93 @@
       {{ content }}
     </article>
 
+    {% if page.date %}
+    <!-- ── Article Share Bar ────────────────────────────────────────────── -->
+    <div class="article-share-section">
+      <span class="share-label">Share this essay:</span>
+      <div class="share-buttons">
+        <a class="share-btn linkedin-btn" href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url | append: page.url | url_encode }}" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.85rem;height:0.85rem;"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a class="share-btn twitter-btn" href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ site.url | append: page.url | url_encode }}&via=abletterer" target="_blank" rel="noopener noreferrer" title="Share on X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:0.85rem;height:0.85rem;"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X (Twitter)
+        </a>
+        <button class="share-btn copy-btn" id="copy-link-btn" title="Copy article link to clipboard">
+          <svg id="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:0.85rem;height:0.85rem;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="copy-text">Copy link</span>
+        </button>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if page.date or page.url == '/articles.html' %}
+    <!-- ── Author Card ─────────────────────────────────────────────────── -->
+    <div class="author-card">
+      <div class="author-card-avatar-wrap">
+        <img class="author-card-avatar" src="{{ site.url }}/profile.jpg" alt="Arnaud Bletterer" />
+      </div>
+      <div class="author-card-body">
+        <h3 class="author-card-name">Arnaud Bletterer</h3>
+        <span class="author-card-role">Research Scientist &amp; Team Leader</span>
+        <p class="author-card-bio">
+          Specializing in Computer Graphics, Image/Geometry Processing, and Machine Learning, with a passion for bridging the gap between mathematical exploration and robust industrial software. If you have thoughts on these topics, are facing similar R&amp;D challenges, or simply want to exchange ideas, feel free to reach out.
+        </p>
+        <div class="author-card-links">
+          <a href="/resume.html" class="author-link-pill" title="View Curriculum Vitae">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.85rem;height:0.85rem;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Resume
+          </a>
+          <a href="mailto:arnaud.bletterer@gmail.com" class="author-link-pill" target="_blank" rel="noopener noreferrer" title="Send an email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.85rem;height:0.85rem;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Mail
+          </a>
+          <a href="https://www.linkedin.com/in/arnaud-bletterer-5635b671/" target="_blank" rel="noopener noreferrer" class="author-link-pill" title="Connect on LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.85rem;height:0.85rem;"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+          <a href="https://twitter.com/abletterer" target="_blank" rel="noopener noreferrer" class="author-link-pill" title="Follow on X (Twitter)">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:0.85rem;height:0.85rem;"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            X (Twitter)
+          </a>
+          <a href="https://ko-fi.com/abletterer" target="_blank" rel="noopener noreferrer" class="author-link-pill" title="Support on Ko-fi">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.85rem;height:0.85rem;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            Ko-fi
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
     {% include footer.html %}
   </main>
 
   <script>
+    // Copy link to clipboard
+    const copyBtn = document.getElementById('copy-link-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          const copyText = document.getElementById('copy-text');
+          const originalText = copyText.textContent;
+          copyText.textContent = 'Copied!';
+          copyBtn.style.borderColor = 'var(--primary)';
+          copyBtn.style.color = 'var(--primary)';
+          copyBtn.style.background = 'var(--primary-soft)';
+          setTimeout(() => {
+            copyText.textContent = originalText;
+            copyBtn.style.borderColor = '';
+            copyBtn.style.color = '';
+            copyBtn.style.background = '';
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy URL:', err);
+        }
+      });
+    }
+
     document.getElementById('theme-toggle').addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme');
       const next = current === 'dark' ? 'light' : 'dark';
