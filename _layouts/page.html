@@ -86,6 +86,9 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'], throwOnError: false});"></script>
 
+  <!-- Mermaid JS for Architecture Diagrams -->
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
   {% if site.umami_id %}
   <script defer src="https://cloud.umami.is/script.js" data-website-id="{{ site.umami_id }}"></script>
   {% endif %}
@@ -284,16 +287,37 @@
       display: block;
     }
 
+    .article-content hr {
+      border: none;
+      height: 1px;
+      margin: 3.5rem 0;
+      background: linear-gradient(90deg, transparent 0%, var(--border) 15%, var(--border) 85%, transparent 100%);
+      position: relative;
+      overflow: visible;
+    }
+    .article-content hr::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--primary);
+      opacity: 0.6;
+      box-shadow: 0 0 8px var(--primary);
+    }
+
     .article-content > h2 {
       font-family: var(--font-title);
-      font-size: 1.6rem;
+      font-size: 1.55rem;
       font-weight: 700;
       color: var(--text);
-      margin-top: 3rem;
-      margin-bottom: 1rem;
+      margin-top: 2rem;
+      margin-bottom: 1.25rem;
       letter-spacing: -0.01em;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 0.4rem;
+      line-height: 1.3;
     }
 
     .article-content > h3 {
@@ -384,6 +408,142 @@
 
     .article-content > *:last-child {
       margin-bottom: 0 !important;
+    }
+
+    /* ── Tables ─────────────────────────────────────────────────────────── */
+    .article-content table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 2rem 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      font-size: 0.95rem;
+    }
+
+    .article-content thead {
+      background: var(--primary-soft);
+    }
+
+    .article-content th {
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--primary);
+      text-align: center !important;
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.01em;
+    }
+
+    .article-content td {
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      line-height: 1.6;
+      vertical-align: top;
+    }
+
+    .article-content tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .article-content tbody tr:hover {
+      background: var(--primary-soft);
+      transition: background 0.2s ease;
+    }
+
+    /* ── Mermaid Diagrams (Themed to Site Palette) ──────────────────────── */
+    .mermaid-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.25rem 1.5rem;
+      margin: 2.25rem 0;
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: auto;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .mermaid-card:hover {
+      box-shadow: var(--shadow-hover);
+    }
+    .mermaid-card .mermaid {
+      width: 100%;
+      max-width: 720px;
+      display: flex;
+      justify-content: center;
+    }
+    .mermaid-card svg {
+      max-width: 100%;
+      height: auto;
+      font-family: var(--font) !important;
+    }
+    .mermaid-card svg .node rect,
+    .mermaid-card svg .node polygon,
+    .mermaid-card svg .node circle {
+      stroke-width: 1.5px !important;
+      rx: 10px !important;
+      ry: 10px !important;
+    }
+    .mermaid-card svg .edgeLabel {
+      font-family: var(--font) !important;
+      font-size: 0.82rem !important;
+      color: var(--text-muted) !important;
+    }
+    .mermaid-card svg .edgeLabel rect {
+      fill: var(--bg-card) !important;
+      opacity: 0.95 !important;
+      rx: 6px !important;
+      ry: 6px !important;
+    }
+
+    /* ── Contrast Symbol Colors (Defined Globally in CSS) ────────────────── */
+    .symbol-cross {
+      color: #dc2626;
+      font-weight: 700;
+      margin-right: 0.15em;
+    }
+    [data-theme="dark"] .symbol-cross {
+      color: #f87171;
+    }
+
+    .symbol-check {
+      color: #16a34a;
+      font-weight: 700;
+      margin-right: 0.15em;
+    }
+    [data-theme="dark"] .symbol-check {
+      color: #4ade80;
+    }
+
+    /* ── Post-Article Delimitation (Matches Internal Section Dividers) ─── */
+    .article-end-divider {
+      border: none;
+      height: 1px;
+      margin: 3.5rem 0 2rem;
+      width: 100%;
+      background: linear-gradient(90deg, transparent 0%, var(--border) 15%, var(--border) 85%, transparent 100%);
+      position: relative;
+      overflow: visible;
+    }
+    .article-end-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--primary);
+      opacity: 0.6;
+      box-shadow: 0 0 8px var(--primary);
     }
 
     /* ── Article Share Bar ────────────────────────────────────────────── */
@@ -668,6 +828,10 @@
       {{ content }}
     </article>
 
+    {% if page.date or page.url == '/articles.html' %}
+    <div class="article-end-divider" aria-hidden="true"></div>
+    {% endif %}
+
     {% if page.date %}
     {% capture shared_essay_text %}{{ page.title }}
 
@@ -774,7 +938,129 @@ Read the full essay by Arnaud Bletterer:
       const next = current === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
+      renderMermaidDiagrams();
     });
+
+    // Mermaid Diagram Rendering & Dynamic Theme Sync
+    let mermaidCounter = 0;
+    function renderMermaidDiagrams() {
+      if (typeof mermaid === 'undefined') return;
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'base',
+        themeVariables: {
+          fontFamily: "'Inter', system-ui, sans-serif",
+          fontSize: '14px',
+          primaryColor: isDark ? '#1e2638' : '#edf3fc',
+          primaryTextColor: isDark ? '#f1f5f9' : '#0f172a',
+          primaryBorderColor: isDark ? '#3b82f6' : '#0041aa',
+          lineColor: isDark ? '#60a5fa' : '#0041aa',
+          secondaryColor: isDark ? '#181c2a' : '#ffffff',
+          tertiaryColor: isDark ? '#0f1117' : '#f8f9fc',
+          edgeLabelBackground: isDark ? '#181c2a' : '#ffffff',
+          nodeBorder: isDark ? '#3b82f6' : '#0041aa',
+          clusterBkg: isDark ? 'rgba(24, 28, 42, 0.6)' : 'rgba(237, 243, 252, 0.6)',
+          clusterBorder: isDark ? 'rgba(96, 165, 250, 0.3)' : 'rgba(0, 65, 170, 0.25)',
+          titleColor: isDark ? '#93c5fd' : '#0041aa'
+        },
+        flowchart: {
+          curve: 'basis',
+          nodeSpacing: 45,
+          rankSpacing: 45,
+          padding: 14
+        },
+        securityLevel: 'loose'
+      });
+
+      const codeBlocks = document.querySelectorAll('pre code.language-mermaid, pre.mermaid, .mermaid-card .mermaid');
+      codeBlocks.forEach((el) => {
+        let code = el.getAttribute('data-original-code');
+        let mermaidDiv = el;
+        if (!code) {
+          code = el.textContent.trim();
+          const pre = el.closest('pre');
+          if (pre) {
+            const card = document.createElement('div');
+            card.className = 'mermaid-card';
+            mermaidDiv = document.createElement('div');
+            mermaidDiv.className = 'mermaid';
+            card.appendChild(mermaidDiv);
+            pre.replaceWith(card);
+          }
+          mermaidDiv.setAttribute('data-original-code', code);
+        }
+        
+        const id = `mermaid-svg-${++mermaidCounter}`;
+        mermaid.render(id, code).then(({ svg }) => {
+          mermaidDiv.innerHTML = svg;
+        }).catch(err => {
+          console.error('Mermaid render error:', err);
+        });
+      });
+    }
+
+    // Automatically apply global CSS classes to contrast symbols in articles
+    function colorizeSymbols() {
+      const container = document.querySelector('.article-content');
+      if (!container) return;
+
+      const walker = document.createTreeWalker(
+        container,
+        NodeFilter.SHOW_TEXT,
+        {
+          acceptNode(node) {
+            const parent = node.parentElement;
+            if (!parent) return NodeFilter.FILTER_REJECT;
+            const tag = parent.tagName.toLowerCase();
+            if (tag === 'script' || tag === 'style' || tag === 'pre' || tag === 'code' || parent.closest('pre') || parent.closest('code') || parent.closest('.mermaid') || parent.classList.contains('symbol-cross') || parent.classList.contains('symbol-check')) {
+              return NodeFilter.FILTER_REJECT;
+            }
+            if (node.nodeValue && (/[✕✗❌]/.test(node.nodeValue) || /[✓✔✅]/.test(node.nodeValue))) {
+              return NodeFilter.FILTER_ACCEPT;
+            }
+            return NodeFilter.FILTER_SKIP;
+          }
+        }
+      );
+
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+
+      nodes.forEach(node => {
+        const text = node.nodeValue;
+        if (!text) return;
+        const span = document.createElement('span');
+        span.innerHTML = text
+          .replace(/[✕✗❌]/g, '<span class="symbol-cross">✕</span>')
+          .replace(/[✓✔✅]/g, '<span class="symbol-check">✓</span>');
+        node.replaceWith(...span.childNodes);
+      });
+    }
+
+    function initMermaid() {
+      if (typeof mermaid !== 'undefined') {
+        renderMermaidDiagrams();
+      } else {
+        const check = setInterval(() => {
+          if (typeof mermaid !== 'undefined') {
+            clearInterval(check);
+            renderMermaidDiagrams();
+          }
+        }, 50);
+        setTimeout(() => clearInterval(check), 4000);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initMermaid();
+        colorizeSymbols();
+      });
+    } else {
+      initMermaid();
+      colorizeSymbols();
+    }
 
     // Reset body transition/opacity on page show (handles bfcache / browser Back and Forward navigation)
     window.addEventListener('pageshow', () => {
