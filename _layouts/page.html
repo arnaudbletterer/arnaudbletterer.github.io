@@ -220,6 +220,19 @@
       animation: page-fade-in 0.4s ease both;
     }
 
+    /* ── Reading Progress Bar ───────────────────────────────────────────── */
+    #reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--primary);
+      z-index: 9999;
+      transition: width 0.08s ease-out;
+      box-shadow: 0 0 8px var(--primary);
+    }
+
     header.article-header {
       border-bottom: 1px solid var(--border);
       padding-bottom: 1.75rem;
@@ -240,6 +253,45 @@
       font-size: 1.1rem;
       color: var(--text-muted);
       font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .article-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .article-date-read {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .article-date-read svg {
+      width: 0.92rem;
+      height: 0.92rem;
+      flex-shrink: 0;
+      color: var(--primary);
+    }
+
+    .meta-separator {
+      color: var(--border);
+      margin: 0 0.2rem;
+    }
+
+    .article-highlights-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
     }
 
     /* ── Section Cards Grid & Premium Cards ─────────────────────────────── */
@@ -258,7 +310,7 @@
       color: var(--text);
     }
 
-    .article-content a:not(.section-card):not(.rss-btn) {
+    .article-content a:not(.section-card):not(.rss-btn):not(.heading-anchor) {
       color: var(--primary);
       text-decoration: underline;
       text-decoration-color: var(--border);
@@ -271,7 +323,7 @@
       margin: -0.05em -0.2em;
     }
 
-    .article-content a:not(.section-card):not(.rss-btn):hover {
+    .article-content a:not(.section-card):not(.rss-btn):not(.heading-anchor):hover {
       color: var(--primary);
       text-decoration-color: var(--primary);
       background-color: var(--primary-soft);
@@ -309,6 +361,39 @@
       box-shadow: 0 0 8px var(--primary);
     }
 
+    .article-content > h2,
+    .article-content > h3 {
+      position: relative;
+    }
+
+    .heading-anchor {
+      position: absolute;
+      left: -1.35rem;
+      opacity: 0;
+      color: var(--text-muted);
+      text-decoration: none !important;
+      font-weight: 400;
+      font-size: 0.85em;
+      padding-right: 0.3rem;
+      transition: opacity 0.2s ease, color 0.2s ease;
+      cursor: pointer;
+    }
+    .article-content h2:hover .heading-anchor,
+    .article-content h3:hover .heading-anchor {
+      opacity: 0.65;
+    }
+    .heading-anchor:hover {
+      color: var(--primary) !important;
+      opacity: 1 !important;
+    }
+    @media (max-width: 768px) {
+      .heading-anchor {
+        position: static;
+        margin-left: 0.4rem;
+        opacity: 0.4;
+      }
+    }
+
     .article-content > h2 {
       font-family: var(--font-title);
       font-size: 1.55rem;
@@ -338,18 +423,27 @@
       font-weight: 600;
     }
 
+    /* ── Enhanced Blockquotes / Axiom Callout Cards ─────────────────────── */
     .article-content > blockquote {
-      border-left: 4px solid var(--primary);
-      padding: 0.75rem 1.5rem;
-      margin: 2rem 0;
+      position: relative;
+      border-left: 3.5px solid var(--primary);
+      padding: 1.1rem 1.4rem;
+      margin: 2.25rem 0;
       background: var(--primary-soft);
-      border-radius: 0 0.5rem 0.5rem 0;
-      font-style: italic;
+      border-radius: 0 var(--radius) var(--radius) 0;
       color: var(--text);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+      font-style: normal;
+      line-height: 1.65;
     }
 
     .article-content > blockquote > p {
       margin-bottom: 0;
+    }
+
+    .article-content > blockquote strong {
+      color: var(--text);
+      font-weight: 700;
     }
 
     .article-content ul, .article-content ol {
@@ -795,6 +889,8 @@
 </head>
 <body>
 
+  <div id="reading-progress" aria-hidden="true"></div>
+
   <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
     <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
@@ -817,9 +913,23 @@
       <h1 class="article-title">{{ page.title }}</h1>
       <p class="article-subtitle">{{ page.subtitle }}</p>
       {% if page.date %}
-      <div style="font-size: 0.88rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem; font-weight: 500; margin-top: 0.75rem;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.95rem;height:0.95rem;flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        {{ page.date | date: "%B %d, %Y" }}
+      {% assign words = content | number_of_words %}
+      {% assign read_time = words | divided_by: 200 | at_least: 1 %}
+      <div class="article-meta-row">
+        <div class="article-date-read">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span>{{ page.date | date: "%B %d, %Y" }}</span>
+          <span class="meta-separator">•</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>{{ read_time }} min read</span>
+        </div>
+        {% if page.highlights %}
+        <div class="article-highlights-wrap">
+          {% for tag in page.highlights %}
+          <span class="highlight-pill">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
       </div>
       {% endif %}
     </header>
@@ -1038,6 +1148,44 @@ Read the full essay by Arnaud Bletterer:
       });
     }
 
+    // Reading Progress Bar
+    function initReadingProgress() {
+      const bar = document.getElementById('reading-progress');
+      const article = document.querySelector('.article-content');
+      if (!bar || !article) return;
+
+      function updateProgress() {
+        const rect = article.getBoundingClientRect();
+        const winHeight = window.innerHeight;
+        const total = rect.height - winHeight * 0.4;
+        if (total <= 0) {
+          bar.style.width = '0%';
+          return;
+        }
+        const scrolled = -rect.top;
+        const percent = Math.min(100, Math.max(0, (scrolled / total) * 100));
+        bar.style.width = percent + '%';
+      }
+
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      window.addEventListener('resize', updateProgress, { passive: true });
+      updateProgress();
+    }
+
+    // Heading Anchor Links (Deep Linking)
+    function initHeadingAnchors() {
+      const headings = document.querySelectorAll('.article-content h2, .article-content h3');
+      headings.forEach(h => {
+        if (!h.id || h.querySelector('.heading-anchor')) return;
+        const a = document.createElement('a');
+        a.className = 'heading-anchor';
+        a.href = `#${h.id}`;
+        a.setAttribute('aria-label', `Direct link to ${h.textContent}`);
+        a.textContent = '#';
+        h.prepend(a);
+      });
+    }
+
     function initMermaid() {
       if (typeof mermaid !== 'undefined') {
         renderMermaidDiagrams();
@@ -1056,10 +1204,14 @@ Read the full essay by Arnaud Bletterer:
       document.addEventListener('DOMContentLoaded', () => {
         initMermaid();
         colorizeSymbols();
+        initReadingProgress();
+        initHeadingAnchors();
       });
     } else {
       initMermaid();
       colorizeSymbols();
+      initReadingProgress();
+      initHeadingAnchors();
     }
 
     // Reset body transition/opacity on page show (handles bfcache / browser Back and Forward navigation)
