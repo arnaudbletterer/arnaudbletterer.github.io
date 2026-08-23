@@ -103,4 +103,4 @@ The danger arises when teams lack the boundary discipline to keep exploratory de
 
 As you navigate the balance between rapid research and dependable software, keep this guiding principle at the center of your engineering culture:
 
-> **"Speed in exploration requires the courage to write throwaway code; sustainability in production requires the discipline to actually throw it away."**
+> *Speed in exploration requires the courage to write throwaway code; sustainability in production requires the discipline to actually throw it away.*

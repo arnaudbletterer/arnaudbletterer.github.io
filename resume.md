@@ -14,18 +14,19 @@ Research Scientist, Research Team Leader
 *Computer Graphics, Image/Geometry processing, Machine learning*
 
 <div id="webaddress">
-    <a href="media/arnaud-bletterer-cv.pdf" target="_blank" class="pdf-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:0.9rem;height:0.9rem;margin-right:0.2rem"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF Version</a>
-    <a href="mailto:arnaud.bletterer@gmail.com" target="_blank" class="contact-email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:0.9rem;height:0.9rem;margin-right:0.2rem"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Mail</a>
-    <a href="https://www.linkedin.com/in/arnaud-bletterer-5635b671/" target="_blank" class="contact-linkedin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:0.9rem;height:0.9rem;margin-right:0.2rem"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>
+    <a href="media/arnaud-bletterer-cv.pdf" target="_blank" class="pdf-link"><i class="fa-regular fa-file-pdf"></i>PDF Version</a>
+    <a href="mailto:arnaud.bletterer@gmail.com" target="_blank" class="contact-email"><i class="fa-regular fa-envelope"></i>Mail</a>
+    <a href="https://www.linkedin.com/in/arnaud-bletterer-5635b671/" target="_blank" class="contact-linkedin"><i class="fa-brands fa-linkedin"></i>LinkedIn</a>
 </div>
 
 I am a **curious** research scientist and leader with a **12-year track record** of **bridging the gap between exploration and industrialization**. I possess a particular proficiency at **identifying and implementing practical, production-ready solutions** to complex real-world challenges, with an **Occam's razor perspective** as often as possible.
 
 My core philosophy is that **research and development** must remain directly aligned with **final software deliverables**, ensuring a **seamless and rapid transition** from innovation to commercial implementation.
 
-*"Bernard of Chartres used to compare us to dwarfs perched on the shoulders of giants. He pointed out that we see more and farther than our predecessors, not because we have keener vision or greater height, but because we are lifted up and borne aloft on their gigantic stature."* [John of Salisbury]
+> *Bernard of Chartres used to compare us to dwarfs perched on the shoulders of giants. He pointed out that we see more and farther than our predecessors, not because we have keener vision or greater height, but because we are lifted up and borne aloft on their gigantic stature.*
+> <cite>— Bernard of Chartres (recorded by John of Salisbury in <em>Metalogicon</em>, 1159)</cite>
 
-<h2 id="employment">Employment</h2>
+<h2 id="employment"><i class="fa-solid fa-briefcase"></i> Employment</h2>
 
 <div class="cv-item-card" markdown="1">
 
@@ -68,7 +69,7 @@ My core philosophy is that **research and development** must remain directly ali
 
 </div>
 
-<h2 id="education">Education</h2>
+<h2 id="education"><i class="fa-solid fa-graduation-cap"></i> Education</h2>
 
 <div class="cv-item-card education-card" markdown="1">
 
@@ -91,7 +92,7 @@ __Bachelor in Computer Science__, Université de Strasbourg
 
 </div>
 
-<h2 id="skills">Skills</h2>
+<h2 id="skills"><i class="fa-solid fa-layer-group"></i> Skills</h2>
 
 **Computer science**
 
@@ -116,17 +117,17 @@ __Bachelor in Computer Science__, Université de Strasbourg
 
 </div>
 
-<h2 id="miscellaneous">Miscellaneous</h2>
+<h2 id="miscellaneous"><i class="fa-solid fa-shapes"></i> Miscellaneous</h2>
 
 I love spending my free time:
-* doing photography 📸 (you can find some of my work [here](https://sceyonara.abletterer.synology.me/){:target="_blank"} and [there](https://www.instagram.com/sceyonara/){:target="_blank"})
-* doing recreative programming 👨‍💻
-* generating beautiful renderings with Blender <img class="inline-icon" src="blender_icon_64x64.png" alt="Blender icon"/>
-* playing bass guitar 🎸
+* doing photography <i class="fa-solid fa-camera" style="color:var(--primary);margin:0 0.25rem;"></i> (you can find some of my work [here](https://sceyonara.abletterer.synology.me/){:target="_blank"} and [there](https://www.instagram.com/sceyonara/){:target="_blank"})
+* doing recreative programming <i class="fa-solid fa-laptop-code" style="color:var(--primary);margin:0 0.25rem;"></i>
+* generating beautiful renderings with Blender <i class="fa-solid fa-cube" style="color:var(--primary);margin:0 0.25rem;"></i>
+* playing bass guitar <i class="fa-solid fa-guitar" style="color:var(--primary);margin:0 0.25rem;"></i>
 
 <div style="page-break-after: always"></div>
 
-<h2 id="publications">Publications</h2>
+<h2 id="publications"><i class="fa-solid fa-book-open"></i> Publications</h2>
 
 I mostly published prior to joining the industry, in the fields of **point cloud processing** and **3D reconstruction from LiDAR acquisitions** of cultural heritage sites.
 More recently, my research interests have also expanded towards **image processing** and **machine learning** of medical images.
@@ -189,4 +190,4 @@ More recently, my research interests have also expanded towards **image processi
 
 </div>
 
-You can find the exhaustive list on [Google Scholar](https://scholar.google.com/citations?user=fEbApYQAAAAJ){:target="_blank"}
+You can find the exhaustive list on [<i class="fa-solid fa-graduation-cap" style="margin-right:0.25rem;"></i>Google Scholar](https://scholar.google.com/citations?user=fEbApYQAAAAJ){:target="_blank"}

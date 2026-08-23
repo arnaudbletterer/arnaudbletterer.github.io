@@ -26,8 +26,15 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="{{ site.url }}/profile.jpg" />
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+
   <link href="media/{{ site.style }}-screen.css" type="text/css" rel="stylesheet" media="screen">
   <link href="media/{{ site.style }}-print.css" type="text/css" rel="stylesheet" media="print">
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     html { scroll-behavior: smooth; }
@@ -51,27 +58,27 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      padding: 0.45rem 0.9rem;
+      padding: 0.4rem 0.85rem;
       border-radius: 999px;
-      border: 1px solid var(--border-light);
+      border: 1px solid var(--border);
       background: var(--bg-card);
       color: var(--primary);
-      font-family: inherit;
+      font-family: var(--font);
       font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
       box-shadow: var(--shadow);
-      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
     }
     #home-btn:hover {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-hover-btn);
+      background: var(--primary-soft);
+      color: var(--primary);
+      box-shadow: var(--shadow-hover);
     }
-    #home-btn svg { width: 0.85rem; height: 0.85rem; flex-shrink: 0; }
+    #home-btn i { font-size: 0.85rem; }
     @media screen and (max-width: 480px) {
       #home-btn {
         top: 1rem;
@@ -83,7 +90,7 @@
     
     /* Coherent Footer */
     .site-footer {
-      border-top: 1px solid var(--border-color);
+      border-top: 1px solid var(--border);
       padding: 2rem 0;
       margin: 4rem auto 2rem;
       font-size: 0.85rem;
@@ -364,21 +371,21 @@
   <aside id="section-toc" data-state="closed" aria-label="On this page">
     <div class="toc-inner">
       <ul class="toc-list" role="list">
-        <li class="toc-top-item"><a href="#top" class="toc-link toc-link-top" id="toc-top-link"><span class="toc-arrow">↑</span>Profile</a></li>
-        <li><a href="#employment" class="toc-link"><span class="toc-dot"></span>Employment</a></li>
-        <li><a href="#education" class="toc-link"><span class="toc-dot"></span>Education</a></li>
-        <li><a href="#skills" class="toc-link"><span class="toc-dot"></span>Skills</a></li>
-        <li><a href="#miscellaneous" class="toc-link"><span class="toc-dot"></span>Miscellaneous</a></li>
-        <li><a href="#publications" class="toc-link"><span class="toc-dot"></span>Publications</a></li>
+        <li class="toc-top-item"><a href="#top" class="toc-link toc-link-top" id="toc-top-link"><i class="fa-solid fa-user" style="font-size:0.75rem;"></i>Profile</a></li>
+        <li><a href="#employment" class="toc-link"><i class="fa-solid fa-briefcase" style="font-size:0.75rem;"></i>Employment</a></li>
+        <li><a href="#education" class="toc-link"><i class="fa-solid fa-graduation-cap" style="font-size:0.75rem;"></i>Education</a></li>
+        <li><a href="#skills" class="toc-link"><i class="fa-solid fa-layer-group" style="font-size:0.75rem;"></i>Skills</a></li>
+        <li><a href="#miscellaneous" class="toc-link"><i class="fa-solid fa-shapes" style="font-size:0.75rem;"></i>Miscellaneous</a></li>
+        <li><a href="#publications" class="toc-link"><i class="fa-solid fa-book-open" style="font-size:0.75rem;"></i>Publications</a></li>
       </ul>
     </div>
   </aside>
   <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
-    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <i class="fa-solid fa-sun sun-icon"></i>
+    <i class="fa-solid fa-moon moon-icon"></i>
   </button>
   <a id="home-btn" href="/">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    <i class="fa-solid fa-arrow-left"></i>
     Home
   </a>
   <div id="main">

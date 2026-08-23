@@ -5,7 +5,7 @@ subtitle: "How intelligent coding agents turn the ideal engineering workflow int
 description: "A practical blueprint for leveraging AI coding agents to eliminate the high friction of prototype rewrites, automated equivalence testing, and architectural discipline in industrial R&D."
 date: 2026-08-22
 highlights:
-  - "🤖 AI & Engineering"
+  - "🛠️ Engineering"
 ---
 
 Throughout my previous articles, I have deliberately focused on foundational engineering principles, organizational frameworks, and human craftsmanship, ranging from [tracer-bullet architectures](/2026/07/14/rd-principles-and-convictions.html) and [FFI single-sources-of-truth](/2026/07/24/the-translation-problem.html) to [managing exploratory versus structural debt](/2026/08/15/managing-exploratory-debt-vs-structural-debt.html). I intentionally avoided discussing AI coding assistants during the initial wave of hype, adhering to a core conviction: [**tool maturity must always precede adoption**](/2026/07/14/rd-principles-and-convictions.html#3-prioritizing-tool-maturity-over-hype). 
@@ -108,4 +108,4 @@ When the cost of rewriting throwaway prototypes drops to near zero, when differe
 
 As you integrate AI agents into your research and engineering workflows, keep this guiding principle at the core of your culture:
 
-> **"AI agents do not eliminate the need for architectural discipline; they make architectural discipline 10x cheaper to enforce."**
+> *AI agents do not eliminate the need for architectural discipline; they make architectural discipline 10x cheaper to enforce.*

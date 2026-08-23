@@ -10,7 +10,9 @@ highlights:
 
 On my resume sits a quote recorded by John of Salisbury in the 12th century: 
 
-> *"Bernard of Chartres used to compare us to dwarfs perched on the shoulders of giants. He pointed out that we see more and farther than our predecessors, not because we have keener vision or greater height, but because we are lifted up and borne aloft on their gigantic stature."*
+> *Bernard of Chartres used to compare us to dwarfs perched on the shoulders of giants. He pointed out that we see more and farther than our predecessors, not because we have keener vision or greater height, but because we are lifted up and borne aloft on their gigantic stature.*
+> 
+> <cite>— Bernard of Chartres (recorded by John of Salisbury in <em>Metalogicon</em>, 1159)</cite>
 
 This quote is not just a philosophical tagline; it is a description of the mechanics of progress in both scientific research and software engineering. Whether navigating academic state-of-the-art analysis or industrial software shipping, recognizing that we do not build in a vacuum is a superpower.
 
