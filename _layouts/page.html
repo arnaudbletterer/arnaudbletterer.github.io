@@ -45,7 +45,7 @@
   {% endif %}
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="{{ site.url }}/profile.jpg" />
+  <link rel="icon" type="image/png" href="/profile.jpg" />
 
   {% if page.date %}
   <!-- JSON-LD Structured Data for Blog Posting -->
@@ -512,19 +512,14 @@
     }
 
     .author-card-role {
-      display: inline-block;
-      font-size: 0.75rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
       color: var(--primary);
-      background: var(--primary-soft);
-      padding: 0.2rem 0.65rem;
-      border-radius: 999px;
-      margin-top: 0.35rem;
-      margin-bottom: 0.85rem;
-      border: 1px solid var(--border);
-      width: fit-content;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+      margin-bottom: 0.75rem;
+      display: block;
     }
 
     .author-card-bio {
@@ -711,7 +706,7 @@ Read the full essay by Arnaud Bletterer:
     <div class="author-card">
       <div class="author-card-avatar-wrap">
         <div class="author-avatar-ring">
-          <img class="author-card-avatar" src="{{ site.url }}/profile.jpg" alt="Arnaud Bletterer" />
+          <img class="author-card-avatar" src="/profile.jpg" alt="Arnaud Bletterer" />
         </div>
       </div>
       <div class="author-card-body">
