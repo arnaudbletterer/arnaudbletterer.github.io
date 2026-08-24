@@ -104,7 +104,7 @@
         <!-- Stepper header -->
         <div class="stepper">
           {% for step in page.steps %}
-          <div class="step-dot {% if forloop.first %}active{% endif %}" id="step-dot-{{ forloop.index }}" onclick="setStep({{ forloop.index }})">{{ forloop.index }}</div>
+          <div class="step-dot {% if forloop.first %}active{% endif %}" id="step-dot-{{ forloop.index }}" onclick="setStep({{ forloop.index }}, true)">{{ forloop.index }}</div>
           {% endfor %}
         </div>
 
@@ -270,18 +270,32 @@
       }
     }
 
-    function setStep(step) {
+    function setStep(step, fromUserNav = false) {
       if (step < 1 || step > totalSteps) return;
       currentStep = step;
       renderStep();
+
+      // Ergonomic Auto-Scroll on Mobile when advancing steps
+      if (fromUserNav && window.innerWidth <= 1024) {
+        const layoutEl = document.querySelector('.main-layout');
+        if (layoutEl) {
+          const headerOffset = 60;
+          const elementPosition = layoutEl.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      }
     }
 
     function prevStep() {
-      setStep(currentStep - 1);
+      setStep(currentStep - 1, true);
     }
 
     function nextStep() {
-      setStep(currentStep + 1);
+      setStep(currentStep + 1, true);
     }
 
     const mathTermsDb = {{ page.math_terms | jsonify }};

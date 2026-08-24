@@ -100,10 +100,10 @@
       <div class="guide-card">
         <!-- Stepper header -->
         <div class="stepper">
-          <div class="step-dot active" id="step-dot-1" onclick="setStep(1)">1</div>
-          <div class="step-dot" id="step-dot-2" onclick="setStep(2)">2</div>
-          <div class="step-dot" id="step-dot-3" onclick="setStep(3)">3</div>
-          <div class="step-dot" id="step-dot-4" onclick="setStep(4)">4</div>
+          <div class="step-dot active" id="step-dot-1" onclick="setStep(1, true)">1</div>
+          <div class="step-dot" id="step-dot-2" onclick="setStep(2, true)">2</div>
+          <div class="step-dot" id="step-dot-3" onclick="setStep(3, true)">3</div>
+          <div class="step-dot" id="step-dot-4" onclick="setStep(4, true)">4</div>
         </div>
 
         <!-- Step content -->
@@ -506,27 +506,39 @@
       syncRelaxationButtonText();
     }
 
-    function setStep(stepNum) {
+    function setStep(stepNum, fromUserNav = false) {
       currentStep = stepNum;
       renderStep();
+
+      // Ergonomic Auto-Scroll on Mobile when advancing steps
+      if (fromUserNav && window.innerWidth <= 1024) {
+        const layoutEl = document.querySelector('.main-layout');
+        if (layoutEl) {
+          const headerOffset = 60;
+          const elementPosition = layoutEl.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      }
     }
 
     // Next step click handler
     function nextStep() {
       if (currentStep < 4) {
-        currentStep++;
-        renderStep();
+        setStep(currentStep + 1, true);
       } else {
-        currentStep = 1;
         clearCanvasUI();
+        setStep(1, true);
       }
     }
 
     // Previous step click handler
     function prevStep() {
       if (currentStep > 1) {
-        currentStep--;
-        renderStep();
+        setStep(currentStep - 1, true);
       }
     }
 
@@ -714,12 +726,13 @@
       }
     }
 
-    // Re-bind mouse handlers on main SVG to enable smooth continuous drag-painting
-    // with an interval timer to continuously spawn sites while the mouse is pressed
+    // Re-bind mouse & touch handlers on main SVG to enable smooth continuous drag-painting
+    // with an interval timer to continuously spawn sites while the mouse/finger is pressed
     d3.select("#main_svg")
       .on("mousedown", function() {
         mouse_is_clicking = true;
         const coords = d3.mouse(this);
+        mouse_pos = coords;
         
         if (to_manipulate && (currentStep < 3 || isInsideKnownDomain(coords))) {
           queueSite(coords);
@@ -741,15 +754,24 @@
           }
         }, 80);
       })
-      .on("mouseup", function() {
-        mouse_is_clicking = false;
-        if (spawnInterval) {
-          clearInterval(spawnInterval);
-          spawnInterval = null;
+      .on("touchstart", function() {
+        if (d3.event && d3.event.touches && d3.event.touches.length > 0) {
+          d3.event.preventDefault();
+          mouse_is_clicking = true;
+          const coords = d3.touches(this)[0];
+          mouse_pos = coords;
+          
+          if (to_manipulate && (currentStep < 3 || isInsideKnownDomain(coords))) {
+            queueSite(coords);
+          } else if (!to_manipulate && with_cell_hovering && diagram) {
+            var found = diagram.find(coords[0], coords[1]);
+            if (found) {
+              highlightCell(found.index);
+            }
+          }
         }
-        flushBatch();
       })
-      .on("mouseleave", function() {
+      .on("mouseup mouseleave touchend touchcancel", function() {
         mouse_is_clicking = false;
         if (spawnInterval) {
           clearInterval(spawnInterval);
@@ -768,6 +790,22 @@
           var found = diagram.find(mouse_pos[0], mouse_pos[1]);
           if (found) {
             highlightCell(found.index);
+          }
+        }
+      })
+      .on("touchmove", function() {
+        if (d3.event && d3.event.touches && d3.event.touches.length > 0) {
+          d3.event.preventDefault();
+          const coords = d3.touches(this)[0];
+          mouse_pos = coords;
+          if (to_manipulate && mouse_is_clicking) {
+            if (currentStep >= 3 && !isInsideKnownDomain(coords)) return;
+            queueSite(coords);
+          } else if (!to_manipulate && with_cell_hovering && diagram) {
+            var found = diagram.find(coords[0], coords[1]);
+            if (found) {
+              highlightCell(found.index);
+            }
           }
         }
       })

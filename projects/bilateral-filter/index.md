@@ -109,10 +109,17 @@ steps:
 <div class="viewport-card" style="max-width: 800px; width: 100%;">
   <h3 id="main-canvas-title">Bilateral Filter Sandbox</h3>
   
-  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+  <!-- Mobile Segmented Tab Switcher -->
+  <div class="mobile-canvas-tabs" role="tablist" aria-label="Visualizer Canvas Switcher">
+    <button type="button" class="tab-btn active" id="tab-btn-input" onclick="setMobileBilateralTab('input')">Noisy Input</button>
+    <button type="button" class="tab-btn" id="tab-btn-kernel" onclick="setMobileBilateralTab('kernel')">Kernel Weights</button>
+    <button type="button" class="tab-btn" id="tab-btn-output" onclick="setMobileBilateralTab('output')">Filtered Result</button>
+  </div>
+
+  <div class="bilateral-canvases-grid">
     <!-- Left Column: Input Image -->
-    <div>
-      <div style="font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;">1. Noisy Input (Probe)</div>
+    <div id="col-canvas-input" class="bilateral-col is-active">
+      <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.35rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;">Noisy Input (Probe)</div>
       <div class="canvas-container" style="position: relative;">
         <canvas id="canvas-input" width="150" height="125"></canvas>
         <svg id="svg-overlay-input" viewBox="0 0 150 125" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2;">
@@ -127,8 +134,8 @@ steps:
     </div>
     
     <!-- Middle Column: Weight Visualizer -->
-    <div>
-      <div style="font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;" id="kernel-type-label">2. Space Kernel ($k_s$)</div>
+    <div id="col-canvas-kernel" class="bilateral-col">
+      <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.35rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;" id="kernel-type-label">Space Kernel ($k_s$)</div>
       <div class="canvas-container" style="position: relative;">
         <canvas id="canvas-kernel" width="150" height="125"></canvas>
         <svg id="svg-overlay-kernel" viewBox="0 0 150 125" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2;">
@@ -139,8 +146,8 @@ steps:
     </div>
 
     <!-- Right Column: Filtered Result -->
-    <div>
-      <div style="font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;">3. Filtered Output</div>
+    <div id="col-canvas-output" class="bilateral-col">
+      <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.35rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;">Filtered Output</div>
       <div class="canvas-container" style="position: relative;">
         <canvas id="canvas-output" width="150" height="125"></canvas>
         <svg id="svg-overlay-output" viewBox="0 0 150 125" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2;">
@@ -155,8 +162,8 @@ steps:
 
   <!-- Real-time Intensity Slice Profile -->
   <div style="margin-bottom: 1.25rem; border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem; background-color: var(--bg);">
-    <div style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
-      <span>Horizontal Intensity Slice Profile (at cursor row)</span>
+    <div style="font-size: 0.78rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.25rem;">
+      <span>Horizontal Intensity Slice Profile</span>
       <span style="font-size: 0.75rem; font-weight: 500; text-transform: none;">
         <span style="display: inline-block; width: 8px; height: 8px; background: #ef4444; border-radius: 50%; margin-right: 4px;"></span>Noisy Input
         <span style="display: inline-block; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; margin-left: 12px; margin-right: 4px;"></span>Filtered
@@ -171,8 +178,8 @@ steps:
   </div>
 
   <!-- Sliders and Controls -->
-  <div class="workspace-row" style="max-width: 100%; gap: 1.5rem; display: grid; grid-template-columns: 1fr 1fr;">
-    <div class="toolbox-card" style="width: 100%; display: flex; flex-direction: column; gap: 1rem;">
+  <div class="workspace-controls-grid">
+    <div class="toolbox-card" style="width: 100%; display: flex; flex-direction: column; gap: 1rem; align-items: stretch;">
       <h2>Filter Parameters</h2>
       <div style="display: flex; flex-direction: column; gap: 0.75rem;">
         <div id="group-slider-s">
@@ -193,11 +200,11 @@ steps:
       </div>
     </div>
 
-    <div class="toolbox-card" style="width: 100%; display: flex; flex-direction: column; gap: 0.75rem; justify-content: center;">
+    <div class="toolbox-card" style="width: 100%; display: flex; flex-direction: column; gap: 0.75rem; justify-content: center; align-items: stretch;">
       <h2>Operations & Presets</h2>
       <div style="width: 100%; display: flex; flex-direction: column; gap: 0.5rem;">
         <label for="preset-select" style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">IMAGE PRESET</label>
-        <select id="preset-select" class="btn" style="width: 100%; text-align: left; padding: 0.4rem 0.75rem; font-weight: 500;" onchange="onPresetChange(this.value)">
+        <select id="preset-select" class="btn" style="width: 100%; text-align: left; padding: 0.45rem 0.75rem; font-weight: 500;" onchange="onPresetChange(this.value)">
           <option value="edge">Synthetic Step-Edge</option>
           <option value="face">3D-Shaded Sphere</option>
           <option value="circles">Mathematical Ripple Grid</option>

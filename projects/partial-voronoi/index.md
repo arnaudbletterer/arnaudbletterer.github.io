@@ -55,7 +55,7 @@ math_terms:
     term: 'v \in \text{vertices}(V_i)'
     desc: 'The corner points where the edges of cell $V_i$ intersect.'
   math-term-disk:
-    title: 'Disks (Circles)'
+    title: 'Disk'
     term: 'D(v, d(v, \mathbf{s}_i))'
     desc: 'A closed disk centered at vertex $v$ with a radius equal to the distance from $v$ to the site $\mathbf{s}_i$.'
 steps:

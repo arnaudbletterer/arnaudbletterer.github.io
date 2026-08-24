@@ -765,7 +765,10 @@ function redraw() {
     })
     .attr("stroke", isDark ? "#1e293b" : "#ffffff")
     .attr("stroke-width", 1.5)
-    .on("mouseover", function(d) {
+    .on("mouseover touchstart", function(d) {
+      if (d3.event && d3.event.type === 'touchstart') {
+        d3.event.stopPropagation();
+      }
       hoveredPoint = d;
       redraw();
     })
@@ -913,6 +916,27 @@ window.addEventListener('DOMContentLoaded', () => {
     mstEdges = [];
     computeNeighborhoodsAndPCA();
     redraw();
+  });
+
+  // Touchmove dragging listener to probe point cloud smoothly on mobile
+  svg.on("touchmove", function() {
+    if (d3.event && d3.event.touches && d3.event.touches.length > 0) {
+      d3.event.preventDefault();
+      const coords = d3.touches(this)[0];
+      if (coords) {
+        let closest = null;
+        let minDist = 45;
+        for (let p of activePoints) {
+          const dist = Math.hypot(p.x - coords[0], p.y - coords[1]);
+          if (dist < minDist) {
+            minDist = dist;
+            closest = p;
+          }
+        }
+        hoveredPoint = closest;
+        redraw();
+      }
+    }
   });
 
   // Load first step view state

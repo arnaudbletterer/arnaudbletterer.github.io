@@ -621,7 +621,8 @@ function onPresetChange(preset) {
 }
 
 function handleMouseMove(e) {
-  const rect = canvasInput.getBoundingClientRect();
+  const targetCanvas = e.currentTarget || canvasInput;
+  const rect = targetCanvas.getBoundingClientRect();
   const scaleX = width / rect.width;
   const scaleY = height / rect.height;
   
@@ -642,9 +643,10 @@ function handleMouseMove(e) {
 
 function handleTouchMove(e) {
   if (e.touches.length > 0) {
-    e.preventDefault(); // Prevent scrolling
+    e.preventDefault(); // Prevent scrolling while probing canvas
     const touch = e.touches[0];
-    const rect = canvasInput.getBoundingClientRect();
+    const targetCanvas = e.currentTarget || canvasInput;
+    const rect = targetCanvas.getBoundingClientRect();
     const scaleX = width / rect.width;
     const scaleY = height / rect.height;
     
@@ -686,11 +688,42 @@ function updateProfileExplanation() {
     text = "📊 <b>Step 3 (Bilateral Filter):</b> The blue line combines proximity and color similarity. Probing the edge shows a cropped weight circle that smooths noise on both sides but respects the boundary, keeping the vertical step razor-sharp.";
   }
   
-  if (!isHovering) {
-    text += " <i>(Defaulting to center coordinate; hover over the image to probe different areas).</i>";
-  }
-  
   explanationEl.innerHTML = text;
+}
+
+// Mobile Segmented Tab Manager
+let currentMobileTab = 'input';
+
+function setMobileBilateralTab(tabKey) {
+  currentMobileTab = tabKey;
+  
+  const cols = {
+    'input': document.getElementById('col-canvas-input'),
+    'kernel': document.getElementById('col-canvas-kernel'),
+    'output': document.getElementById('col-canvas-output')
+  };
+  const btns = {
+    'input': document.getElementById('tab-btn-input'),
+    'kernel': document.getElementById('tab-btn-kernel'),
+    'output': document.getElementById('tab-btn-output')
+  };
+  
+  Object.keys(cols).forEach(key => {
+    if (cols[key]) {
+      if (key === tabKey) {
+        cols[key].classList.add('is-active');
+      } else {
+        cols[key].classList.remove('is-active');
+      }
+    }
+    if (btns[key]) {
+      if (key === tabKey) {
+        btns[key].classList.add('active');
+      } else {
+        btns[key].classList.remove('active');
+      }
+    }
+  });
 }
 
 // Hook called by general_visualizer layout when the step changes
@@ -700,10 +733,19 @@ function onStepChange(step) {
   // Refresh filter state
   applyBilateralFilter();
   
+  // On step change, smartly auto-activate relevant mobile view
+  if (window.innerWidth <= 768) {
+    if (step === 1 || step === 2) {
+      setMobileBilateralTab('kernel');
+    } else if (step === 3) {
+      setMobileBilateralTab('output');
+    }
+  }
+  
   const labels = [
-    "2. Space Kernel ($k_s$)",
-    "2. Range Kernel ($k_r$)",
-    "2. Bilateral Kernel ($k_s \\times k_r$)"
+    "Space Kernel ($k_s$)",
+    "Range Kernel ($k_r$)",
+    "Bilateral Kernel ($k_s \\times k_r$)"
   ];
   
   const labelEl = document.getElementById('kernel-type-label');
@@ -753,12 +795,15 @@ function onThemeChange(theme) {
 window.addEventListener('DOMContentLoaded', () => {
   generatePresetImage();
   
-  // Attach hover and touch events
-  canvasInput.addEventListener('mousemove', handleMouseMove);
-  canvasInput.addEventListener('mouseleave', handleMouseLeave);
-  canvasInput.addEventListener('touchstart', handleTouchMove, { passive: false });
-  canvasInput.addEventListener('touchmove', handleTouchMove, { passive: false });
-  canvasInput.addEventListener('touchend', handleMouseLeave);
+  // Attach hover and touch events to all 3 visualizer canvases
+  [canvasInput, canvasKernel, canvasOutput].forEach(canv => {
+    if (!canv) return;
+    canv.addEventListener('mousemove', handleMouseMove);
+    canv.addEventListener('mouseleave', handleMouseLeave);
+    canv.addEventListener('touchstart', handleTouchMove, { passive: false });
+    canv.addEventListener('touchmove', handleTouchMove, { passive: false });
+    canv.addEventListener('touchend', handleMouseLeave);
+  });
   
   // Attach sliders
   const sliderS = document.getElementById('slider-sigma-s');

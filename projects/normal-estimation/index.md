@@ -96,7 +96,7 @@ steps:
   </div>
 
   <!-- Interactive Controls Row -->
-  <div class="workspace-row" style="max-width: 100%; gap: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; margin-top: 0.5rem;">
+  <div class="workspace-controls-grid" style="margin-top: 0.5rem;">
     <!-- Parameters Card -->
     <div class="toolbox-card" style="width: 100%; display: flex; flex-direction: column; gap: 1rem; align-items: stretch;">
       <h2>Parameters</h2>
@@ -124,7 +124,7 @@ steps:
       
       <div style="display: flex; flex-direction: column; gap: 0.4rem;">
         <label for="shape-select" style="font-size: 0.72rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Shape Preset</label>
-        <select id="shape-select" class="btn" style="width: 100%; text-align: left; padding: 0.4rem 0.75rem; font-weight: 500;">
+        <select id="shape-select" class="btn" style="width: 100%; text-align: left; padding: 0.45rem 0.75rem; font-weight: 500;">
           <option value="sinusoid">Wavy Sine Surface</option>
           <option value="circle">Closed Circle (Loop)</option>
           <option value="corner">Sharp 90° Corner</option>
