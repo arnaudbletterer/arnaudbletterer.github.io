@@ -1,6 +1,6 @@
 /* Print Stylesheet for Arnaud Bletterer CV / Resume
-   Harmonious typography scale, natural line-heights, and consistent card padding
-   matching the balance of the website across exactly 2 pages.
+   Clean, crisp vector rendering for PDF generation without rasterized shadow halos.
+   Harmonious typography scale and exact 2-page fit.
 */
 
 @page {
@@ -11,6 +11,7 @@
 *, *::before, *::after {
 	-webkit-print-color-adjust: exact !important;
 	print-color-adjust: exact !important;
+	box-shadow: none !important; /* Eliminate Chrome PDF raster blur/halo artifacts */
 }
 
 /* Base font-size calibration for A4 print */
@@ -66,7 +67,8 @@ body {
 }
 
 .profile {
-	box-shadow: var(--shadow) !important;
+	border: 1.5px solid rgba(0, 65, 170, 0.2) !important;
+	box-shadow: none !important;
 }
 
 /* Header Content (Column 2) */
@@ -111,10 +113,10 @@ h1 + p {
 	font-size: 0.76rem !important;
 	font-weight: 600 !important;
 	line-height: 1.2 !important;
-	border: 1px solid var(--border) !important;
+	border: 1px solid rgba(0, 65, 170, 0.2) !important;
 	background: var(--primary-soft) !important;
 	color: var(--primary) !important;
-	box-shadow: 0 1px 3px rgba(0, 65, 170, 0.05) !important;
+	box-shadow: none !important;
 }
 
 #webaddress .contact-email {
@@ -171,9 +173,10 @@ blockquote {
 	font-size: 0.85rem !important;
 	font-style: italic !important;
 	line-height: 1.45 !important;
-	border-top: 1px solid var(--border) !important;
-	border-bottom: 1px solid var(--border) !important;
+	border-top: 1px solid rgba(0, 65, 170, 0.15) !important;
+	border-bottom: 1px solid rgba(0, 65, 170, 0.15) !important;
 	border-left: none !important;
+	box-shadow: none !important;
 }
 
 blockquote::before {
@@ -195,17 +198,18 @@ blockquote p {
 	margin-bottom: 0 !important;
 }
 
-/* Common Code & Badges */
+/* Common Code & Badges (Clean Inter Font, Crisp Vector Border) */
 code {
-	font-family: var(--font-mono) !important;
+	font-family: var(--font) !important;
 	font-size: 0.75rem !important;
 	font-weight: 500 !important;
 	background-color: var(--primary-soft) !important;
 	color: var(--primary) !important;
 	padding: 0.15rem 0.55rem !important;
-	border: 1px solid var(--border) !important;
+	border: 1px solid rgba(0, 65, 170, 0.18) !important;
 	border-radius: 999px !important;
 	line-height: 1.2 !important;
+	box-shadow: none !important;
 }
 
 /* CV Item Cards (Employment & Experience) */
@@ -213,9 +217,9 @@ code {
 	padding: 0.65rem 0.95rem !important;
 	margin-bottom: 0.42rem !important;
 	border-radius: var(--radius) !important;
-	border: 1px solid var(--border) !important;
-	background-color: var(--bg-card) !important;
-	box-shadow: var(--shadow) !important;
+	border: 1px solid rgba(0, 65, 170, 0.15) !important;
+	background-color: #ffffff !important;
+	box-shadow: none !important;
 	break-inside: avoid !important;
 	page-break-inside: avoid !important;
 }
@@ -241,15 +245,20 @@ code {
 }
 
 .cv-item-card p code {
+	font-family: var(--font) !important;
 	font-size: 0.74rem !important;
 	font-weight: 500 !important;
 	padding: 0.14rem 0.55rem !important;
+	box-shadow: none !important;
 }
 
 /* Education Cards */
 .education-card {
 	padding: 0.45rem 0.95rem !important;
 	margin-bottom: 0.32rem !important;
+	border: 1px solid rgba(0, 65, 170, 0.15) !important;
+	background-color: #ffffff !important;
+	box-shadow: none !important;
 }
 
 .education-card p {
@@ -265,8 +274,10 @@ code {
 }
 
 .education-card p code {
+	font-family: var(--font) !important;
 	font-size: 0.74rem !important;
 	font-weight: 500 !important;
+	box-shadow: none !important;
 }
 
 /* Skills Section */
@@ -287,9 +298,11 @@ code {
 }
 
 .skills-table code {
+	font-family: var(--font) !important;
 	font-size: 0.75rem !important;
 	font-weight: 500 !important;
 	padding: 0.14rem 0.55rem !important;
+	box-shadow: none !important;
 }
 
 /* Languages Cards */
@@ -303,9 +316,9 @@ code {
 	padding: 0.42rem 0.85rem !important;
 	font-size: 0.84rem !important;
 	border-radius: var(--radius) !important;
-	border: 1px solid var(--border) !important;
-	background-color: var(--bg-card) !important;
-	box-shadow: var(--shadow) !important;
+	border: 1px solid rgba(0, 65, 170, 0.15) !important;
+	background-color: #ffffff !important;
+	box-shadow: none !important;
 }
 
 /* Miscellaneous */
@@ -319,7 +332,7 @@ code {
 	margin-bottom: 0.18rem !important;
 }
 
-/* Publications List & Cards (Balanced & Airy) */
+/* Publications List & Cards (Crisp Vector Cards) */
 .publications-list {
 	grid-column: 2 !important;
 	gap: 0.55rem !important;
@@ -329,9 +342,9 @@ code {
 .publication-card {
 	padding: 0.65rem 0.95rem !important;
 	border-radius: var(--radius) !important;
-	border: 1px solid var(--border) !important;
-	background-color: var(--bg-card) !important;
-	box-shadow: var(--shadow) !important;
+	border: 1px solid rgba(0, 65, 170, 0.15) !important;
+	background-color: #ffffff !important;
+	box-shadow: none !important;
 	break-inside: avoid !important;
 	page-break-inside: avoid !important;
 }
@@ -341,9 +354,11 @@ code {
 }
 
 .pub-year code {
+	font-family: var(--font) !important;
 	font-size: 0.73rem !important;
 	font-weight: 500 !important;
 	padding: 0.12rem 0.52rem !important;
+	box-shadow: none !important;
 }
 
 .pub-title {
