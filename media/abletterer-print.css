@@ -1,521 +1,379 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
+/* Print Stylesheet for Arnaud Bletterer CV / Resume
+   Harmonious typography scale, natural line-heights, and consistent card padding
+   matching the balance of the website across exactly 2 pages.
 */
-
-@font-face {
-    font-family: "Montserrat";
-    src: url("fonts/Montserrat-Regular.ttf") format("truetype");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-
-@font-face {
-    font-family: "Montserrat";
-    src: url("fonts/Montserrat-SemiBold.ttf") format("truetype");
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "Montserrat";
-    src: url("fonts/Montserrat-Bold.ttf") format("truetype");
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "Montserrat";
-    src: url("fonts/Montserrat-Italic.ttf") format("truetype");
-    font-weight: 400;
-    font-style: italic;
-    font-display: swap;
-}
-@font-face {
-    font-family: "Montserrat";
-    src: url("fonts/Montserrat-BoldItalic.ttf") format("truetype");
-    font-weight: 700;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "FiraCode";
-    src: url("fonts/FiraCode-Retina.ttf") format("truetype");
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Inter";
-    src: url("fonts/Inter-Regular.ttf") format("truetype");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "Inter";
-    src: url("fonts/Inter-SemiBold.ttf") format("truetype");
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "Inter";
-    src: url("fonts/Inter-Bold.ttf") format("truetype");
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "Inter";
-    src: url("fonts/Inter-Italic.ttf") format("truetype");
-    font-weight: 400;
-    font-style: italic;
-    font-display: swap;
-}
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-	background-color: #ffffff;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-/* end of reset */
 
 @page {
 	size: A4;
-	margin: 1.5cm 1.5cm 1.5cm 1.5cm;
+	margin: 6mm 9mm 6mm 9mm;
 }
 
 *, *::before, *::after {
-	box-sizing: border-box;
-}
-
-* {
 	-webkit-print-color-adjust: exact !important;
 	print-color-adjust: exact !important;
 }
 
+/* Base font-size calibration for A4 print */
+html {
+	font-size: 12.8px;
+}
+
 body {
-	font: normal normal 400 10.5pt 'Inter', Montserrat, sans-serif;
-	line-height: 1.35em;
-	color: #000;
-	background-color: #ffffff;
+	background-color: #ffffff !important;
+	color: var(--text);
 	margin: 0;
 	padding: 0;
+	-webkit-font-smoothing: antialiased;
 }
 
+#main {
+	width: 100% !important;
+	max-width: 100% !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	animation: none !important;
+	background-color: #ffffff !important;
+}
+
+/* 2-Column Grid Layout (20% / 76%) */
 #content {
-	display: block;
-	width: 100%;
-	padding-right: 5pt;
-	box-sizing: border-box;
+	display: grid !important;
+	grid-template-columns: 20% 76% !important;
+	column-gap: 4% !important;
+	row-gap: 0.28rem !important;
+	width: 100% !important;
+	max-width: 100% !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	align-items: baseline !important;
 }
 
-/* Hide the PDF download link, theme toggle, nav, home button, lightbox, and interactive demo links when printing */
-#pdf-download, .pdf-link, #theme-toggle, #nav-toggle, #home-btn, #section-toc, .lightbox, .pub-demo-link {
+/* Hide interactive & web-only elements */
+#pdf-download, .pdf-link, #theme-toggle, #nav-toggle, #home-btn, #section-toc, .lightbox, .pub-demo-link, .site-footer {
 	display: none !important;
 	visibility: hidden !important;
 }
 
-#webaddress .pdf-link + .sep {
-	display: none !important;
-}
-
+/* Profile Photo */
 .profile-container {
-	float: right;
-	width: 85pt;
-	margin-left: 15pt;
-	margin-bottom: 10pt;
+	grid-column: 1 !important;
+	grid-row: 1 / 5 !important;
+	justify-self: right !important;
+	align-self: start !important;
+	width: 100% !important;
+	max-width: 76pt !important;
+	margin: 0 !important;
 }
 
 .profile {
-	width: 100%;
-	height: auto;
-	aspect-ratio: 1 / 1;
-	border-radius: 50%;
-	border: 1px solid rgba(0, 65, 170, 0.25);
-	padding: 3px;
-	object-fit: cover;
-	box-sizing: border-box;
+	box-shadow: var(--shadow) !important;
 }
 
+/* Header Content (Column 2) */
 h1 {
-	font-size: 2.2em;
-	font-weight: bold;
-	line-height: 1.1em;
-	margin-top: 0;
-	margin-bottom: 3pt;
+	grid-column: 2 !important;
+	grid-row: 1 !important;
+	font-size: 1.72rem !important;
+	font-weight: 700 !important;
+	line-height: 1.15 !important;
+	margin-bottom: 0.1rem !important;
 }
 
 h1 + p {
-	font-size: 1.1em;
-	color: #333;
-	margin-top: 0;
-	margin-bottom: 3pt;
+	grid-column: 2 !important;
+	grid-row: 2 !important;
+	font-size: 0.95rem !important;
+	font-weight: 500 !important;
+	margin-bottom: 0.08rem !important;
+	color: var(--text-muted) !important;
 }
 
 #content > p:nth-of-type(2) {
-	font-style: italic;
-	color: #444;
-	margin-top: 0;
-	margin-bottom: 6pt;
+	grid-column: 2 !important;
+	grid-row: 3 !important;
+	font-size: 0.85rem !important;
+	font-style: italic !important;
+	color: var(--text-muted) !important;
+	margin-bottom: 0.25rem !important;
 }
 
+/* Contact Links Bar (Column 2) */
 #webaddress {
-	color: rgb(0, 65, 170);
-	font-size: 95%;
-	margin-bottom: 1.2em;
+	grid-column: 2 !important;
+	grid-row: 4 !important;
+	margin-top: 0.05rem !important;
+	margin-bottom: 0.4rem !important;
+	gap: 0.45rem !important;
 }
 
-#webaddress .sep {
-	margin: 0 0.4em;
-	color: rgba(0, 65, 170, 0.4);
-}
-
-#webaddress .contact-linkedin,
-#webaddress .contact-twitter,
-#webaddress .contact-kofi,
-#webaddress .contact-linkedin + .sep,
-#webaddress .contact-twitter + .sep,
-#webaddress .contact-kofi + .sep {
-	display: none !important;
+#webaddress a {
+	padding: 0.22rem 0.75rem !important;
+	font-size: 0.76rem !important;
+	font-weight: 600 !important;
+	line-height: 1.2 !important;
+	border: 1px solid var(--border) !important;
+	background: var(--primary-soft) !important;
+	color: var(--primary) !important;
+	box-shadow: 0 1px 3px rgba(0, 65, 170, 0.05) !important;
 }
 
 #webaddress .contact-email {
 	font-size: 0 !important;
-	display: inline-flex;
-	align-items: center;
-	vertical-align: middle;
-}
-
-#webaddress .contact-email svg {
-	margin-right: 0.2rem;
-	vertical-align: middle;
 }
 
 #webaddress .contact-email::after {
 	content: "arnaud.bletterer@gmail.com";
-	font-size: 9.5pt !important;
-	line-height: 1;
+	font-size: 0.76rem !important;
+	font-weight: 600 !important;
+	line-height: 1.2;
 }
 
-
-h2 {
-	color: rgb(0, 65, 170);
-	font-weight: bold;
-	font-size: 11pt;
-	text-align: left;
-	margin-top: 1.5em;
-	margin-bottom: 8pt;
-	border-bottom: 1px solid rgba(0, 65, 170, 0.15);
-	padding-bottom: 3pt;
-	clear: both;
-	width: 100%;
-	display: block;
-	break-after: avoid;
-	page-break-after: avoid;
+#webaddress .contact-linkedin {
+	font-size: 0 !important;
 }
 
-/* Match vertical spacing of the first element in each section with its corresponding H2 header */
-h2 + * {
-	margin-top: 0 !important;
+#webaddress .contact-linkedin::after {
+	content: "linkedin.com/in/arnaud-bletterer";
+	font-size: 0.76rem !important;
+	font-weight: 600 !important;
+	line-height: 1.2;
 }
 
-h3 {
-	font-weight: bold;
-	font-size: 9pt;
-	line-height: 1.6em;
-	text-align: left;
-	margin-top: 0.4em;
-	break-after: avoid;
-	page-break-after: avoid;
-}
-
-p, ul, table, div, blockquote {
-	position: relative;
-	width: 100%;
-}
-
+/* Paragraphs & Text Rhythm */
 p {
-	margin-bottom: 0.4em;
-	box-sizing: border-box;
+	font-size: 0.86rem !important;
+	line-height: 1.44 !important;
+	margin-bottom: 0.3rem !important;
+	color: var(--text) !important;
 }
 
-p:has(code) {
-	padding-right: 12em;
+/* Section Headings */
+h2 {
+	grid-column: 1 !important;
+	font-size: 0.98rem !important;
+	font-weight: 700 !important;
+	margin-top: 0.55rem !important;
+	margin-bottom: 0 !important;
+	color: var(--primary) !important;
+	break-after: avoid !important;
+	page-break-after: avoid !important;
 }
 
-.citations p, .citations li, p.intro, blockquote p, #webaddress p {
-	padding-right: 0;
+h2 + * {
+	margin-top: 0.55rem !important;
 }
 
-code {
-	font-family: FiraCode, monospace;
-	font-size: 0.82em;
-	background-color: rgba(0, 65, 170, 0.05);
-	color: rgb(0, 65, 170);
-	padding: 2px 8px;
-	border-radius: 6px;
-	border: 1px solid rgba(0, 65, 170, 0.12);
-	display: inline-block;
-	vertical-align: middle;
+/* Pullquote */
+blockquote {
+	grid-column: 2 !important;
+	padding: 0.45rem 1.3rem 0.45rem !important;
+	margin: 0.3rem auto 0.55rem !important;
+	font-size: 0.85rem !important;
+	font-style: italic !important;
+	line-height: 1.45 !important;
+	border-top: 1px solid var(--border) !important;
+	border-bottom: 1px solid var(--border) !important;
+	border-left: none !important;
 }
 
-p code {
-	position: absolute;
-	top: 0;
-	right: 0;
-	text-align: right;
-	font-weight: 500;
+blockquote::before {
+	font-size: 1.35rem !important;
+	height: 0.85rem !important;
+	margin-bottom: 0.12rem !important;
 }
 
-li code {
-	float: right;
-	margin-left: 2em;
-	margin-bottom: 0.2em;
-	text-align: right;
-	font-weight: 500;
+blockquote cite {
+	margin-top: 0.28rem !important;
+	font-size: 0.74rem !important;
+	font-style: normal !important;
+	color: var(--text-muted) !important;
 }
 
-ul {
-	margin-bottom: 1em;
-}
-
-li {
-	display: flow-root; /* Creates new block formatting context, containing child floats */
-	width: 100%;
-	box-sizing: border-box;
-	position: relative;
-	padding-left: 1.25em; /* Space for the absolutely positioned bullet */
-	margin-bottom: 0.3em;
-}
-
-li:before {
-	content: "•";
-	color: rgba(0, 65, 170, 0.5);
-	font-weight: bold;
-	position: absolute;
-	left: 0;
-	top: -0.05em;
-	font-size: 1.1em;
-}
-
-li ul {
-	margin-top: 0.2em;
-	margin-bottom: 0;
-}
-
-li code {
-	float: right;
-	margin-left: 2em;
-	margin-bottom: 0.2em;
-	text-align: right;
-	font-weight: 500;
-	position: relative !important;
-	top: 0.08em;
-}
-
-a {
-	font-weight: bold;
-	color: rgb(0, 65, 170);
-	text-decoration: none;
-}
-
-/* Ensure clean page breaks matching the markdown break */
-div[style*="page-break-after"] {
-	page-break-after: always !important;
-	break-after: page !important;
-	grid-column: 1 / -1; /* Stretch page break to avoid grid issues */
-}
-
-.cv-item-card {
-	border: none;
-	background: none;
-	padding: 0;
-	page-break-inside: avoid;
-	box-sizing: border-box;
-	margin-bottom: 12pt;
-	width: 100%;
-}
-
-.cv-item-card > *:first-child {
-	margin-top: 0 !important;
-}
-
-.cv-item-card > *:last-child {
+blockquote p {
+	font-size: 0.85rem !important;
+	line-height: 1.45 !important;
 	margin-bottom: 0 !important;
 }
 
-.education-card p:has(code) {
-	padding-right: 5.5em;
+/* Common Code & Badges */
+code {
+	font-family: var(--font-mono) !important;
+	font-size: 0.75rem !important;
+	font-weight: 500 !important;
+	background-color: var(--primary-soft) !important;
+	color: var(--primary) !important;
+	padding: 0.15rem 0.55rem !important;
+	border: 1px solid var(--border) !important;
+	border-radius: 999px !important;
+	line-height: 1.2 !important;
 }
 
-.publications-list {
-	grid-column: 2;
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 12pt;
-	margin-bottom: 1.5em;
-	box-sizing: border-box;
+/* CV Item Cards (Employment & Experience) */
+.cv-item-card {
+	padding: 0.65rem 0.95rem !important;
+	margin-bottom: 0.42rem !important;
+	border-radius: var(--radius) !important;
+	border: 1px solid var(--border) !important;
+	background-color: var(--bg-card) !important;
+	box-shadow: var(--shadow) !important;
+	break-inside: avoid !important;
+	page-break-inside: avoid !important;
 }
 
-.publication-card {
-	display: block;
-	grid-column: auto;
-	width: 100%;
-	border: 1px solid rgba(0, 65, 170, 0.08);
-	background-color: rgba(0, 65, 170, 0.01);
-	border-radius: 6px;
-	padding: 10pt;
-	page-break-inside: avoid;
-	box-sizing: border-box;
+.cv-item-card > p:first-of-type {
+	font-size: 0.90rem !important;
+	font-weight: 500 !important;
+	margin-bottom: 0.25rem !important;
+	line-height: 1.35 !important;
+	padding-right: 12.5em !important;
 }
 
-.pub-info {
-	display: flex;
-	flex-direction: column;
-	gap: 4pt;
+.cv-item-card > p:first-of-type strong {
+	font-weight: 700 !important;
+	color: var(--text) !important;
 }
 
-.pub-year {
-	align-self: start;
+.cv-item-card li {
+	font-size: 0.83rem !important;
+	line-height: 1.38 !important;
+	margin-bottom: 0.15rem !important;
+	color: var(--text) !important;
 }
 
-.pub-title {
-	font-weight: bold;
-	color: #000;
-	font-size: 10pt;
-	line-height: 1.3em;
+.cv-item-card p code {
+	font-size: 0.74rem !important;
+	font-weight: 500 !important;
+	padding: 0.14rem 0.55rem !important;
 }
 
-.pub-authors {
-	font-size: 9pt;
-	color: #444;
+/* Education Cards */
+.education-card {
+	padding: 0.45rem 0.95rem !important;
+	margin-bottom: 0.32rem !important;
 }
 
-.pub-venue {
-	font-size: 9pt;
-	font-style: italic;
-	color: rgb(0, 65, 170);
+.education-card p {
+	font-size: 0.86rem !important;
+	line-height: 1.32 !important;
+	padding-right: 6em !important;
+	margin-bottom: 0 !important;
 }
 
-
-table {
-	width: 100%;
-	margin-bottom: 1.5em;
+.education-card strong, .education-card b {
+	font-weight: 700 !important;
+	color: var(--text) !important;
 }
 
+.education-card p code {
+	font-size: 0.74rem !important;
+	font-weight: 500 !important;
+}
+
+/* Skills Section */
 .skills-table table {
-	width: 100%;
-	margin-bottom: 1.2em;
-	border-collapse: separate;
-	border-spacing: 0 0.6em;
-}
-
-.skills-table td {
-	padding: 0;
-	vertical-align: middle;
+	margin-bottom: 0.45rem !important;
+	border-spacing: 0 0.32rem !important;
 }
 
 .skills-table td:first-child {
-	width: 30%;
-	font-weight: bold;
-	color: rgb(0, 65, 170);
-	font-size: 9.5pt;
-	padding-right: 15pt;
-	box-sizing: border-box;
+	font-size: 0.86rem !important;
+	font-weight: 700 !important;
+	padding-right: 0.85rem !important;
+	color: var(--primary) !important;
 }
 
 .skills-table td:last-child {
-	display: block;
+	gap: 0.32rem !important;
 }
 
-.skills-table td:last-child code {
-	margin-right: 5pt;
-	margin-bottom: 5pt;
+.skills-table code {
+	font-size: 0.75rem !important;
+	font-weight: 500 !important;
+	padding: 0.14rem 0.55rem !important;
 }
 
+/* Languages Cards */
 .languages-table table {
-	width: 100%;
-	margin-bottom: 1.2em;
-	border-collapse: separate;
-	border-spacing: 15pt 0.6em;
-	margin-left: -15pt;
-}
-
-.languages-table tr {
-	/* Keep standard table row rendering */
+	margin-bottom: 0.45rem !important;
+	border-spacing: 0.7rem 0.32rem !important;
+	margin-left: -0.7rem !important;
 }
 
 .languages-table td {
-	width: 50%;
-	padding: 0.5em 0.8em;
-	background-color: rgba(0, 65, 170, 0.02);
-	border: 1px solid rgba(0, 65, 170, 0.06);
-	border-radius: 6px;
-	font-size: 9pt;
-	box-sizing: border-box;
-	vertical-align: middle;
+	padding: 0.42rem 0.85rem !important;
+	font-size: 0.84rem !important;
+	border-radius: var(--radius) !important;
+	border: 1px solid var(--border) !important;
+	background-color: var(--bg-card) !important;
+	box-shadow: var(--shadow) !important;
 }
 
-.inline-icon {
-	width: 12pt;
-	height: 12pt;
-	vertical-align: middle;
-	margin-top: -1.5pt;
+/* Miscellaneous */
+#miscellaneous ~ ul {
+	margin-bottom: 0.45rem !important;
 }
 
-em {
-	font-style: italic;
+#miscellaneous ~ ul li {
+	font-size: 0.83rem !important;
+	line-height: 1.38 !important;
+	margin-bottom: 0.18rem !important;
 }
 
-strong {
-	font-weight: bold;
+/* Publications List & Cards (Balanced & Airy) */
+.publications-list {
+	grid-column: 2 !important;
+	gap: 0.55rem !important;
+	margin-bottom: 0.45rem !important;
 }
 
-ins {
-	text-decoration: underline;
+.publication-card {
+	padding: 0.65rem 0.95rem !important;
+	border-radius: var(--radius) !important;
+	border: 1px solid var(--border) !important;
+	background-color: var(--bg-card) !important;
+	box-shadow: var(--shadow) !important;
+	break-inside: avoid !important;
+	page-break-inside: avoid !important;
+}
+
+.pub-info {
+	gap: 0.32rem !important;
+}
+
+.pub-year code {
+	font-size: 0.73rem !important;
+	font-weight: 500 !important;
+	padding: 0.12rem 0.52rem !important;
+}
+
+.pub-title {
+	font-size: 0.86rem !important;
+	font-weight: 700 !important;
+	line-height: 1.32 !important;
+	color: var(--text) !important;
+}
+
+.pub-authors {
+	font-size: 0.76rem !important;
+	line-height: 1.32 !important;
+	color: var(--text-muted) !important;
+}
+
+.pub-venue {
+	font-size: 0.76rem !important;
+	font-style: italic !important;
+	font-weight: 600 !important;
+	line-height: 1.32 !important;
+	color: var(--primary) !important;
+}
+
+/* Page Break */
+.page-break, div[style*="page-break-after"] {
+	page-break-after: always !important;
+	break-after: page !important;
+	grid-column: 1 / -1 !important;
+	height: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	border: none !important;
 }

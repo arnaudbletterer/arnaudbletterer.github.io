@@ -92,6 +92,8 @@ __Bachelor in Computer Science__, Université de Strasbourg
 
 </div>
 
+<div class="page-break" style="page-break-after: always"></div>
+
 <h2 id="skills"><i class="fa-solid fa-layer-group"></i> Skills</h2>
 
 **Computer science**
@@ -124,8 +126,6 @@ I love spending my free time:
 * doing recreative programming <i class="fa-solid fa-laptop-code" style="color:var(--primary);margin:0 0.25rem;"></i>
 * generating beautiful renderings with Blender <i class="fa-solid fa-cube" style="color:var(--primary);margin:0 0.25rem;"></i>
 * playing bass guitar <i class="fa-solid fa-guitar" style="color:var(--primary);margin:0 0.25rem;"></i>
-
-<div style="page-break-after: always"></div>
 
 <h2 id="publications"><i class="fa-solid fa-book-open"></i> Publications</h2>
 
