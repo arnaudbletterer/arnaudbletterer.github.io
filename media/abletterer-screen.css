@@ -241,7 +241,7 @@ html {
 	display: grid;
 	grid-template-columns: 20% 75%;
 	column-gap: 5%;
-	row-gap: 0.6em;
+	row-gap: 0;
 	width: 90%;
 	max-width: 1200px;
 	margin: 3.5em auto;
@@ -583,7 +583,7 @@ ins {
 .languages-table tr {
 	display: flex;
 	gap: 1.25rem;
-	margin-bottom: 0.8rem;
+	margin-bottom: 1.25rem;
 }
 
 .languages-table td {
@@ -632,8 +632,48 @@ ins {
 	margin-bottom: 0 !important;
 }
 
-.education-card p:has(code) {
-	padding-right: 5.5em;
+.education-table table {
+	width: 100%;
+	border-spacing: 0 1.25rem;
+	border-collapse: separate;
+	margin-bottom: 1.5em;
+}
+
+.education-table tr {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1.15rem 1.6rem;
+	margin-bottom: 1.25rem;
+	background-color: var(--bg-card);
+	border: 1px solid var(--border);
+	border-radius: 0.85rem;
+	box-shadow: var(--shadow);
+	transition: box-shadow 0.2s ease, border-color 0.2s ease;
+	box-sizing: border-box;
+}
+
+.education-table tr:hover {
+	box-shadow: var(--shadow-hover);
+	border-color: var(--primary);
+}
+
+.education-table td {
+	border: none;
+	padding: 0;
+	white-space: nowrap;
+	display: flex;
+	align-items: center;
+	color: var(--text);
+}
+
+.education-table td:last-child {
+	margin-left: auto;
+}
+
+.education-table td:last-child code {
+	position: static;
+	flex-shrink: 0;
 }
 
 .publications-list {

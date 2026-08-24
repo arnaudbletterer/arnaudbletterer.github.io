@@ -36,12 +36,12 @@ body {
 	background-color: #ffffff !important;
 }
 
-/* 2-Column Grid Layout (20% / 76%) */
+/* 2-Column Grid Layout (18% / 79%) */
 #content {
 	display: grid !important;
-	grid-template-columns: 20% 76% !important;
-	column-gap: 4% !important;
-	row-gap: 0.28rem !important;
+	grid-template-columns: 18% 79% !important;
+	column-gap: 3% !important;
+	row-gap: 0 !important;
 	width: 100% !important;
 	max-width: 100% !important;
 	margin: 0 !important;
@@ -225,7 +225,7 @@ code {
 }
 
 .cv-item-card > p:first-of-type {
-	font-size: 0.90rem !important;
+	font-size: 0.88rem !important;
 	font-weight: 500 !important;
 	margin-bottom: 0.25rem !important;
 	line-height: 1.35 !important;
@@ -252,31 +252,67 @@ code {
 	box-shadow: none !important;
 }
 
-/* Education Cards */
-.education-card {
-	padding: 0.45rem 0.95rem !important;
-	margin-bottom: 0.32rem !important;
-	border: 1px solid rgba(0, 65, 170, 0.15) !important;
+/* Education Section */
+.education-table {
+	grid-column: 2 !important;
+	width: 100% !important;
+}
+
+.education-table table {
+	width: 100% !important;
+	border-spacing: 0 0.32rem !important;
+	border-collapse: separate !important;
+	margin-bottom: 0.45rem !important;
+}
+
+.education-table tr {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	padding: 0.42rem 0.85rem !important;
+	margin-bottom: 0.42rem !important;
 	background-color: #ffffff !important;
+	border: 1px solid rgba(0, 65, 170, 0.15) !important;
+	border-radius: var(--radius) !important;
 	box-shadow: none !important;
+	box-sizing: border-box !important;
 }
 
-.education-card p {
-	font-size: 0.86rem !important;
-	line-height: 1.32 !important;
-	padding-right: 6em !important;
-	margin-bottom: 0 !important;
+.education-table td {
+	border: none !important;
+	padding: 0 !important;
+	font-size: 0.88rem !important;
+	line-height: 1.2 !important;
+	white-space: nowrap !important;
+	background: transparent !important;
+	display: flex !important;
+	align-items: center !important;
 }
 
-.education-card strong, .education-card b {
+.education-table td:first-child {
+	color: var(--text) !important;
+}
+
+.education-table td:first-child strong {
 	font-weight: 700 !important;
 	color: var(--text) !important;
 }
 
-.education-card p code {
+.education-table td:last-child {
+	margin-left: auto !important;
+}
+
+.education-table td:last-child code {
+	position: static !important;
+	transform: none !important;
+	top: auto !important;
+	right: auto !important;
+	margin: 0 !important;
 	font-family: var(--font) !important;
 	font-size: 0.74rem !important;
 	font-weight: 500 !important;
+	line-height: 1.2 !important;
+	padding: 0.14rem 0.52rem !important;
 	box-shadow: none !important;
 }
 
@@ -287,14 +323,17 @@ code {
 }
 
 .skills-table td:first-child {
-	font-size: 0.86rem !important;
+	font-size: 0.78rem !important;
 	font-weight: 700 !important;
-	padding-right: 0.85rem !important;
-	color: var(--primary) !important;
+	color: var(--text) !important;
+	padding-right: 1rem !important;
+	white-space: nowrap !important;
+	line-height: 1.35 !important;
 }
 
 .skills-table td:last-child {
-	gap: 0.32rem !important;
+	padding: 0.18rem 0 !important;
+	line-height: 1.35 !important;
 }
 
 .skills-table code {
@@ -306,19 +345,36 @@ code {
 }
 
 /* Languages Cards */
+.languages-table {
+	grid-column: 2 !important;
+	width: 100% !important;
+}
+
 .languages-table table {
+	width: 100% !important;
 	margin-bottom: 0.45rem !important;
-	border-spacing: 0.7rem 0.32rem !important;
-	margin-left: -0.7rem !important;
+	border-spacing: 0.55rem 0.42rem !important;
+	margin-left: -0.55rem !important;
+	border-collapse: separate !important;
+	display: table !important;
+}
+
+.languages-table tr {
+	display: table-row !important;
+	margin: 0 !important;
 }
 
 .languages-table td {
+	display: table-cell !important;
+	vertical-align: middle !important;
 	padding: 0.42rem 0.85rem !important;
 	font-size: 0.84rem !important;
+	line-height: 1.2 !important;
 	border-radius: var(--radius) !important;
 	border: 1px solid rgba(0, 65, 170, 0.15) !important;
 	background-color: #ffffff !important;
 	box-shadow: none !important;
+	width: 50% !important;
 }
 
 /* Miscellaneous */
@@ -335,7 +391,7 @@ code {
 /* Publications List & Cards (Crisp Vector Cards) */
 .publications-list {
 	grid-column: 2 !important;
-	gap: 0.55rem !important;
+	gap: 0.42rem !important;
 	margin-bottom: 0.45rem !important;
 }
 

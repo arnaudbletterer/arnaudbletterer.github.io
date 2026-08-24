@@ -71,24 +71,11 @@ My core philosophy is that **research and development** must remain directly ali
 
 <h2 id="education"><i class="fa-solid fa-graduation-cap"></i> Education</h2>
 
-<div class="cv-item-card education-card" markdown="1">
+<div class="education-table" markdown="1">
 
-`2018`
-__Ph.D in Automatic, Signal and Image Processing__, Université Côte d'Azur
-
-</div>
-
-<div class="cv-item-card education-card" markdown="1">
-
-`2014`
-__Master in Computer Science__, Université de Strasbourg
-
-</div>
-
-<div class="cv-item-card education-card" markdown="1">
-
-`2012`
-__Bachelor in Computer Science__, Université de Strasbourg
+| **Ph.D in Automatic, Signal and Image Processing**, Université Côte d'Azur | `2018` |
+| **Master in Computer Science**, Université de Strasbourg | `2014` |
+| **Bachelor in Computer Science**, Université de Strasbourg | `2012` |
 
 </div>
 
