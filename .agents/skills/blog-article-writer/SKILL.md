@@ -96,11 +96,11 @@ flowchart LR
 ```
 ```
 
-### 5. Concrete Comparisons (❌ Naive vs. ✅ Industrial)
+### 5. Concrete Comparisons (✕ Naive vs. ✓ Industrial)
 Use structured contrast lists to clearly differentiate bad vs. good engineering practices:
 ```markdown
-* **❌ The Naive Trap (Memory Thrashing):** Loading full image arrays into memory buffers across shared queues...
-* **✅ The Industrial Pattern (Decoupled Staging):** Passing cryptographic task tokens and streaming directly to local scratch NVMe...
+* **✕ The Naive Trap (Memory Thrashing):** Loading full image arrays into memory buffers across shared queues...
+* **✓ The Industrial Pattern (Decoupled Staging):** Passing cryptographic task tokens and streaming directly to local scratch NVMe...
 ```
 
 ### 6. Low-Budget / Practical Callouts (`💡`)
@@ -112,6 +112,7 @@ Where applicable, show that these principles do not require billion-dollar cloud
 
 ### 7. Memorable Takeaway & Closing
 - Conclude with a strong, grounded philosophical takeaway.
+- **Clean Citation & Takeaway Standard:** Render closing takeaways or citations in an italicized blockquote without inner quotation marks (`> *Clean takeaway sentence.*` rather than `> *“Quote.”*` or `> **"Quote."**`). The layout automatically provides a centered pull-quote with a styled `“` quotation icon. For external quotes, add a source attribution on a newline (`> <cite>— Author (Work, Year)</cite>`). In running text, avoid combining bold with quotation marks (`**""**`).
 - Emphasize the human and product impact: how rigorous engineering empowers people, delights clients, and brings true satisfaction to researchers.
 
 ---
@@ -142,7 +143,7 @@ When starting a new article or when the user invokes `/blog-article-writer`:
 Once the topic is chosen:
 1. Conduct a brief, one-question-at-a-time interview with concrete options for:
    - Specific architectural patterns or mental models to illustrate (e.g., Mermaid diagram flow, state machine, worker pool).
-   - Concrete ❌ Naive vs. ✅ Industrial comparison points.
+   - Concrete ✕ Naive vs. ✓ Industrial comparison points.
 2. Draft the structured 3–5 numbered section outline for user approval.
 
 ### Step 3: Determine Metadata
@@ -158,6 +159,6 @@ Write the complete post directly to `_posts/YYYY-MM-DD-<slug>.md` respecting all
 - [ ] Frontmatter has `layout: page`, `title`, `subtitle`, `description`, `date`, `highlights`.
 - [ ] Uses 3–5 numbered `##` sections.
 - [ ] Includes problem/axiom callouts (`> **The Problem:**`, etc.).
-- [ ] Uses diagrams (Mermaid) or contrast lists (`❌` vs `✅`) where appropriate.
+- [ ] Uses diagrams (Mermaid) or contrast lists (`✕` vs `✓`) where appropriate.
 - [ ] **Zero em dashes (`—`)**: Punctuation is natural with commas, parentheses, colons, or split sentences.
 - [ ] Voice and tone match Arnaud's pragmatic, Occam's razor philosophy.
