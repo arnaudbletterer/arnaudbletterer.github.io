@@ -6,6 +6,11 @@ description: "My core engineering principles for industrial research: end-to-end
 date: 2026-07-14
 highlights:
   - "📋 Methodology"
+takeaways:
+  - "Industrial R&D is measured by shipped, usable product value, not theoretical academic novelty."
+  - "Construct tracer-bullet end-to-end pipelines on day one: connect inputs to outputs before introducing mathematical complexity."
+  - "Prioritize tool maturity over hype; stable, battle-tested foundations protect velocity when scaling into production."
+  - "De-risk continuously by actively attacking the highest-uncertainty failure modes first, before polishing peripheral features."
 ---
 
 In industrial settings, research and development (R&D) must operate under a different set of rules than in academia. While academic research is measured by publications and novelty, industrial R&D is measured by **shipped, usable product value**. 

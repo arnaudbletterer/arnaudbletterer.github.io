@@ -6,6 +6,11 @@ description: "A practical blueprint for leveraging AI coding agents to eliminate
 date: 2026-08-22
 highlights:
   - "🛠️ Engineering"
+takeaways:
+  - "Technical debt persists in R&D not due to lack of discipline, but because paying it down manually carries an immense friction tax."
+  - "Never patch a research prototype into production; treat it as an immutable golden spec for a clean-slate native rewrite."
+  - "Prompt agents for native memory architecture (contiguous buffers, cache locality) rather than naive syntax translation."
+  - "Automate differential equivalence harnesses and property testing to guarantee zero numerical drift."
 ---
 
 Throughout my previous articles, I have deliberately focused on foundational engineering principles, organizational frameworks, and human craftsmanship, ranging from [tracer-bullet architectures](/2026/07/14/rd-principles-and-convictions.html) and [FFI single-sources-of-truth](/2026/07/24/the-translation-problem.html) to [managing exploratory versus structural debt](/2026/08/15/managing-exploratory-debt-vs-structural-debt.html). I intentionally avoided discussing AI coding assistants during the initial wave of hype, adhering to a core conviction: [**tool maturity must always precede adoption**](/2026/07/14/rd-principles-and-convictions.html#3-prioritizing-tool-maturity-over-hype). 

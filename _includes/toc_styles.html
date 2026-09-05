@@ -1,0 +1,269 @@
+/* ── Table of Contents & Navigation Menu (Unified with Resume Layout) ── */
+#nav-toggle {
+  display: none;
+  position: fixed;
+  top: 1.5rem;
+  right: 4.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background-color: var(--bg-card);
+  color: var(--text);
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  z-index: 1003;
+}
+
+#nav-toggle:hover {
+  background-color: var(--primary-soft);
+  border-color: var(--badge-hover-border, var(--primary));
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: currentColor;
+  transition: transform 0.3s ease, opacity 0.2s ease;
+  transform-origin: center;
+}
+
+#nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+#nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+#nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Right-side "On this page" TOC - sidebar on large screens */
+#section-toc {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  #nav-toggle {
+    display: none !important;
+  }
+
+  #section-toc {
+    display: block;
+    position: fixed;
+    top: 5rem;
+    right: 1.5rem;
+    z-index: 40;
+    max-height: calc(100vh - 6.5rem);
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  #section-toc .toc-inner {
+    position: relative;
+    pointer-events: auto;
+    background-color: rgba(255, 255, 255, 0.72);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    backdrop-filter: saturate(180%) blur(14px);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.85rem 0.6rem 0.7rem 1.1rem;
+    box-shadow: 0 4px 16px var(--shadow-color);
+    min-width: 160px;
+    max-width: 240px;
+    max-height: calc(100vh - 6.5rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  [data-theme="dark"] #section-toc .toc-inner {
+    background-color: rgba(18, 20, 28, 0.72);
+  }
+}
+
+/* Dropdown panel on small/medium screens */
+@media (max-width: 1279px) {
+  #nav-toggle {
+    display: flex;
+  }
+
+  #section-toc {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1002;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+
+  #section-toc[data-state="open"] {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  #section-toc .toc-inner {
+    background-color: rgba(255, 255, 255, 0.92);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    backdrop-filter: saturate(180%) blur(14px);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 4rem 0.6rem 1.25rem 1.1rem;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    max-width: 480px;
+    max-height: calc(100vh - 5rem);
+    overflow-y: auto;
+    margin: 0 auto;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  [data-theme="dark"] #section-toc .toc-inner {
+    background-color: rgba(18, 20, 28, 0.92);
+  }
+}
+
+/* Shared TOC list & item styles */
+#section-toc .toc-list {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#section-toc .toc-item {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#section-toc .toc-item.toc-h3 .toc-link {
+  padding-left: 1.4rem;
+  font-size: 0.78em;
+}
+
+/* "Top" link: visually distinct, separated from sections */
+#section-toc .toc-top-item {
+  list-style: none;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+#section-toc .toc-link-top {
+  color: var(--text);
+  font-weight: 600;
+}
+
+#section-toc .toc-link-top:hover {
+  color: var(--primary);
+  background-color: var(--primary-soft);
+}
+
+#section-toc .toc-arrow {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+  opacity: 0.5;
+  flex-shrink: 0;
+  font-size: 0;
+  position: relative;
+}
+
+#section-toc .toc-link-top:hover .toc-arrow {
+  opacity: 0.8;
+}
+
+#section-toc li::before {
+  content: none !important;
+  display: none !important;
+}
+
+#section-toc .toc-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-decoration: none !important;
+  transition: color 0.2s ease, background-color 0.2s ease, padding-left 0.25s ease;
+  word-break: break-word;
+}
+
+#section-toc .toc-link i {
+  width: 1.1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+@media (min-width: 1280px) {
+  #section-toc .toc-link {
+    padding: 0.4rem 0.65rem 0.4rem 0.75rem;
+    font-size: 0.82em;
+    line-height: 1.3;
+  }
+}
+
+@media (max-width: 1279px) {
+  #section-toc .toc-link {
+    padding: 0.85rem 0.85rem 0.85rem 1.1rem;
+    font-size: 0.95em;
+    line-height: 1.3;
+  }
+}
+
+#section-toc .toc-link:hover i,
+#section-toc .toc-link.is-active i {
+  opacity: 1;
+  color: var(--primary);
+}
+
+#section-toc .toc-link:hover {
+  color: var(--primary);
+  background-color: var(--primary-soft);
+}
+
+#section-toc .toc-link.is-active {
+  color: var(--primary);
+  background-color: var(--badge-hover-bg, var(--primary-soft));
+  font-weight: 600;
+}
+
+#section-toc .toc-dot {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #section-toc .toc-link,
+  #nav-toggle,
+  .nav-toggle-bar {
+    transition: none !important;
+  }
+}

@@ -992,29 +992,11 @@ ins {
 }
 
 #section-toc .toc-dot {
-	display: block;
-	width: 6px;
-	height: 6px;
-	border-radius: 50%;
-	background-color: var(--text-muted);
-	opacity: 0.35;
-	flex-shrink: 0;
-	transition: background-color 0.2s ease, opacity 0.2s ease;
-}
-
-#section-toc .toc-link:hover .toc-dot {
-	background-color: var(--primary);
-	opacity: 0.6;
-}
-
-#section-toc .toc-link.is-active .toc-dot {
-	background-color: var(--primary);
-	opacity: 1;
+	display: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
 	#section-toc .toc-link,
-	#section-toc .toc-dot,
 	#nav-toggle,
 	.nav-toggle-bar {
 		transition: none !important;

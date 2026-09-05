@@ -6,6 +6,11 @@ description: "Why standing on existing foundations (both open-source work and ou
 date: 2026-07-19
 highlights:
   - "🧠 Philosophy"
+takeaways:
+  - "Re-inventing solved fundamentals is an intellectual indulgence; true velocity comes from standing on battle-tested foundations."
+  - "High-leverage R&D pairs exhaustive evaluation of open-source literature with genuine intellectual humility."
+  - "Spend your scarce innovation tokens exclusively on the unique delta of your problem, not on re-implementing solved primitives."
+  - "Generously crediting the work of predecessors and teammates builds organizational psychological safety and compounding trust."
 ---
 
 On my resume sits a quote recorded by John of Salisbury in the 12th century: 

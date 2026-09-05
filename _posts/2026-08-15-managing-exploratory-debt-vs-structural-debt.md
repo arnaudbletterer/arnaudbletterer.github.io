@@ -6,6 +6,11 @@ description: "How industrial R&D teams can harness high-velocity prototype short
 date: 2026-08-15
 highlights:
   - "🏗️ Architecture"
+takeaways:
+  - "Technical debt is not uniform: Exploratory Debt buys validation velocity, while Structural Debt creates compounding architectural drag."
+  - "Demanding production-grade abstractions during early mathematical exploration wastes vital intellectual capital on unverified hypotheses."
+  - "Confine throwaway prototypes behind strict boundary fences so rapid exploration never contaminates core production foundations."
+  - "When an algorithm proves viable, pay down the debt immediately through a clean-slate native rewrite rather than patching the prototype."
 ---
 
 In software engineering, technical debt is often described as an unmitigated evil: a consequence of sloppy engineering, rushed deadlines, or lazy shortcuts. In conventional software development, this framing makes sense. But in industrial research and development (R&D), viewing all debt as bad is a recipe for paralysis.

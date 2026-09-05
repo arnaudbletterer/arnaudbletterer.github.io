@@ -6,6 +6,11 @@ description: "Practical strategies for R&D managers and team leaders to balance 
 date: 2026-08-03
 highlights:
   - "👥 Leadership"
+takeaways:
+  - "Completely abandoning the codebase erodes technical empathy and blinds leaders to escalating architectural friction."
+  - "Focus leadership hands-on time on tracer-bullet pipelines, performance profiling, and tooling rather than bottlenecking critical-path features."
+  - "Treat code reviews as cultural synchronization and high-bandwidth coaching rather than bureaucratic approvals."
+  - "Defend deep work ruthlessly on your calendar to maintain the mental clarity required for strategic decisions."
 ---
 
 As a research engineer transitions into team leadership, an insidious trap often emerges: the belief that management requires stepping away from technical work entirely. Calendars quickly fill with status syncs, roadmap negotiations, and administrative tasks, while IDEs and profiling tools are slowly replaced by spreadsheets and slide decks.

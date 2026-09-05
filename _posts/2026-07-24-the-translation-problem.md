@@ -6,6 +6,11 @@ description: "Practical strategies for porting scientific algorithms from experi
 date: 2026-07-24
 highlights:
   - "🛠️ Engineering"
+takeaways:
+  - "A research prototype in Python or MATLAB is a mathematical proof of concept, never deployable production software."
+  - "Build an integration-first differential validation harness before writing a single line of native code to establish an immutable ground truth."
+  - "Decouple the native engine behind a stable C ABI boundary, keeping FFI contracts as the single source of truth across target platforms."
+  - "Focus native optimization on memory layout, cache locality, and SIMD alignment rather than naive syntax translation."
 ---
 
 In industrial R&D, a validated research model is only the beginning. A prototype built in a high-level scripting language like Python or MATLAB is a mathematical proof of concept, not a finished product. To deliver real-world value, these image processing and machine learning pipelines must be ported to production environments, which often means engineering highly optimized native software libraries that can be integrated into host applications.
