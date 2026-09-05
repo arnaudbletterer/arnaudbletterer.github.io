@@ -46,6 +46,11 @@ date: YYYY-MM-DD
 highlights:
   - "🏗️ Architecture"
   - "🛠️ Engineering"
+takeaways:
+  - "First high-signal takeaway summarizing the core bottleneck or naive trap."
+  - "Second takeaway detailing the architectural rule or paradigm shift."
+  - "Third takeaway covering the pragmatic invariant or heuristic."
+  - "Fourth takeaway highlighting the real-world operational payoff."
 ---
 ```
 
@@ -156,7 +161,7 @@ Write the complete post directly to `_posts/YYYY-MM-DD-<slug>.md` respecting all
 
 ### Step 5: Verification Checklist
 - [ ] File is in `_posts/` with correct date prefix.
-- [ ] Frontmatter has `layout: page`, `title`, `subtitle`, `description`, `date`, `highlights`.
+- [ ] Frontmatter has `layout: page`, `title`, `subtitle`, `description`, `date`, `highlights`, and `takeaways` (3–4 bullet takeaways for the executive summary card).
 - [ ] Uses 3–5 numbered `##` sections.
 - [ ] Includes problem/axiom callouts (`> **The Problem:**`, etc.).
 - [ ] Uses diagrams (Mermaid) or contrast lists (`✕` vs `✓`) where appropriate.
