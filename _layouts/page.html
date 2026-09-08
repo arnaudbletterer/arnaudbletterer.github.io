@@ -1063,10 +1063,13 @@
       color: var(--text);
       margin-bottom: 0 !important;
     }
-    .takeaways-list .symbol-check {
+    .takeaways-list .takeaway-marker {
       flex-shrink: 0;
-      font-size: 0.95rem;
+      color: var(--primary);
+      font-size: 0.6rem;
       line-height: 1;
+      opacity: 0.85;
+      transform: translateY(-0.08rem);
     }
 
     @media (max-width: 600px) {
@@ -1165,7 +1168,7 @@
         <ul class="takeaways-list">
           {% for item in page.takeaways %}
           <li>
-            <span class="symbol-check">✓</span>
+            <span class="takeaway-marker" aria-hidden="true">◆</span>
             <span>{{ item }}</span>
           </li>
           {% endfor %}
