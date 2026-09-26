@@ -303,6 +303,18 @@
       margin: 0 0.2rem;
     }
 
+    .article-author-link {
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .article-author-link:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
     .article-highlights-wrap {
       display: flex;
       align-items: center;
@@ -1135,6 +1147,9 @@
       {% assign read_time = words | divided_by: 200 | at_least: 1 %}
       <div class="article-meta-row">
         <div class="article-date-read">
+          <i class="fa-regular fa-user" style="font-size:0.82rem;"></i>
+          <a href="{{ '/' | relative_url }}" class="article-author-link" title="Arnaud Bletterer">{{ page.author | default: site.author | default: 'Arnaud Bletterer' }}</a>
+          <span class="meta-separator">•</span>
           <i class="fa-regular fa-calendar" style="font-size:0.82rem;"></i>
           <span>{{ page.date | date: "%B %d, %Y" }}</span>
           <span class="meta-separator">•</span>
