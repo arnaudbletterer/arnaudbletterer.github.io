@@ -98,6 +98,34 @@
     <!-- Sidebar - Didactic Guide -->
     <aside class="guide-panel">
       <div class="guide-card">
+        <!-- Perspective Switcher -->
+        <div class="mode-switcher-container">
+          <div class="mode-switcher" role="tablist" aria-label="Reading Perspective">
+            <button type="button" class="mode-btn active" id="mode-btn-intuitive" onclick="setReadingMode('intuitive')" role="tab" aria-selected="true" title="Intuitive explanation with everyday analogies">
+              <i class="fa-solid fa-lightbulb"></i>
+              <span>Intuitive Story</span>
+            </button>
+            <button type="button" class="mode-btn" id="mode-btn-technical" onclick="setReadingMode('technical')" role="tab" aria-selected="false" title="In-depth mathematical equations & derivations">
+              <i class="fa-solid fa-square-root-variable"></i>
+              <span>Mathematical Formulation</span>
+            </button>
+          </div>
+        </div>
+
+        {% if page.real_world_context %}
+        <!-- Real-World Context Card -->
+        <div class="real-world-context-card" id="real-world-context-card">
+          <div class="context-header">
+            <span class="context-badge">
+              <i class="{{ page.real_world_context.icon | default: 'fa-solid fa-sparkles' }}"></i>
+              {{ page.real_world_context.badge }}
+            </span>
+          </div>
+          <h3 class="context-title">{{ page.real_world_context.title | default: 'Why It Matters' }}</h3>
+          <p class="context-summary">{{ page.real_world_context.summary }}</p>
+        </div>
+        {% endif %}
+
         <!-- Stepper header -->
         <div class="stepper">
           <div class="step-dot active" id="step-dot-1" onclick="setStep(1, true)">1</div>
@@ -381,6 +409,10 @@
         description: {{ step.description | jsonify }},
         instruction: {{ step.instruction | jsonify }},
         takeaway: {{ step.takeaway | jsonify }},
+        intuitive_title: {{ step.intuitive_title | default: step.title | jsonify }},
+        intuitive_description: {{ step.intuitive_description | default: step.description | jsonify }},
+        intuitive_instruction: {{ step.intuitive_instruction | default: step.instruction | jsonify }},
+        intuitive_takeaway: {{ step.intuitive_takeaway | default: step.takeaway | jsonify }},
         init: () => {
           to_manipulate = {% if forloop.index == 3 %}false{% else %}true{% endif %};
           to_relax = false;
@@ -416,15 +448,48 @@
     };
 
     let currentStep = 1;
+    let currentMode = localStorage.getItem('didactic_mode') || 'intuitive';
 
-    function renderStep() {
+    function updateModeButtons() {
+      const btnIntuitive = document.getElementById('mode-btn-intuitive');
+      const btnTechnical = document.getElementById('mode-btn-technical');
+      if (btnIntuitive && btnTechnical) {
+        if (currentMode === 'intuitive') {
+          btnIntuitive.classList.add('active');
+          btnIntuitive.setAttribute('aria-selected', 'true');
+          btnTechnical.classList.remove('active');
+          btnTechnical.setAttribute('aria-selected', 'false');
+        } else {
+          btnTechnical.classList.add('active');
+          btnTechnical.setAttribute('aria-selected', 'true');
+          btnIntuitive.classList.remove('active');
+          btnIntuitive.setAttribute('aria-selected', 'false');
+        }
+      }
+    }
+
+    function setReadingMode(mode) {
+      if (mode !== 'intuitive' && mode !== 'technical') return;
+      currentMode = mode;
+      localStorage.setItem('didactic_mode', mode);
+      updateModeButtons();
+      renderStep(false);
+    }
+
+    function renderStep(runInit = true) {
       const step = stepsData[currentStep];
       const container = document.getElementById('step-container');
       
+      const isIntuitive = (currentMode === 'intuitive');
+      const title = isIntuitive && step.intuitive_title ? step.intuitive_title : step.title;
+      const desc = isIntuitive && step.intuitive_description ? step.intuitive_description : step.description;
+      const inst = isIntuitive && step.intuitive_instruction ? step.intuitive_instruction : step.instruction;
+      const takeaway = isIntuitive && step.intuitive_takeaway ? step.intuitive_takeaway : step.takeaway;
+
       // Parse markdown to HTML using our safe markdown-math compiler
-      const htmlDesc = parseMarkdownWithMath(step.description);
-      const htmlInst = parseMarkdownWithMath(step.instruction);
-      const htmlTakeaway = parseMarkdownWithMath(step.takeaway);
+      const htmlDesc = parseMarkdownWithMath(desc);
+      const htmlInst = parseMarkdownWithMath(inst);
+      const htmlTakeaway = parseMarkdownWithMath(takeaway);
       
       // Dynamic controls generator based on step - Aligned titles and removed Basin button
       let controlsHTML = '';
@@ -457,7 +522,7 @@
       
       // Render content HTML
       container.innerHTML = `
-        <h2>${step.title}</h2>
+        <h2>${title}</h2>
         <div class="step-description">${htmlDesc}</div>
         <div class="callout-box callout-action">
           ${htmlInst}
@@ -501,14 +566,16 @@
         document.getElementById('next-btn').innerText = "Next Step →";
       }
 
-      // Run step init
-      step.init();
-      syncRelaxationButtonText();
+      // Run step init only on step change or first load
+      if (runInit && typeof step.init === 'function') {
+        step.init();
+        syncRelaxationButtonText();
+      }
     }
 
     function setStep(stepNum, fromUserNav = false) {
       currentStep = stepNum;
-      renderStep();
+      renderStep(true);
 
       // Ergonomic Auto-Scroll on Mobile when advancing steps
       if (fromUserNav && window.innerWidth <= 1024) {
@@ -1216,7 +1283,8 @@
     mockSecondarySvg.innerHTML = '<svg id="secondary_svg" width="10" height="10" style="display:none;"></svg>';
     document.body.appendChild(mockSecondarySvg);
 
-    renderStep();
+    updateModeButtons();
+    renderStep(true);
 
     // --- Interactive Mathematical Tooltips Handler ---
     

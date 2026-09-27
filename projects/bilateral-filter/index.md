@@ -4,6 +4,11 @@ title: "Didactic Guide: The Bilateral Filter"
 subtitle: "An interactive guide to edge-preserving smoothing"
 description: "An interactive didactic guide to edge-preserving bilateral filtering in computer graphics and image processing by Arnaud Bletterer."
 teaser_image: "media/bilateral_teaser.jpg"
+real_world_context:
+  badge: "Smartphone Cameras & Portrait Mode"
+  icon: "fa-solid fa-camera-retro"
+  title: "Why this matters in daily life"
+  summary: "Have you ever wondered how your smartphone camera smooths out skin blemishes and grainy sensor noise in low light without turning your eyelashes, pupils, or glasses into a blurry smear? That is the bilateral filter at work."
 custom_scripts:
   - "main.js"
 math_terms:
@@ -77,33 +82,57 @@ math_terms:
     desc: "The spatial coordinate of the center pixel currently being processed."
 steps:
   - title: "1. Spatial Kernel"
+    intuitive_title: "1. The Paint Roller Problem"
     description: >
       A standard Gaussian blur averages neighboring pixels based entirely on their spatial distance from the center pixel $p$. The closer a neighbor $q$ is, the higher its spatial weight:
 
       $$ \htmlClass{math-term-step1-ks math-color-1}{k_s(\|q - p\|)} = \exp\left(-\frac{\|\htmlClass{math-term-step1-q math-color-2}{q} - \htmlClass{math-term-step1-p math-color-3}{p}\|^2}{2\htmlClass{math-term-step1-sigmas math-color-4}{\sigma_s}^2}\right) $$
 
       Since color values are ignored, this blur completely destroys sharp edges.
+    intuitive_description: >
+      Imagine trying to paint a wall with a massive paint roller. Standard blur acts just like that roller: it mixes every nearby pixel together indiscriminately to wipe out grainy sensor noise.
+
+      The problem? The roller does not know where the wall ends and the window frame begins. As a result, sharp silhouettes, text, and edges get completely smeared into a muddy haze.
     instruction: "🎮 **Play:** Move your cursor over the noisy step-edge image in the canvas. Observe the circular shape of the spatial kernel weight on the right."
+    intuitive_instruction: "🎮 **What to try:** Move your cursor across the noisy line in the left box. Look at the middle image: the blur circle is a simple round spot that treats every neighbor equally, blindly crossing the border."
     takeaway: "💡 **Key Insight:** Standard spatial filtering is **intensity-blind**. It treats all pixels in the neighborhood equally, regardless of whether they cross boundaries/edges."
+    intuitive_takeaway: "💡 **The Big Idea:** Blurring pixels by spatial distance alone is **color-blind**. It removes noise, but at the costly expense of destroying all crisp outlines."
 
   - title: "2. Range Kernel"
+    intuitive_title: "2. The Smart Bouncer"
     description: >
       To preserve edges, we must also weight pixels by their photometric/intensity similarity. If a neighbor $q$ has a color value $I(q)$ very different from the center pixel $I(p)$, its range weight drops to zero:
 
       $$ \htmlClass{math-term-step2-kr math-color-1}{k_r(\|I(q) - I(p)\|)} = \exp\left(-\frac{\|\htmlClass{math-term-step2-iq math-color-2}{I(q)} - \htmlClass{math-term-step2-ip math-color-3}{I(p)}\|^2}{2\htmlClass{math-term-step2-sigmar math-color-4}{\sigma_r}^2}\right) $$
 
       This ensures pixels on the opposite side of a sharp boundary are ignored.
+    intuitive_description: >
+      To protect our outlines, we need a bouncer at the door. Instead of blindly blending with every nearby pixel, the algorithm asks: *'Do you actually look like me?'*
+
+      If a neighbor has a radically different brightness or color (like the dark side of a sharp shadow), the bouncer rejects it. Its influence drops to zero, stopping the blur dead in its tracks at the border.
     instruction: "🎮 **Play:** Hover your cursor across the boundary line. Notice how the range kernel weight dynamically splits, excluding pixels on the opposite color side."
+    intuitive_instruction: "🎮 **What to try:** Hover your cursor directly over the boundary line. Look at the middle image: notice how the circular shape gets sliced in half! The filter refuses to invite pixels from the other side of the fence."
     takeaway: "💡 **Key Insight:** The range kernel is **spatially blind**. It only cares about color similarity. Combined with the spatial kernel, it allows local edge preservation."
+    intuitive_takeaway: "💡 **The Big Idea:** This check is **distance-blind** and focuses solely on color agreement. By ignoring neighbors that look too different, it respects natural object boundaries."
 
   - title: "3. Bilateral Filtering"
+    intuitive_title: "3. Edge-Preserving Magic"
     description: >
       The Bilateral Filter combines both spatial and range weights. The filtered output at pixel $p$ is the normalized product of both kernels:
       $$ \htmlClass{math-term-step3-out math-color-1}{I'(p)} = \frac{1}{\htmlClass{math-term-step3-wp math-color-2}{W_p}} \sum_{q \in \Omega} \htmlClass{math-term-step3-iq math-color-3}{I(q)} \htmlClass{math-term-step3-kr math-color-4}{k_r(\|I(q) - I(p)\|)} \htmlClass{math-term-step3-ks math-color-6}{k_s(\|q - p\|)} $$
       where the normalization term is:
       $$ \htmlClass{math-term-step3-wp math-color-2}{W_p} = \sum_{q \in \Omega} \htmlClass{math-term-step3-kr math-color-4}{k_r(\|I(q) - I(p)\|)} \htmlClass{math-term-step3-ks math-color-6}{k_s(\|q - p\|)} $$
+    intuitive_description: |
+      The Bilateral Filter combines both rules into a single elegant solution:
+
+      1. *'Are you close to me in distance?'* (Spatial reach)
+      2. *'Do you share a similar color to me?'* (Color tolerance)
+
+      Pixels only blend if they pass **both** tests. Flat areas (like cheeks or skies) become silky smooth, while sharp boundaries (like eyelashes or building edges) stay razor-sharp.
     instruction: "🎮 **Play:** Adjust the sliders below the canvas to control spatial reach ($\\sigma_s$) and edge sensitivity ($\\sigma_r$). Watch the noisy image become smooth while the boundary stays razor-sharp."
+    intuitive_instruction: "🎮 **What to try:** Look at the rightmost image ('Filtered Output') and the graph below it. Adjust the **Spatial Size** and **Color Similarity Tolerance** sliders. Notice how the rough red line on the graph flattens out while the vertical step remains intact!"
     takeaway: "💡 **Key Insight:** By decoupling spatial proximity and color similarity, the bilateral filter achieves edge-preserving smoothing, making it ideal for denoising medical scans or skin tones."
+    intuitive_takeaway: "💡 **The Big Idea:** By filtering texture while respecting edges, this technique revolutionized computational photography, medical imaging (MRI/CT scans), and real-time video games."
 ---
 
 <div class="viewport-card" style="max-width: 800px; width: 100%;">

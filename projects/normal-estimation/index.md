@@ -3,6 +3,11 @@ layout: general_visualizer
 title: "Didactic Guide: Point Cloud Normal Estimation"
 subtitle: "An interactive guide to normal estimation & graph propagation"
 description: "An interactive didactic guide to point cloud normal estimation, PCA, and minimum spanning tree graph propagation by Arnaud Bletterer."
+real_world_context:
+  badge: "Autonomous Vehicles & 3D LiDAR Perception"
+  icon: "fa-solid fa-car"
+  title: "Why this matters in daily life"
+  summary: "Self-driving cars shoot millions of laser dots every second to map their surroundings. But raw laser scans are just isolated dots floating in space. How does the car know which way the road tilts, where a wall stands, or what is solid obstacle versus open sky? This is the surface normal problem."
 custom_scripts:
   - "https://d3js.org/d3.v4.min.js"
   - "main.js"
@@ -49,32 +54,55 @@ math_terms:
     desc: 'Eigenvalue representing variance in the normal direction. Near 0 for thin clean surfaces, increases with noise.'
 steps:
   - title: "1. Local Neighborhoods"
+    intuitive_title: "1. Gathering Your Neighbors"
     description: >
       To estimate local geometry at a point $\htmlClass{math-term-pi-point math-color-3}{\mathbf{p}_i}$ on a raw point cloud, we must first establish its local context. We construct a neighborhood $\htmlClass{math-term-ni math-color-1}{\mathcal{N}(\mathbf{p}_i)}$ of nearby points, typically using the $k$-nearest neighbors ($k$-NN) or a spatial radius search ($\epsilon$-neighborhood):
 
       $$ \htmlClass{math-term-ni math-color-1}{\mathcal{N}(\mathbf{p}_i)} = \{ \htmlClass{math-term-pj-point math-color-2}{\mathbf{p}_j} \in \mathcal{P} \mid \|\htmlClass{math-term-pj-point math-color-2}{\mathbf{p}_j} - \htmlClass{math-term-pi-point math-color-3}{\mathbf{p}_i}\| \le \htmlClass{math-term-epsilon math-color-4}{\epsilon} \} $$
+    intuitive_description: >
+      A single dot floating in empty space tells you nothing about the surface it belongs to. Is it a flat road? A curved car fender? A steep wall?
+
+      To figure out the slope of the ground beneath your feet, you look at the handful of pebbles immediately touching your shoe. By grouping each point with its closest neighbors, we create a local community of points that reveals the underlying surface.
     instruction: "🎮 **Play:** Hover over the canvas to see the local neighborhood connection graph (colored lines) update in real-time around your cursor."
+    intuitive_instruction: "🎮 **What to try:** Move your cursor across the canvas. Notice the colored lines connecting neighboring dots within the circle. Adjust the **Search Radius** slider to grow or shrink this neighborhood."
     takeaway: '💡 **Key Insight:** Choosing the neighborhood size ($\htmlClass{math-term-epsilon math-color-4}{\epsilon}$) is a fundamental scale problem: if too small, noise dominates; if too large, fine geometric details and sharp corners are smoothed out.'
+    intuitive_takeaway: "💡 **The Big Idea:** Scale matters. If your search circle is too small, sensor noise creates confusion. If it is too big, sharp corners and subtle curves get blurred away."
 
   - title: "2. Principal Component Analysis (PCA)"
+    intuitive_title: "2. Balancing a Flat Coin"
     description: >
       For each point $\mathbf{p}_i$, we analyze the spatial layout of its neighborhood $\mathcal{N}(\mathbf{p}_i)$ by computing the symmetric covariance matrix $\htmlClass{math-term-ci math-color-1}{\mathbf{C}_i}$ relative to the neighborhood's centroid $\htmlClass{math-term-centroid math-color-2}{\bar{\mathbf{p}}_i}$:
 
       $$ \htmlClass{math-term-ci math-color-1}{\mathbf{C}_i} = \frac{1}{|\mathcal{N}(\mathbf{p}_i)|} \sum_{j \in \mathcal{N}(\mathbf{p}_i)} (\mathbf{p}_j - \htmlClass{math-term-centroid math-color-2}{\bar{\mathbf{p}}_i})(\mathbf{p}_j - \htmlClass{math-term-centroid math-color-2}{\bar{\mathbf{p}}_i})^T $$
 
       The eigenvectors of $\mathbf{C}_i$ define the principal directions of variance. The eigenvector associated with the smallest eigenvalue $\htmlClass{math-term-lambda math-color-4}{\lambda_0}$ points in the direction of minimum variance: our estimated normal vector $\htmlClass{math-term-ni-vec math-color-3}{\mathbf{n}_i}$.
+    intuitive_description: >
+      Once you gather a cluster of neighboring dots, how do you find which way the surface tilts?
+
+      Imagine resting a flat coin on those pebbles. The coin naturally balances along the surface. An arrow pointing straight out of the coin (called the 'normal') tells us which way is perpendicular to the ground!
+
+      However, mathematics has a blind spot: the math only knows the coin's orientation, not which side is up or down. Half of your arrows might point out into the sky, while the other half mistakenly point down into the ground!
     instruction: '🎮 **Play:** Hover over points. The colored ellipse shows the local covariance PCA distribution, and the line shows the estimated normal. Notice that the normal direction ($\pm\mathbf{n}$) is mathematically ambiguous.'
+    intuitive_instruction: "🎮 **What to try:** Hover your cursor over points along the wave. The colored oval shows how the neighbor cluster spreads, and the line shows the estimated tilt. Notice how arrows on adjacent points often point in opposite directions!"
     takeaway: "💡 **Key Insight:** Standard PCA only gives a normal *line*, not a *vector*. Normals estimated independently at each point are randomly oriented inward or outward."
+    intuitive_takeaway: "💡 **The Big Idea:** Independent estimates only give you a tilt line, not a definitive outward arrow. Raw 3D scans start with a chaotic mix of inward and outward pointing vectors."
 
   - title: "3. Minimum Spanning Tree (MST) Orientation Propagation"
+    intuitive_title: "3. The Stadium Wave"
     description: >
       To align all normals consistently, we construct a Riemannian graph connecting adjacent neighbors. We weight each edge $\{i, j\}$ by the alignment of their tangent plane normals:
 
       $$ \htmlClass{math-term-wij math-color-1}{w_{ij}} = 1 - |\htmlClass{math-term-dot math-color-2}{\mathbf{n}_i \cdot \mathbf{n}_j}| $$
 
       We compute the Minimum Spanning Tree (MST) on this graph. Starting from a chosen root, we propagate orientations along the tree: if the dot product $\mathbf{n}_i \cdot \mathbf{n}_j < 0$, we flip $\mathbf{n}_j$ to $-\mathbf{n}_j$.
+    intuitive_description: >
+      If a 3D model has arrows pointing randomly inward and outward, lighting looks corrupt and self-driving cars cannot tell where obstacles begin. We need all arrows to agree.
+
+      Think of a stadium wave: you look at the person next to you and match their movement. We connect all points into a smooth tree and propagate outward. Starting from one known point, each point tells its neighbor: *'Match my direction!'* If the neighbor points the opposite way, it flips over.
     instruction: "🎮 **Play:** Click **Run MST Propagation** to watch orientation propagate along the tree edges, flipping all unaligned normals into a consistent, unified outward direction."
+    intuitive_instruction: "🎮 **What to try:** Click **Run MST Propagation**. Watch the wave spread smoothly along the connected path, flipping every upside-down arrow until the entire shape points outward consistently."
     takeaway: '💡 **Key Insight:** Minimizing $1 - |\htmlClass{math-term-dot math-color-2}{\mathbf{n}_i \cdot \mathbf{n}_j}|$ ensures we propagate orientations along flat regions first, avoiding propagation across sharp folds or noisy seams where orientations can break.'
+    intuitive_takeaway: "💡 **The Big Idea:** By spreading alignment across smooth regions first, the algorithm ensures that complex 3D meshes (for video games, medical scans, or autonomous cars) are rendered seamlessly without being inside-out."
 ---
 
 <div class="viewport-card" style="max-width: 800px; width: 100%;">
