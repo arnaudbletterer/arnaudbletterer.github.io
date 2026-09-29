@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/opt/homebrew/lib/ruby/gems/4.0.0/bin/jekyll build *)",
+      "Bash(/opt/homebrew/lib/ruby/gems/4.0.0/bin/jekyll serve *)",
+      "Bash(jekyll build *)",
+      "Bash(jekyll serve *)",
+      "Bash(curl -s http://localhost:4000*)",
+      "Bash(curl -sI http://localhost:4000*)"
+    ]
+  }
+}

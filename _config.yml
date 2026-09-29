@@ -10,3 +10,6 @@ url: "https://arnaudbletterer.github.io"
 baseurl: ""
 plugins:
   - jekyll-sitemap
+exclude:
+  - CLAUDE.md
+  - README.md

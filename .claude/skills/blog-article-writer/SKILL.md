@@ -131,7 +131,7 @@ When starting a new article or when the user invokes `/blog-article-writer`:
    - Consider **Arnaud's Core Expertise:** Computer Graphics, Geometry Processing, Computer Vision, C++/Python native bridging, R&D leadership, architecture, and practical engineering trade-offs.
    - Consider **Current Domain News & Shifts:** Emerging industry shifts (e.g., Gaussian splatting, spatial computing, AI coding agents, WebAssembly/native edge deployment, telemetry/evals).
 2. **Conduct the Topic Discovery Interview (One Question at a Time):**
-   - **Crucial Rule:** Always ask **one question at a time**, accompanied by **concrete, pre-made suggestions/options** (using `ask_question` or formatted selectable choices) so the author can easily choose or adjust.
+   - **Crucial Rule:** Always ask **one question at a time**, accompanied by **concrete, pre-made suggestions/options** (using the `AskUserQuestion` tool with a single question and 2–4 options; the author can always pick "Other" to adjust) so the author can easily choose or adjust.
    - Follow this sequential interview progression:
      - **Question 1 (Broad Focus / Problem Area):** Present 3–4 specific candidate engineering domains or themes missing from the catalog.
      - **Question 2 (Technical Conflict / Friction):** Ask about the specific pitfall, trade-off, or industry misconception in that chosen domain, offering pre-made examples.
@@ -159,11 +159,16 @@ Once the topic is chosen:
 ### Step 4: Draft the Markdown File
 Write the complete post directly to `_posts/YYYY-MM-DD-<slug>.md` respecting all formatting rules above.
 
+**Git flow (only commit when the author asks):**
+- Drafts live on a `draft/<slug>` branch, committed as `docs(blog): draft <article title>` (revisions: `docs(blog): <what changed> in <short title>`).
+- Once approved, the post lands on `main` as `docs(blog): publish <article title>`. Pushing `main` deploys the site via GitHub Actions, so never push without explicit confirmation.
+- Subjects follow the global rules in `~/.claude/docs/git.md` (lowercase, at most 72 characters: shorten long titles).
+
 ### Step 5: Verification Checklist
 - [ ] File is in `_posts/` with correct date prefix.
 - [ ] Frontmatter has `layout: page`, `title`, `subtitle`, `description`, `date`, `highlights`, and `takeaways` (3–4 bullet takeaways for the executive summary card).
 - [ ] Uses 3–5 numbered `##` sections.
 - [ ] Includes problem/axiom callouts (`> **The Problem:**`, etc.).
 - [ ] Uses diagrams (Mermaid) or contrast lists (`✕` vs `✓`) where appropriate.
-- [ ] **Zero em dashes (`—`)**: Punctuation is natural with commas, parentheses, colons, or split sentences.
+- [ ] **Zero em dashes (`—`)**: Punctuation is natural with commas, parentheses, colons, or split sentences. Verify mechanically: `grep -n '—' _posts/<file>.md` must return nothing (the `<cite>— Author</cite>` attribution is the only allowed exception).
 - [ ] Voice and tone match Arnaud's pragmatic, Occam's razor philosophy.
