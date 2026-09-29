@@ -164,6 +164,12 @@ Write the complete post directly to `_posts/YYYY-MM-DD-<slug>.md` respecting all
 - Once approved, the post lands on `main` as `docs(blog): publish <article title>`. Pushing `main` deploys the site via GitHub Actions, so never push without explicit confirmation.
 - Subjects follow the global rules in `~/.claude/docs/git.md` (lowercase, at most 72 characters: shorten long titles).
 
+### Step 4b: Serve Locally for Review (always)
+After every draft or revision, the author reviews the article in the browser, not in the terminal. Never hand a draft back without a running local preview:
+1. Start `/opt/homebrew/lib/ruby/gems/4.0.0/bin/jekyll serve --port 4000` in the background (skip if port 4000 is already served: `lsof -ti:4000`; jekyll auto-regenerates on file changes).
+2. Confirm the post URL returns 200 with `curl` (check `_config.yml` permalinks, default `http://localhost:4000/YYYY/MM/DD/<slug>.html`).
+3. Give the author the URL and mention that the Mermaid diagram, TOC and callouts should be checked visually.
+
 ### Step 5: Verification Checklist
 - [ ] File is in `_posts/` with correct date prefix.
 - [ ] Frontmatter has `layout: page`, `title`, `subtitle`, `description`, `date`, `highlights`, and `takeaways` (3–4 bullet takeaways for the executive summary card).
