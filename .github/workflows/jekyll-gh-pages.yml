@@ -25,6 +25,8 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    env:
+      NIMBLEDECK_REF: v0.2.0
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,6 +42,21 @@ jobs:
           sudo chown -R $USER:$USER _site
           google-chrome --headless=new --disable-gpu --no-sandbox --disable-dev-shm-usage --allow-file-access-from-files --virtual-time-budget=10000 --print-to-pdf=_site/media/arnaud-bletterer-cv.pdf --no-pdf-header-footer --run-all-compositor-stages-before-draw file://${{ github.workspace }}/_site/resume.html
           ls -la _site/media/arnaud-bletterer-cv.pdf
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build the resume deck (Nimbledeck)
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+        run: |
+          # The deck links to a Nimbledeck checkout next to the repository (deck/package.json: file:../../nimbledeck/...).
+          # Pin a release tag so a later Nimbledeck commit never changes this site by itself.
+          git clone --depth 1 --branch "$NIMBLEDECK_REF" https://github.com/arnaudbletterer/nimbledeck.git ../nimbledeck
+          npm ci --prefix ../nimbledeck
+          npm ci --prefix deck
+          npm run build --prefix deck
+          cp -R deck/dist _site/resume-deck
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
