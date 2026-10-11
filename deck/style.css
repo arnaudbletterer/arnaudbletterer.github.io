@@ -1,0 +1,151 @@
+/* The website's theme (_includes/theme_tokens.html, card_styles.html, home.html) mapped onto the Nimbledeck tokens.
+   Fonts are self-hosted: Nimbledeck never fetches from Google Fonts. Every colour is opaque #rrggbb, because the live
+   components read the tokens in JavaScript. */
+@font-face { font-family: "Inter"; font-weight: 400; font-style: normal; font-display: swap; src: url("/fonts/inter-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 400; font-style: italic; font-display: swap; src: url("/fonts/inter-latin-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 600; font-style: normal; font-display: swap; src: url("/fonts/inter-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 700; font-style: normal; font-display: swap; src: url("/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Montserrat"; font-weight: 600; font-display: swap; src: url("/fonts/montserrat-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Montserrat"; font-weight: 700; font-display: swap; src: url("/fonts/montserrat-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Fira Code"; font-weight: 400; font-display: swap; src: url("/fonts/fira-code-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Fira Code"; font-weight: 600; font-display: swap; src: url("/fonts/fira-code-latin-600-normal.woff2") format("woff2"); }
+
+:root[data-nd-variant="plain"] {
+  --nd-scheme: light;
+  --nd-bg: #f8f9fc; --nd-ink: #1a1d2e; --nd-muted: #5b6a80; --nd-accent: #0041aa; --nd-accent-2: #60a5fa;
+  --nd-surface: #ffffff; --nd-line: #d9e3f3; --nd-node-border: #0041aa;
+  --nd-cover-bg: #f8f9fc; --nd-cover-fg: #1a1d2e;
+  --nd-chart-1: #0041aa; --nd-chart-2: #60a5fa; --nd-chart-3: #64748b; --nd-chart-4: #0e7490;
+  --nd-font-body: "Inter", system-ui, sans-serif;
+  --nd-font-display: "Montserrat", "Inter", system-ui, sans-serif;
+  --nd-font-mono: "Fira Code", ui-monospace, monospace;
+  --nd-gradient: linear-gradient(135deg, #0041aa 0%, #60a5fa 100%);
+  --nd-h1-weight: 700; --nd-h1-tracking: -0.03em; --nd-h1-rule: 1px solid var(--nd-line);
+  --nd-h4-style: normal; --nd-h4-size: 24px; --nd-h4-weight: 500; --nd-h4-tracking: 0.04em; --nd-h4-transform: uppercase; --nd-h4-color: var(--nd-accent);
+  --nd-card-radius: 16px; --nd-callout-radius: 16px;
+  --ab-shadow: 0 4px 24px rgba(0, 65, 170, 0.07); --ab-shadow-hover: 0 12px 40px rgba(0, 65, 170, 0.14);
+  --ab-soft: rgba(0, 65, 170, 0.08); --ab-border: rgba(0, 65, 170, 0.1);
+}
+/* The website's dark theme, reached with Slidev's own dark toggle (press d). */
+:root.dark[data-nd-variant="plain"] {
+  --nd-scheme: dark;
+  --nd-bg: #0f1117; --nd-ink: #e2e8f0; --nd-muted: #94a3b8; --nd-accent: #60a5fa; --nd-accent-2: #2563eb;
+  --nd-surface: #181c2a; --nd-line: #232b44; --nd-node-border: #60a5fa;
+  --nd-cover-bg: #0f1117; --nd-cover-fg: #e2e8f0;
+  --nd-chart-1: #60a5fa; --nd-chart-2: #2563eb; --nd-chart-3: #94a3b8; --nd-chart-4: #22d3ee;
+  --nd-gradient: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+  --ab-shadow: 0 4px 24px rgba(0, 0, 0, 0.35); --ab-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --ab-soft: rgba(96, 165, 250, 0.1); --ab-border: rgba(96, 165, 250, 0.18);
+}
+
+/* Inline `code` is a pill everywhere on the website: skills, dates, badges. */
+.slidev-layout :not(pre) > code {
+  font-family: var(--nd-font-mono); font-size: 0.62em; font-weight: 600; letter-spacing: -0.01em;
+  background: var(--ab-soft); color: var(--nd-accent); border: 1px solid var(--ab-border); border-radius: 999px;
+  padding: 0.2em 0.75em; display: inline-block; vertical-align: middle; box-shadow: 0 1px 2px rgba(0, 65, 170, 0.04);
+}
+.slidev-layout strong { font-weight: 700; }
+.slidev-layout h1, .slidev-layout h4 { font-family: var(--nd-font-display); }
+
+/* ── Icon, avatar ─────────────────────────────────────────────────────────── */
+.ab-icon { display: inline-flex; width: 1em; height: 1em; vertical-align: -0.12em; }
+.ab-icon svg { width: 100%; height: 100%; fill: currentColor; }
+.ab-avatar { position: relative; width: var(--ab-size); height: var(--ab-size); border-radius: 50%; padding: 3px; flex: none;
+  background: linear-gradient(135deg, var(--nd-accent) 0%, rgba(96, 165, 250, 0.5) 100%); box-shadow: var(--ab-shadow-hover); }
+.ab-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: center top; display: block; background: var(--nd-surface); }
+.ab-avatar::before { content: ""; position: absolute; inset: -4px; border-radius: 50%; z-index: -1; opacity: 0.25;
+  background: linear-gradient(135deg, var(--nd-accent), transparent); animation: ab-spin 6s linear infinite; }
+@keyframes ab-spin { to { transform: rotate(360deg); } }
+
+/* ── Cards (.cv-item-card, .section-card) ─────────────────────────────────── */
+.ab-card, .ab-project { background: var(--nd-surface); border: 1px solid var(--ab-border); border-radius: 16px; box-shadow: var(--ab-shadow);
+  box-sizing: border-box; transition: border-color 0.25s, box-shadow 0.25s; color: var(--nd-ink); text-decoration: none; }
+.ab-card:hover, .ab-project:hover { border-color: var(--nd-accent); box-shadow: var(--ab-shadow-hover); }
+.ab-card { padding: 22px 26px; width: 100%; height: 100%; display: flex; flex-direction: column; gap: 6px; }
+.ab-card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+.ab-card-top code { font-size: 17px !important; }
+.ab-card-icon + code { margin-left: auto; }
+.ab-card-icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; color: var(--nd-accent); background: var(--ab-soft); border: 1px solid var(--ab-border); }
+.ab-card-title { font-family: var(--nd-font-display); font-weight: 700; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; color: var(--nd-ink); }
+.ab-card-sub { font-size: 19px; color: var(--nd-muted); line-height: 1.45; }
+.ab-card-body { font-size: 20px; line-height: 1.5; color: var(--nd-muted); margin-top: 6px; }
+.ab-card-body p, .ab-card-body ul { margin: 0; }
+.ab-card-body ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.ab-card-body li { padding-left: 22px; position: relative; }
+.ab-card-body li::before { content: ""; position: absolute; left: 2px; top: 0.6em; width: 7px; height: 7px; border-radius: 50%; background: var(--nd-accent-2); }
+.ab-card-body strong { color: var(--nd-ink); }
+
+.ab-project { display: flex; flex-direction: column; overflow: hidden; width: 100%; height: 100%; }
+.ab-project img { width: 100%; height: 150px; object-fit: cover; display: block; border-bottom: 1px solid var(--ab-border); background: var(--ab-soft); }
+.ab-project-body { padding: 22px 26px 26px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.ab-tag { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--nd-accent); }
+.ab-open { margin-top: auto; font-size: 17px; font-weight: 600; color: var(--nd-accent); display: inline-flex; align-items: center; gap: 8px; }
+
+/* ── Link pills (.hero-link) ──────────────────────────────────────────────── */
+.ab-links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: inherit; }
+.ab-link { display: inline-flex; align-items: center; gap: 9px; font: 600 19px var(--nd-font-body); color: var(--nd-accent); text-decoration: none;
+  padding: 9px 20px; border-radius: 999px; background: var(--ab-soft); border: 1px solid var(--ab-border); transition: background 0.2s, box-shadow 0.2s, transform 0.2s; }
+.ab-link:hover { background: var(--nd-surface); box-shadow: var(--ab-shadow-hover); transform: translateY(-2px); }
+
+.ab-cloud { display: block; }
+.ab-label { display: flex; align-items: center; gap: 18px; font: 600 15px var(--nd-font-body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--nd-muted); }
+.ab-label::before, .ab-label::after { content: ""; flex: 1; height: 1px; background: var(--nd-line); }
+
+.ab-chips { display: inline-flex; gap: 14px; padding-right: 14px; }
+.ab-chip { text-decoration: none; transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s; font: 600 22px var(--nd-font-body); color: var(--nd-accent); background: var(--nd-surface); border: 1px solid var(--ab-border); border-radius: 999px;
+  padding: 10px 22px; white-space: nowrap; box-shadow: var(--ab-shadow); }
+.ab-compact { padding: 14px 22px; gap: 2px; }
+.ab-compact .ab-card-title { font-size: 21px; }
+.ab-compact .ab-card-top { margin-bottom: 0; }
+.ab-compact .ab-card-sub { font-size: 17px; }
+.ab-foot { position: absolute; left: 0; right: 0; bottom: 0; height: 46px; padding: 0 28px 14px 70px; display: flex; justify-content: space-between; align-items: flex-end;
+  font: 600 13px var(--nd-font-body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--nd-muted); pointer-events: none; z-index: 5; }
+.ab-progress { position: absolute; left: 0; bottom: 0; height: 3px; background: var(--nd-gradient); transition: width 0.5s cubic-bezier(.16, 1, .3, 1); }
+.ab-big { font: 700 20px var(--nd-font-display); }
+.ab-muted { color: var(--nd-muted); }
+.ab-lead { display: block; font: 400 26px/1.5 var(--nd-font-body); color: var(--nd-muted); }
+.ab-card-body code { font-size: 16px !important; margin: 0 6px 8px 0; }
+.ab-compact .ab-card-title { font-size: 20px; line-height: 1.3; }
+.ab-compact .ab-card-top code { font-size: 15px !important; }
+.nd-at-frame { box-shadow: var(--ab-shadow) !important; border-color: var(--ab-border) !important; }
+.ab-ctl { position: absolute; top: 20px; right: 20px; z-index: 20; display: flex; gap: 8px; }
+.ab-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--ab-border); background: var(--nd-surface); color: var(--nd-accent);
+  display: grid; place-items: center; font-size: 16px; cursor: pointer; box-shadow: var(--ab-shadow); padding: 0; transition: box-shadow 0.2s, opacity 0.2s; }
+.ab-btn:hover:not(:disabled) { box-shadow: var(--ab-shadow-hover); }
+.ab-btn:disabled { opacity: 0.35; cursor: default; }
+/* Slidev's own toolbar (bottom left on hover) is not part of the design: the controls above replace it. Keyboard shortcuts stay. */
+#slide-container > div:has(> nav) { display: none; }
+@media (prefers-reduced-motion: reduce) { .ab-avatar::before { animation: none; } .ab-progress { transition: none; } .ab-link, .ab-card, .ab-project { transition: none; } }
+/* The background layer caches the page colours when a slide is entered; pin them to the live theme so a light/dark switch
+   in place cannot leave it stale. The CSS backgrounds (mesh) then follow the tokens by themselves. */
+:root[data-nd-variant="plain"] .nd-bgx { --nd-bg: #f8f9fc !important; --nd-ink: #1a1d2e !important; }
+:root.dark[data-nd-variant="plain"] .nd-bgx { --nd-bg: #0f1117 !important; --nd-ink: #e2e8f0 !important; }
+.ab-ref { display: block; margin-top: 10px; font: 400 16px/1.5 var(--nd-font-body); color: var(--nd-muted); text-decoration: none; }
+.ab-ref:hover { color: var(--nd-accent); }
+/* Figures: numbers flush left and labels in two even lines, so the four cards line up. */
+.nd-stat-val > * { justify-self: center; }
+.nd-stat-label { font-size: 24px; line-height: 1.35; text-wrap: balance; }
+/* One page indicator: the footer's. Nimbledeck's pill on the stage layouts is hidden. */
+.slidev-layout .nd-pill { display: none; }
+.ab-ref { font-size: 18px; }
+.ab-notice { position: absolute; left: 12px; right: 12px; bottom: 56px; z-index: 30; text-align: center; padding: 10px 14px; border-radius: 12px;
+  background: var(--nd-surface); border: 1px solid var(--ab-border); color: var(--nd-accent); font: 600 18px var(--nd-font-body); text-decoration: none; box-shadow: var(--ab-shadow); }
+.nd-at-frame .nd-stat { display: block; text-align: center; }
+.nd-at-frame .nd-stat-num { justify-content: center; padding-right: 0; }
+.nd-at-frame .nd-stat-label { text-align: center; }
+
+/* Timeline cards: the same slots in every card (date, title, organisation, text), so everything lines up across the row. */
+.ab-timeline { gap: 0; }
+.ab-timeline .ab-card-top { margin-bottom: 12px; }
+.ab-timeline .ab-card-title { font-size: 23px; min-height: 2.4em; display: flex; align-items: flex-end; margin-bottom: 8px; }
+.ab-timeline .ab-card-sub { font-size: 17px; min-height: 2.95em; padding-bottom: 12px; margin-bottom: 14px; border-bottom: 1px solid var(--nd-line); }
+.ab-timeline .ab-card-body { font-size: 19px; margin-top: 0; }
+.ab-mini { display: inline-block; margin: 6px 8px 0 0; padding: 5px 14px; border-radius: 999px; font: 600 16px var(--nd-font-body); color: var(--nd-accent);
+  background: var(--ab-soft); border: 1px solid var(--ab-border); text-decoration: none; }
+.ab-mini:hover { background: var(--nd-surface); box-shadow: var(--ab-shadow-hover); }
+.ab-chip:hover { border-color: var(--nd-accent); box-shadow: var(--ab-shadow-hover); transform: translateY(-2px); }
+/* A row stops while the pointer is on it, so a pill can be read and clicked. */
+.nd-marquee:hover .nd-mq-track { animation-play-state: paused !important; }
+.ab-mini { padding: 4px 12px; font-size: 15px; margin: 6px 6px 0 0; white-space: nowrap; }
+.ab-cap { display: block; margin-top: 8px; font: 400 17px/1.45 var(--nd-font-body); color: var(--nd-ink); }
+.ab-ref { font-size: 14px; margin-top: 6px; }

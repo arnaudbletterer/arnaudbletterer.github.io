@@ -1,0 +1,29 @@
+{
+  "name": "deck",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nimbledeck run slides.md",
+    "check": "nimbledeck check slides.md",
+    "verify": "nimbledeck verify slides.md",
+    "build": "slidev build slides.md --base /resume-deck/",
+    "export": "nimbledeck export slides.md"
+  },
+  "dependencies": {
+    "@slidev/cli": "53.0.0",
+    "nimbledeck": "file:../../nimbledeck/packages/cli",
+    "playwright-chromium": "1.63.0",
+    "slidev-addon-nimbledeck": "file:../../nimbledeck/packages/addon",
+    "slidev-theme-nimbledeck": "file:../../nimbledeck/packages/theme"
+  },
+  "overrides": {
+    "slidev-addon-nimbledeck": "file:../../nimbledeck/packages/addon",
+    "vite": "8.3.2"
+  },
+  "devDependencies": {
+    "@fontsource/fira-code": "^5.3.0",
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/montserrat": "^5.3.0",
+    "@fortawesome/fontawesome-free": "^7.3.1"
+  }
+}

@@ -13,3 +13,4 @@ plugins:
 exclude:
   - CLAUDE.md
   - README.md
+  - deck
