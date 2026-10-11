@@ -15,6 +15,7 @@ Research Scientist, Research Team Leader
 
 <div id="webaddress">
     <a href="media/arnaud-bletterer-cv.pdf?v={{ site.time | date: '%s' }}" target="_blank" class="pdf-link"><i class="fa-regular fa-file-pdf"></i>PDF Version</a>
+    <a href="resume-deck/" target="_blank" class="pdf-link slides-link"><i class="fa-solid fa-display"></i>Slides</a>
     <a href="mailto:arnaud.bletterer@gmail.com" target="_blank" class="contact-email"><i class="fa-regular fa-envelope"></i>Mail</a>
     <a href="https://www.linkedin.com/in/arnaud-bletterer-5635b671/" target="_blank" class="contact-linkedin"><i class="fa-brands fa-linkedin"></i>LinkedIn</a>
 </div>
