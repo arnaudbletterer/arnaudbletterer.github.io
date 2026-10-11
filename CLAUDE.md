@@ -9,6 +9,7 @@ Personal site and portfolio, built with Jekyll (kramdown) and deployed to GitHub
 - `articles.html`: article index; cards, tag pills and search are driven by each post's `title`, `description` and `highlights` frontmatter.
 - `resume.md`: CV. CI prints it to `media/arnaud-bletterer-cv.pdf` with headless Chrome, so keep its print stylesheet working (2-page layout).
 - `projects/`: interactive research demos (bilateral filter, normal estimation, partial Voronoi).
+- `deck/`: the resume as a Nimbledeck slide deck, published at `/resume-deck/`. Source is `slides.md` plus `components/`, `style.css` (the site theme mapped onto Nimbledeck tokens) and `public/`. The deploy workflow builds it (clone of Nimbledeck at the tag in `NIMBLEDECK_REF`, then `npm ci` and `npm run build`), so it is never committed built. Locally: `npm install` in `../nimbledeck` and in `deck/`, then `npm run dev` in `deck/`. Keep its facts in step with `resume.md`.
 - `sitemap.xml`, `feed.xml`: Liquid-generated, no manual edits needed when adding posts.
 
 ## Repo specifics
